@@ -9,8 +9,8 @@ class Workout(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    route_id = db.Column(db.Integer, db.ForeignKey('routes.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
+    route_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('routes.id')))
     title = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
     type = db.Column(db.String(50), nullable=False)
@@ -20,14 +20,15 @@ class Workout(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
-    users = db.relationship("User", back_populates="routes", single_parent=True)
-    routes = db.relationship("Route", back_populates="routes")
-    comments = db.relationship('Comment', back_populates='routes', cascade='all, delete-orphan', single_parent=True)
+    users = db.relationship("User", back_populates="workouts", single_parent=True)
+    routes = db.relationship("Route", back_populates="workouts")
+    comments = db.relationship('Comment', back_populates='workouts', cascade='all, delete-orphan', single_parent=True)
 
-def to_dict(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'userId': self.user_id,
+            'routeId': self.route_id,
             'title': self.username,
             'description': self.description,
             'type': self.type,

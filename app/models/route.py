@@ -9,7 +9,7 @@ class Route(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
     title = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
     image_url = db.Column(db.String(255), nullable=False)
@@ -21,9 +21,9 @@ class Route(db.Model):
 
     users = db.relationship("User", back_populates="routes", single_parent=True)
     workouts = db.relationship("Workout", back_populates="routes")
-    comments = db.relationship('Comment', back_populates='routes', cascade='all, delete-orphan', single_parent=True)
+    comments = db.relationship('Comment', back_populates='routes', cascade='all, delete-orphan')
 
-def to_dict(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'userId': self.user_id,
