@@ -21,7 +21,7 @@ class Comment(db.Model):
     workouts = db.relationship('Workout', back_populates='comments', single_parent=True)
 
     def to_dict(self):
-        if self.routes.length:
+        if self.routes:
             return {
                 'id': self.id,
                 'userId': self.user_id,
