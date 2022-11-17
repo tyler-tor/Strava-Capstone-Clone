@@ -32,6 +32,7 @@ def all_routes():
 def add_route():
     form = CreateRouteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    # print('form---------------', form.data)
 
     if form.validate_on_submit():
         route = Route(
@@ -47,6 +48,7 @@ def add_route():
         db.session.commit()
 
         created_route = Route.query.order_by(Route.created_at.desc()).first()
+        # print('route---------------', created_route.to_dict())
         return created_route.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
@@ -59,3 +61,13 @@ def one_route(id):
     """
     route = Route.query.get(id)
     return route.to_dict()
+
+
+@route_routes.route('/<int:id>')
+@login_required
+def update_route(id):
+    form = CreateRouteForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        route = Route.query.get(id)
+        print(route)
