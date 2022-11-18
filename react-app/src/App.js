@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import TempRoute from './components/BackendTestComponents/RouteTemp';
+import TempWorkout from './components/BackendTestComponents/WorkoutTemp';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
@@ -41,9 +42,14 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
+        {/* test routes for backend */}
         <ProtectedRoute path='/routes/test' exact={true} >
           <TempRoute />
         </ProtectedRoute>
+        <ProtectedRoute path='/workouts/test' exact={true} >
+          <TempWorkout />
+        </ProtectedRoute>
+        {/* test routes for backend */}
         <Route path='/' exact={true} >
           <h1>My Home Page</h1>
         </Route>

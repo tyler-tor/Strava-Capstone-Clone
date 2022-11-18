@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 
 
 const TempRoute = () => {
-    const user = useSelector(state => state.session.user)
+    // const user = useSelector(state => state.session.user)
 
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')

@@ -32,7 +32,6 @@ def all_routes():
 def add_route():
     form = CreateRouteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    # print('form---------------', form.data)
 
     if form.validate_on_submit():
         route = Route(
