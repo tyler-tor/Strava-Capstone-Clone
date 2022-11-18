@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Workout, db
+from app.models import Workout, Comment, db
 from ..forms.workout_form import CreateWorkoutForm
+from ..forms.comment_form import CreateCommentForm
 
 
 workout_routes = Blueprint('workouts', __name__)
@@ -84,3 +85,24 @@ def delete_workout(id):
 
         return {'message': 'Success'}
     return {'errors': 'That workout does not exist!'}
+
+
+
+@workout_routes.route('/<int:id>/comments', methods=['POST'])
+@login_required
+def add_comment_to_workout(id):
+    workout = Workout.query.get(id)
+    form = CreateCommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        comment = Comment(
+            user_id=current_user.id,
+            body=form.data['body'],
+            workout_id=workout.id
+        )
+        db.session.add(comment)
+        db.session.commit()
+        # print('route---------------', workout.to_dict())
+        return comment.to_dict()
+    return {'errors': form.errors}, 401

@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import User, Route, db
+from app.models import Comment, Route, db
 from ..forms.route_form import CreateRouteForm
+from ..forms.comment_form import CreateCommentForm
 
 route_routes = Blueprint('routes', __name__)
 
@@ -85,3 +86,23 @@ def delete_route(id):
 
         return {'message': 'Success'}
     return {'errors': 'That route does not exist!'}
+
+
+@route_routes.route('/<int:id>/comments', methods=['POST'])
+@login_required
+def add_comment_to_route(id):
+    route = Route.query.get(id)
+    form = CreateCommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        comment = Comment(
+            user_id=current_user.id,
+            body=form.data['body'],
+            route_id=route.id
+        )
+        db.session.add(comment)
+        db.session.commit()
+        # print('route---------------', route.to_dict())
+        return comment.to_dict()
+    return {'errors': form.errors}, 401

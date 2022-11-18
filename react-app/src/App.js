@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import TempRoute from './components/BackendTestComponents/RouteTemp';
 import TempWorkout from './components/BackendTestComponents/WorkoutTemp';
+import TempComment from './components/BackendTestComponents/CommentTemp';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
@@ -48,6 +49,9 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path='/workouts/test' exact={true} >
           <TempWorkout />
+        </ProtectedRoute>
+        <ProtectedRoute path='/comments/test' exact={true} >
+          <TempComment />
         </ProtectedRoute>
         {/* test routes for backend */}
         <Route path='/' exact={true} >
