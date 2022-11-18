@@ -23,6 +23,13 @@ class Route(db.Model):
     workouts = db.relationship("Workout", back_populates="routes")
     comments = db.relationship('Comment', back_populates='routes', cascade='all, delete-orphan')
 
+#update instance method. Will need to set states on frontend to prevent errors from nonupdated fields
+    def set_kwargs(self, **kwargs):
+        for key, value in kwargs.items():
+            setattr(self, key, value)
+        return self
+
+
     def to_dict(self):
         return {
             'id': self.id,

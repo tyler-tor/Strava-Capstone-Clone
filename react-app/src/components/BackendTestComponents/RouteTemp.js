@@ -14,7 +14,7 @@ const TempRoute = () => {
 
     const onSubRoute = async (e) => {
         e.preventDefault();
-//-------------------POST ROUTE---------------------------
+        //-------------------POST ROUTE---------------------------
         // const response = await fetch('/api/routes/', {
         //     method: 'POST',
         //     headers: {
@@ -35,26 +35,38 @@ const TempRoute = () => {
         //     console.log(data)
         // }
         // console.log(response)
-//------------------PUT ROUTE--------------------------
-const response = await fetch(`/api/routes/1`, {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-        title: title,
-        description: description,
-        image_url: imageUrl,
-        starting_point: startingPoint,
-        ending_point: endingPoint,
-        distance: distance
-    })
-});
-if (response.ok) {
-    let data = await response.json()
-    console.log(data)
-}
-console.log(response)
+        //------------------PUT ROUTE--------------------------
+        // const response = await fetch(`/api/routes/1`, {
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({
+        //         title: title,
+        //         description: description,
+        //         image_url: imageUrl,
+        //         starting_point: startingPoint,
+        //         ending_point: endingPoint,
+        //         distance: distance
+        //     })
+        // });
+        // if (response.ok) {
+        //     let data = await response.json()
+        //     console.log(data)
+        // }
+        // console.log(response)
+        //--------------------DELETE ROUTE-----------------------------
+        const response = await fetch('/api/routes/5', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        if (response.ok) {
+            let data = await response.json()
+            console.log(data)
+        }
+        console.log(response)
     };
 
     const updateTitle = (e) => {
@@ -79,54 +91,54 @@ console.log(response)
     return (
         <>
             <div>
-               <form onSubmit={onSubRoute}
-               action='/api/routes/'>
-                <div>
-                    <label>Title</label>
-                    <input
-                    name='title'
-                    type='text'
-                    value={title}
-                    onChange={updateTitle}
-                    ></input>
-                    <label>Description</label>
-                    <input
-                    name='description'
-                    type='text'
-                    value={description}
-                    onChange={updateDescription}
-                    ></input>
-                    <label>Image</label>
-                    <input
-                    name='imageUrl'
-                    type='text'
-                    value={imageUrl}
-                    onChange={updateImageUrl}
-                    ></input>
-                    <label>Starting Point</label>
-                    <input
-                    name='startingPoint'
-                    type='text'
-                    value={startingPoint}
-                    onChange={updateStartingPoint}
-                    ></input>
-                    <label>Ending Point</label>
-                    <input
-                    name='endingPoint'
-                    type='text'
-                    value={endingPoint}
-                    onChange={updateEndingPoint}
-                    ></input>
-                    <label>Distance</label>
-                    <input
-                    name='distance'
-                    type='text'
-                    value={distance}
-                    onChange={updateDistance}
-                    ></input>
-                </div>
-                <button type='submit'>Submit Route</button>
-               </form>
+                <form onSubmit={onSubRoute}
+                    action='/api/routes/'>
+                    <div>
+                        <label>Title</label>
+                        <input
+                            name='title'
+                            type='text'
+                            value={title}
+                            onChange={updateTitle}
+                        ></input>
+                        <label>Description</label>
+                        <input
+                            name='description'
+                            type='text'
+                            value={description}
+                            onChange={updateDescription}
+                        ></input>
+                        <label>Image</label>
+                        <input
+                            name='imageUrl'
+                            type='text'
+                            value={imageUrl}
+                            onChange={updateImageUrl}
+                        ></input>
+                        <label>Starting Point</label>
+                        <input
+                            name='startingPoint'
+                            type='text'
+                            value={startingPoint}
+                            onChange={updateStartingPoint}
+                        ></input>
+                        <label>Ending Point</label>
+                        <input
+                            name='endingPoint'
+                            type='text'
+                            value={endingPoint}
+                            onChange={updateEndingPoint}
+                        ></input>
+                        <label>Distance</label>
+                        <input
+                            name='distance'
+                            type='text'
+                            value={distance}
+                            onChange={updateDistance}
+                        ></input>
+                    </div>
+                    <button type='submit'>Submit Route</button>
+                </form>
             </div>
         </>
     )

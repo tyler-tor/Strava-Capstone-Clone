@@ -63,11 +63,26 @@ def one_route(id):
     return route.to_dict()
 
 
-@route_routes.route('/<int:id>')
+@route_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_route(id):
     form = CreateRouteForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         route = Route.query.get(id)
-        print(route)
+        route.set_kwargs(**form.data)
+        db.session.commit()
+        return route.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@route_routes.route('/<int:id>', methods=['DELETE'])
+@login_required
+def delete_route(id):
+    route = Route.query.get(id)
+    if route and current_user.id == route.user_id:
+        db.session.delete(route)
+        db.session.commit()
+
+        return {'message': 'Success'}
+    return {'errors': 'That route does not exist!'}
