@@ -17,6 +17,7 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
+# get all comments
 @comment_routes.route('/')
 @login_required
 def all_comments():
@@ -27,7 +28,7 @@ def all_comments():
     return {'comments': [comment.to_dict() for comment in comments]}
 
 
-
+# get information about a specific comment
 @comment_routes.route('/<int:id>')
 @login_required
 def one_comment(id):
@@ -38,6 +39,7 @@ def one_comment(id):
     return comment.to_dict()
 
 
+# update a specific comment
 @comment_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_comment(id):
@@ -53,7 +55,7 @@ def update_comment(id):
     return {'errors': 'This comment does not belong to you!'}
 
 
-
+# delete a specific comment
 @comment_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_comment(id):

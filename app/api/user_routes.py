@@ -18,9 +18,43 @@ def users():
 @user_routes.route('/<int:id>')
 @login_required
 def user(id):
-
     user = User.query.get(id)
-    return user.to_dict()
+    if user:
+        return user.to_dict()
+    return {'errors': 'This user does not exist!'}
+
+
+# get routes from a selected user
+@user_routes.route('/<int:id>/routes')
+@login_required
+def user_route(id):
+    user = User.query.get(id)
+    if user:
+        routes = user.to_dict()['routes']
+        return {'routes': routes}
+    return {'errors': 'This user does not exist!'}
+
+
+# get comments from a selected user
+@user_routes.route('/<int:id>/comments')
+@login_required
+def user_comments(id):
+    user = User.query.get(id)
+    if user:
+        comments = user.to_dict()['comments']
+        return {'comments': comments}
+    return {'errors': 'This user does not exist!'}
+
+
+# get workouts from a selected user
+@user_routes.route('/<int:id>/workouts')
+@login_required
+def user_workouts(id):
+    user = User.query.get(id)
+    if user:
+        workouts = user.to_dict()['workouts']
+        return {'workouts': workouts}
+    return {'errors': 'This user does not exist!'}
 
 
 #get friends of selected user
@@ -28,8 +62,10 @@ def user(id):
 @login_required
 def user_friends(id):
     user = User.query.get(id)
-    friends = user.to_dict()['friends']
-    return {'friends': friends}
+    if user:
+        friends = user.to_dict()['friends']
+        return {'friends': friends}
+    return {'errors': 'This user does not exist!'}
 
 
 #adding friend to current user friends list
@@ -45,4 +81,18 @@ def add_user_friends(id):
 
         curr_user_friends.append(user)
         db.session.commit()
-        return {user.to_dict() for user in curr_user_friends}
+        return {'friend': user.to_dict()}
+
+
+# unfriending a user
+@user_routes.route('/<int:id>/friends', methods=['DELETE'])
+@login_required
+def unfriend_user(id):
+    curr_user = User.query.get(current_user.id)
+    user = User.query.get(id)
+    if curr_user and user:
+        if user in curr_user.friends:
+            curr_user.friends.remove(user)
+            db.session.commit()
+            return {'unFriended': user.to_dict()}
+        return {'error': 'user is not a friend of current user!'}

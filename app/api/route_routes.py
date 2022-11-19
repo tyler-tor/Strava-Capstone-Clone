@@ -17,7 +17,7 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f'{field} : {error}')
     return errorMessages
 
-
+# get all routes
 @route_routes.route('/')
 @login_required
 def all_routes():
@@ -28,6 +28,7 @@ def all_routes():
     return {'routes': [route.to_dict() for route in routes]}
 
 
+# add a new route
 @route_routes.route('/', methods=['POST'])
 @login_required
 def add_route():
@@ -53,6 +54,7 @@ def add_route():
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+# get information on a selected route
 @route_routes.route('/<int:id>')
 @login_required
 def one_route(id):
@@ -63,6 +65,7 @@ def one_route(id):
     return route.to_dict()
 
 
+# update a specific route
 @route_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_route(id):
@@ -76,6 +79,7 @@ def update_route(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+# delete a specific route
 @route_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_route(id):
@@ -88,6 +92,7 @@ def delete_route(id):
     return {'errors': 'That route does not exist!'}
 
 
+# add a comment to a route
 @route_routes.route('/<int:id>/comments', methods=['POST'])
 @login_required
 def add_comment_to_route(id):

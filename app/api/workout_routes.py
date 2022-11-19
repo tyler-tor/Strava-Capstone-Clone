@@ -19,6 +19,7 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
+# get all workouts
 @workout_routes.route('/')
 @login_required
 def all_workouts():
@@ -29,6 +30,7 @@ def all_workouts():
     return {'workouts': [workout.to_dict() for workout in workouts]}
 
 
+# add a new workout
 @workout_routes.route('/', methods=['POST'])
 @login_required
 def add_workout():
@@ -52,6 +54,7 @@ def add_workout():
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+# get information about a specific workout
 @workout_routes.route('/<int:id>')
 @login_required
 def one_workout(id):
@@ -62,6 +65,7 @@ def one_workout(id):
     return workout.to_dict()
 
 
+# update a specific workout
 @workout_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_workout(id):
@@ -75,6 +79,7 @@ def update_workout(id):
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+# delete a specific workout
 @workout_routes.route('/<int:id>', methods=['DELETE'])
 @login_required
 def delete_workout(id):
@@ -87,7 +92,7 @@ def delete_workout(id):
     return {'errors': 'That workout does not exist!'}
 
 
-
+# add a comment to a specific workout
 @workout_routes.route('/<int:id>/comments', methods=['POST'])
 @login_required
 def add_comment_to_workout(id):
@@ -103,6 +108,5 @@ def add_comment_to_workout(id):
         )
         db.session.add(comment)
         db.session.commit()
-        # print('route---------------', workout.to_dict())
         return comment.to_dict()
     return {'errors': form.errors}, 401

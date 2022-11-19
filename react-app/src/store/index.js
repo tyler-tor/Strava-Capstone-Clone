@@ -1,9 +1,19 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import session from './session'
+import usersReducer from './users';
+import commentsReducer from './comments';
+import friendsReducer from './friends';
+import workoutReducer from './workouts';
+import routesReducer from './routes';
 
 const rootReducer = combineReducers({
   session,
+  users: usersReducer,
+  comments: commentsReducer,
+  friends: friendsReducer,
+  workouts: workoutReducer,
+  routes: routesReducer
 });
 
 

@@ -58,5 +58,6 @@ class User(db.Model, UserMixin):
             'updatedAt': self.updated_at,
             'routes': [route.to_dict() for route in self.routes],
             'workouts': [workout.to_dict() for workout in self.workouts],
+            'comments': [comment.to_dict() for comment in self.comments],
             'friends': [{'userId': follower.id, 'username': follower.username, 'profilePicture': follower.profile_picture} for follower in self.followers]
         }

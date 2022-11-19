@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 
 
 const TempComment = () => {
-    const user = useSelector(state => state.session.user)
+    // const user = useSelector(state => state.session.user)
 
     const [body, setBody] = useState('')
 
@@ -58,17 +58,17 @@ const TempComment = () => {
         // }
         // console.log(response)
         //--------------------DELETE ROUTE-----------------------------
-        const response = await fetch('/api/comments/4', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        if (response.ok) {
-            let data = await response.json()
-            console.log(data)
-        }
-        console.log(response)
+        // const response = await fetch('/api/comments/4', {
+        //     method: 'DELETE',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     }
+        // })
+        // if (response.ok) {
+        //     let data = await response.json()
+        //     console.log(data)
+        // }
+        // console.log(response)
     };
 
     const updateBody = (e) => {
