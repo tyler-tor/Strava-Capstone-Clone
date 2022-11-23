@@ -6,6 +6,8 @@ import TempWorkout from './components/BackendTestComponents/WorkoutTemp';
 import TempComment from './components/BackendTestComponents/CommentTemp';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
+import HomePage from './components/HomePage/HomePage';
+import Routes from './components/UserRoutes/Routes';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
@@ -43,6 +45,9 @@ function App() {
         <ProtectedRoute path='/users/:userId' exact={true} >
           <User />
         </ProtectedRoute>
+        <ProtectedRoute path='/routes' exact={true} >
+          <Routes />
+        </ProtectedRoute>
         {/* test routes for backend */}
         <ProtectedRoute path='/routes/test' exact={true} >
           <TempRoute />
@@ -55,7 +60,7 @@ function App() {
         </ProtectedRoute>
         {/* test routes for backend */}
         <Route path='/' exact={true} >
-          <h1>My Home Page</h1>
+          <HomePage />
         </Route>
       </Switch>
     </BrowserRouter>

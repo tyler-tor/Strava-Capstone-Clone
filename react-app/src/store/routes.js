@@ -24,7 +24,7 @@ const deleteRouteAction = (id) => ({
 });
 
 export const getAllRoutes = () => async (dispatch) => {
-    const response = await fetch('/api/routes');
+    const response = await fetch('/api/routes/');
 
     if (response.ok) {
         const data = await response.json();

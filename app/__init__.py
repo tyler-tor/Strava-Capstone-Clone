@@ -68,6 +68,18 @@ def inject_csrf_token(response):
     return response
 
 
+@app.route("/api/docs")
+def api_help():
+    """
+    Returns all API routes and their doc strings
+    """
+    acceptable_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+    route_list = { rule.rule: [[ method for method in rule.methods if method in acceptable_methods ],
+                    app.view_functions[rule.endpoint].__doc__ ]
+                    for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
+    return route_list
+
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def react_root(path):
@@ -82,13 +94,17 @@ def react_root(path):
 
 
 
-@app.route("/api/docs")
-def api_help():
-    """
-    Returns all API routes and their doc strings
-    """
-    acceptable_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
-    route_list = { rule.rule: [[ method for method in rule.methods if method in acceptable_methods ],
-                    app.view_functions[rule.endpoint].__doc__ ]
-                    for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
-    return route_list
+# @app.route("/api/docs")
+# def api_help():
+#     """
+#     Returns all API routes and their doc strings
+#     """
+#     acceptable_methods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE']
+#     route_list = { rule.rule: [[ method for method in rule.methods if method in acceptable_methods ],
+#                     app.view_functions[rule.endpoint].__doc__ ]
+#                     for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
+#     return route_list
+
+@app.errorhandler(404)
+def not_found(e):
+  return app.send_static_file('index.html')
