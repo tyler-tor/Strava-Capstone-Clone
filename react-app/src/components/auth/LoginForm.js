@@ -34,6 +34,10 @@ const LoginForm = () => {
   return (
     <div className='form-container'>
       <form onSubmit={onLogin} className='login-form'>
+      <strong className='form-box-brand-text'>AKTIV
+      <i className="fab fa-strava"></i>
+      </strong>
+      <p className='login-logo-text'>Login to start your adventure!</p>
         <div className='errors-container'>
           {errors.map((error, ind) => (
             <div key={ind}
@@ -61,7 +65,9 @@ const LoginForm = () => {
             onChange={updatePassword}
             className='form-input'
           />
-          <button type='submit'>Login</button>
+          <button type='submit'
+          className='submit-btn'
+          disabled={!email && !password}>Login</button>
         </div>
       </form>
     </div>
