@@ -51,7 +51,7 @@ const SignUpForm = () => {
       <strong className='form-box-brand-text'>AKTIV
       <i className="fab fa-strava"></i>
       </strong>
-      <p className='login-logo-text'>Adventure awaits, signup and join!</p>
+      <p className='login-logo-text'>Adventure awaits, signup and join today!</p>
         <div className='suf-item-container'>
           <label className='suf-label'>Profile Picture <> </></label>
           <ImageUploadComponent setUrl={setUrl} />
