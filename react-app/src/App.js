@@ -9,6 +9,7 @@ import SignUpForm from './components/auth/SignUpForm';
 import HomePage from './components/HomePage/HomePage';
 import Routes from './components/UserRoutes/Routes';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import UsersList from './components/UsersList';
 import User from './components/User';
@@ -77,6 +78,7 @@ function App() {
           </>
         )}
       </Switch>
+      <Footer />
     </BrowserRouter>
   );
 }

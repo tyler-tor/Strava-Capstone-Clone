@@ -1,0 +1,38 @@
+.prev_img{
+    height: 25%;
+    width: 25%;
+}
+
+.upload-photo-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.upload-img-btn {
+    padding: 12px 26px;
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.424);
+    /* background: linear-gradient(90deg, transparent 0%, #fff 100%); */
+    margin-top: 5px;
+    font-size: 15px;
+    padding: 8px 20px;
+    border-radius: 2px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+  .upload-img-btn:hover {
+    transition: all 0.3s ease-out;
+    background: #242424;
+    color: #fff;
+    transition: 250ms;
+  }
+
+  .uli-input {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+  }

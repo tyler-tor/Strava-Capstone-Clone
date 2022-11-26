@@ -27,6 +27,7 @@ werkzeug = "==2.0.1"
 wtforms = "==2.3.3"
 psycopg2 = "*"
 geoalchemy2 = "*"
+boto3 = "*"
 
 [dev-packages]
 

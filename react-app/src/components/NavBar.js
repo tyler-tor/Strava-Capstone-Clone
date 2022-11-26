@@ -29,55 +29,57 @@ const NavBar = () => {
   window.addEventListener('resize', showButton);
 
   return (
-    <nav className='navbar'>
-      <div className='navbar-container'>
-        <NavLink to='/' className='navbar-logo' onClick={closeMobileMenu}>
-          AKTIV <i className="fab fa-strava"></i>
-        </NavLink>
-        <div className='menu-icon' onClick={handleClick}>
-          <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
-        </div>
-        {!user ? (
-          <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-            <li className='nav-item'>
-              <NavLink to='/' exact={true}
-                className='nav-links' onClick={closeMobileMenu}>
-                Login
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink to='/sign-up' exact={true}
-                className='nav-links' onClick={closeMobileMenu}>
-                Sign Up
-              </NavLink>
-            </li>
-          </ul>
-        ) : (
-          <>
+    <>
+      <nav className='navbar'>
+        <div className='navbar-container'>
+          <NavLink to='/' className='navbar-logo' onClick={closeMobileMenu}>
+            AKTIV <i className="fab fa-strava"></i>
+          </NavLink>
+          <div className='menu-icon' onClick={handleClick}>
+            <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
+          </div>
+          {!user ? (
             <ul className={click ? 'nav-menu active' : 'nav-menu'}>
               <li className='nav-item'>
                 <NavLink to='/' exact={true}
                   className='nav-links' onClick={closeMobileMenu}>
-                  Home
+                  Login
                 </NavLink>
               </li>
               <li className='nav-item'>
-                <NavLink to='/users' exact={true}
+                <NavLink to='/sign-up' exact={true}
                   className='nav-links' onClick={closeMobileMenu}>
-                  Users
-                </NavLink>
-              </li>
-              <li className='nav-item'>
-                <NavLink to='/sign-up' className='nav-links-mobile' onClick={closeMobileMenu}>
                   Sign Up
                 </NavLink>
               </li>
             </ul>
-            {button && <LogoutButton buttonStyle='btn--outline' />}
-          </>
-        )}
-      </div>
-    </nav>
+          ) : (
+            <>
+              <ul className={click ? 'nav-menu active' : 'nav-menu'}>
+                <li className='nav-item'>
+                  <NavLink to='/' exact={true}
+                    className='nav-links' onClick={closeMobileMenu}>
+                    Home
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink to='/users' exact={true}
+                    className='nav-links' onClick={closeMobileMenu}>
+                    Users
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink to='/sign-up' className='nav-links-mobile' onClick={closeMobileMenu}>
+                    Sign Up
+                  </NavLink>
+                </li>
+              </ul>
+              {button && <LogoutButton buttonStyle='btn--outline' />}
+            </>
+          )}
+        </div>
+      </nav>
+    </>
   );
 }
 
