@@ -33,7 +33,7 @@ class User(db.Model, UserMixin):
         'User', secondary=follows,
         primaryjoin=(follows.c.followed_id == id),
         secondaryjoin=(follows.c.follower_id == id),
-        backref=db.backref('follows', lazy='dynamic'), lazy='dynamic')
+        backref=db.backref(add_prefix_for_prod('follows'), lazy='dynamic'), lazy='dynamic')
 
     @property
     def password(self):
