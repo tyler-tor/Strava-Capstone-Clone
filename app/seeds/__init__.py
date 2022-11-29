@@ -26,8 +26,8 @@ def seed():
         undo_comments()
     seed_users()
     seed_routes()
-    seed_comments()
     seed_workouts()
+    seed_comments()
     # Add other seed functions here
 
 
