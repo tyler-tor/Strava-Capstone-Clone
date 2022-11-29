@@ -8,6 +8,8 @@ import './SignUpForm.css'
 const SignUpForm = () => {
   const [errors, setErrors] = useState([]);
   const [username, setUsername] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
@@ -18,7 +20,7 @@ const SignUpForm = () => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const data = await dispatch(signUp(username, email, password, url));
+      const data = await dispatch(signUp(username, email, password, url, firstName, lastName));
       if (data) {
         setErrors(data)
       }
@@ -27,6 +29,14 @@ const SignUpForm = () => {
 
   const updateUsername = (e) => {
     setUsername(e.target.value);
+  };
+
+  const updateFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const updateLastName = (e) => {
+    setLastName(e.target.value);
   };
 
   const updateEmail = (e) => {
@@ -70,6 +80,26 @@ const SignUpForm = () => {
               name='username'
               onChange={updateUsername}
               value={username}
+              className='suf-input'
+            ></input>
+          </div>
+          <div className='suf-item-container'>
+            <label className='suf-label'>First Name</label>
+            <input
+              type='text'
+              name='firstName'
+              onChange={updateFirstName}
+              value={firstName}
+              className='suf-input'
+            ></input>
+          </div>
+          <div className='suf-item-container'>
+            <label className='suf-label'>Last Name</label>
+            <input
+              type='text'
+              name='lastName'
+              onChange={updateLastName}
+              value={lastName}
               className='suf-input'
             ></input>
           </div>
