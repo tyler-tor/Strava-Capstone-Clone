@@ -9,6 +9,16 @@ follows = db.Table('follows',
     db.UniqueConstraint('follower_id', 'followed_id')
 )
 
+# class Follow(db.model, UserMixin):
+#     __tablename__ = 'follows'
+
+#     if environment == "production":
+#         __table_args__ = {'schema': SCHEMA}
+
+#     id = db.Column(db.Integer, primary_key=True)
+#     follower_id = db.Column('follower_id', db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'))),
+#     followed_id = db.Column('followed_id', db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'))),
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
