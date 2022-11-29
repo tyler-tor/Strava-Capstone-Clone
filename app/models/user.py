@@ -9,15 +9,8 @@ follows = db.Table('follows',
     db.UniqueConstraint('follower_id', 'followed_id')
 )
 
-# class Follow(db.model, UserMixin):
-#     __tablename__ = 'follows'
-
-#     if environment == "production":
-#         __table_args__ = {'schema': SCHEMA}
-
-#     id = db.Column(db.Integer, primary_key=True)
-#     follower_id = db.Column('follower_id', db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'))),
-#     followed_id = db.Column('followed_id', db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'))),
+if environment == "production":
+    follows.schema = SCHEMA
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -43,7 +36,7 @@ class User(db.Model, UserMixin):
         'User', secondary=follows,
         primaryjoin=(follows.c.followed_id == id),
         secondaryjoin=(follows.c.follower_id == id),
-        backref=db.backref(add_prefix_for_prod('follows'), lazy='dynamic'), lazy='dynamic')
+        backref=db.backref('follows'), lazy='dynamic', lazy='dynamic')
 
     @property
     def password(self):
