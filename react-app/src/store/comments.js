@@ -39,6 +39,7 @@ export const getRouteComments = (id) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
+        // console.log('data-------', data)
         dispatch(getComments(data.comments));
         return data
     };
@@ -157,7 +158,7 @@ export default function commentsReducer(state = {}, action) {
     let newState;
     switch (action.type) {
         case GET_COMMENTS:
-            newState = {};
+            newState = {...state};
             action.payload.forEach((comment) => {
                 newState[comment.id] = comment
             });

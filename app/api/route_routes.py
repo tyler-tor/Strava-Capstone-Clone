@@ -98,7 +98,9 @@ def delete_route(id):
 def get_comments_to_route(id):
     route = Route.query.get(id)
     if route:
+        # print('route-------------', route.to_dict())
         comments = route.to_dict()['comments']
+        # print('comments----------------', comments)
         return {'comments': comments}
     return {'errors': 'This route does not exist!'}
 

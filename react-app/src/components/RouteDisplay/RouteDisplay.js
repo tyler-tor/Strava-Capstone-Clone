@@ -45,54 +45,58 @@ function RouteDisplay() {
 
     return (
         <div className='route-info-container'>
-            <div className='ur-info-container'>
-                <img src={route.ownerInfo.profilePicture}
-                    className='user-propic' />
-                <div className='user-details-container'>
-                    <NavLink to={`/users/${route.userId}`} className='username-text'>{route.ownerInfo.username}</NavLink>
-                    <ul className='name-list'>
-                        <li className='first-name'>
-                            {route.ownerInfo.firstName}
-                        </li>
-                        <li className='last-name'>
-                            {route.ownerInfo.lastName}
-                        </li>
-                        <li className='email'>
-                            {route.ownerInfo.email}
-                        </li>
-                    </ul>
-                    <div className='route-pic-container'>
-                        <img src={route.imageUrl}
-                            alt='Route Image'
-                            className='route-pic' />
+            <div className='ui-comment-container'>
+                <div className='ur-info-container'>
+                    <img src={route.ownerInfo.profilePicture}
+                        className='user-propic' />
+                    <div className='user-details-container'>
+                        <NavLink to={`/users/${route.userId}`} className='username-text'>{route.ownerInfo.username}</NavLink>
+                        <ul className='name-list'>
+                            <li className='first-name'>
+                                {route.ownerInfo.firstName}
+                            </li>
+                            <li className='last-name'>
+                                {route.ownerInfo.lastName}
+                            </li>
+                            <li className='email'>
+                                {route.ownerInfo.email}
+                            </li>
+                        </ul>
+                        <div className='route-pic-container'>
+                            <img src={route.imageUrl}
+                                alt='Route Image'
+                                className='route-pic' />
+                        </div>
+                    </div>
+                    <div className='ri-items-container'>
+                        <ul className='ri-items-list'>
+                            <li className='ri-item'>
+                                {route.title}
+                            </li>
+                            <li className='ri-item'>
+                                {route.description}
+                            </li>
+                            <li className='ri-item'>
+                                <p>
+                                    {route.distance}
+                                </p>
+                            </li>
+                            <li className='ri-item'>
+                                {route.travelMode}
+                            </li>
+                        </ul>
+                        {currUser.id === route.userId &&
+                            <div className='ed-btn-container'>
+                                <button className='edit-btn'>Edit</button>
+                                <button className='delete-btn'>Delete</button>
+                            </div>}
                     </div>
                 </div>
-                <div className='ri-items-container'>
-                    <ul className='ri-items-list'>
-                        <li className='ri-item'>
-                            {route.title}
-                        </li>
-                        <li className='ri-item'>
-                            {route.description}
-                        </li>
-                        <li className='ri-item'>
-                            <p>
-                            {route.distance}
-                            </p>
-                        </li>
-                        <li className='ri-item'>
-                            {route.travelMode}
-                        </li>
-                    </ul>
-                    {currUser.id === route.userId &&
-                    <div className='ed-btn-container'>
-                        <button className='edit-btn'>Edit</button>
-                        <button className='delete-btn'>Delete</button>
-                    </div>}
+                <div className='comm-box-container'>
+                    <div className='comments-container'>
+                        <Comments routeId={route.id} />
+                    </div>
                 </div>
-            </div>
-            <div className='comments-container'>
-                <Comments routeId={route.id} />
             </div>
             <div className='route-map-info-container'>
                 {isLoaded ?
