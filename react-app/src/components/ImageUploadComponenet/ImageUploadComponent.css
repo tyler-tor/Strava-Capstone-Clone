@@ -1,13 +1,16 @@
 .prev_img{
-    height: 25%;
-    width: 25%;
+    height: 45%;
+    width: 15vw;
+}
+
+.upload-form-container {
+  display: flex;
 }
 
 .upload-photo-container {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 

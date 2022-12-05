@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import { useHistory } from "react-router-dom";
 import "./ImageUploadComponent.css";
-//!pass in a setValue from postForm to get the image url.
+
 const ImageUploadComponent = ({ setUrl }) => {
-  // const history = useHistory(); // so that we can redirect after the image upload is successful
   const [image, setImage] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
   const [uploadedImg, setUploadImg] = useState(false);
@@ -12,10 +10,6 @@ const ImageUploadComponent = ({ setUrl }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-
-    // aws uploads can be a bit slow—displaying
-    // some sort of loading message is a good idea
-
     setImageLoading(true);
 
     formData.append("image", image);
@@ -29,12 +23,8 @@ const ImageUploadComponent = ({ setUrl }) => {
       setUrl(img_url.url);
       setUploadImg(true);
       setPrevImgUrl(img_url.url);
-      // console.log(img_url.url);
     } else {
       setImageLoading(false);
-      // a real app would probably use more advanced
-      // error handling
-      // console.log("error");
     }
   };
 

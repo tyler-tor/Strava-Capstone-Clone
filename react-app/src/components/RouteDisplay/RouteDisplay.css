@@ -1,0 +1,89 @@
+.route-info-container {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    justify-content: space-between;
+    background-color: #385170;
+}
+
+.route-map-container {
+    width: 50rem;
+    height: 60rem;
+}
+
+.route-map-info-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.user-propic {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 100%;
+    object-fit: 100%;
+    padding: 20px;
+}
+
+.route-pic-container {
+    display: flex;
+}
+.route-pic {
+    width: 500px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.user-details-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.ur-info-container {
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+    padding: 10px;
+}
+
+.ri-items-container {
+    background-color: #ececec;
+    display: flex;
+    flex-direction: column;
+    width: 25rem;
+    height: 25rem;
+    margin-top: 130px;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.ri-item {
+    list-style-type: none;
+    color: #242424;
+    padding: 2px 5px;
+}
+
+.username-text {
+    font-size: 3rem;
+    text-decoration: none;
+    color: #fff
+}
+
+.name-list li {
+    list-style-type: none;
+    padding: 1px 20px;
+}
+
+.user-details-container {
+    width: 100%;
+}
+
+.ed-btn-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}

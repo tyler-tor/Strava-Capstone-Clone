@@ -1,12 +1,16 @@
-import React, {useEffect, useState} from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react'
+import MapComponent from '../Map';
+import './HomePage.css'
+
+const center = {
+  lat: 47.658779,
+  lng: -117.426048
+};
 
 function HomePage() {
-    const user = useSelector(state => state.session.user)
-    
   return (
-    <div>
-
+    <div className='homepage-container'>
+      <MapComponent lat={center.lat} lng={center.lng} />
     </div>
   )
 }

@@ -66,6 +66,7 @@ const NavBar = () => {
                   <NavLink to='/users' exact={true}
                     className='nav-links' onClick={closeMobileMenu}>
                     Users
+                    <i class="fa-solid fa-hexagon-plus"></i>
                   </NavLink>
                 </li>
                 <li className='nav-item'>

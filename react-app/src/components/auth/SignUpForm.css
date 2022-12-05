@@ -20,7 +20,6 @@
     padding: 5rem;
     border-radius: 10%;
     border: 1px solid;
-    /* height: 80vh; */
     width: 75vh;
     margin: 5rem;
 }
@@ -45,8 +44,9 @@
 
 .suf-item-container {
     display: flex;
-    flex-direction: column;
     padding: 5px;
+    flex-direction: column;
+    align-items: center;
 }
 
 

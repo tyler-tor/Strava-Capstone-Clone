@@ -4,14 +4,38 @@ from app.models import db, Route, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_routes():
     route1 = Route(
-        user_id=3, title='route1', description='test this route 1', image_url='test.url', starting_point='test point start',
-        ending_point='test point end', distance='45 miles')
+        user_id=3,
+        title='route1',
+        description='test this route 1',
+        image_url='https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/rp-default-1.jpg',
+        start_lat=47.650439,
+        start_lng=-117.448093,
+        end_lat=47.669415,
+        end_lng=-117.103644,
+        traveling_mode='BICYCLING',
+        distance='45 miles')
     route2 = Route(
-        user_id=2, title='route2', description='test this route 2', image_url='test.url2', starting_point='test point start2',
-        ending_point='test point end2', distance='46 miles')
+        user_id=2,
+        title='route2',
+        description='test this route 2',
+        image_url='https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/rp-default-2.jpg',
+        start_lat=47.772469,
+        start_lng=-117.378410,
+        end_lat=47.769955,
+        end_lng=-117.544946,
+        traveling_mode='BICYCLING',
+        distance='20 miles')
     route3 = Route(
-        user_id=1, title='route3', description='test this route 3', image_url='test.url3', starting_point='test point start3',
-        ending_point='test point end3', distance='47 miles')
+        user_id=1,
+        title='route3',
+        description='test this route 3',
+        image_url='https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/rp-default-3.jpg',
+        start_lat=47.602045,
+        start_lng=-117.368188,
+        end_lat=47.586971,
+        end_lng=-117.319481,
+        traveling_mode='WALKING',
+        distance='15 miles')
 
     db.session.add(route1)
     db.session.add(route2)
@@ -27,7 +51,8 @@ def seed_routes():
 # it will reset the primary keys for you as well.
 def undo_routes():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.routes RESTART IDENTITY CASCADE;")
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.routes RESTART IDENTITY CASCADE;")
     else:
         db.session.execute("DELETE FROM routes")
 

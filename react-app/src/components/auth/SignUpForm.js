@@ -79,6 +79,7 @@ const SignUpForm = () => {
               type='text'
               name='username'
               onChange={updateUsername}
+              placeholder='Username'
               value={username}
               className='suf-input'
             ></input>
@@ -89,6 +90,7 @@ const SignUpForm = () => {
               type='text'
               name='firstName'
               onChange={updateFirstName}
+              placeholder='First Name'
               value={firstName}
               className='suf-input'
             ></input>
@@ -99,6 +101,7 @@ const SignUpForm = () => {
               type='text'
               name='lastName'
               onChange={updateLastName}
+              placeholder='Last Name'
               value={lastName}
               className='suf-input'
             ></input>
@@ -109,6 +112,7 @@ const SignUpForm = () => {
               type='text'
               name='email'
               onChange={updateEmail}
+              placeholder='Email'
               value={email}
               className='suf-input'
             ></input>
@@ -119,6 +123,7 @@ const SignUpForm = () => {
               type='password'
               name='password'
               onChange={updatePassword}
+              placeholder='Password'
               value={password}
               className='suf-input'
             ></input>
@@ -129,6 +134,7 @@ const SignUpForm = () => {
               type='password'
               name='repeat_password'
               onChange={updateRepeatPassword}
+              placeholder='Repeat Password'
               value={repeatPassword}
               required={true}
               className='suf-input'

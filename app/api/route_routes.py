@@ -92,6 +92,17 @@ def delete_route(id):
     return {'errors': 'That route does not exist!'}
 
 
+#get all comments on a route
+@route_routes.route('/<int:id>/comments')
+@login_required
+def get_comments_to_route(id):
+    route = Route.query.get(id)
+    if route:
+        comments = route.to_dict()['comments']
+        return {'comments': comments}
+    return {'errors': 'This route does not exist!'}
+
+
 # add a comment to a route
 @route_routes.route('/<int:id>/comments', methods=['POST'])
 @login_required

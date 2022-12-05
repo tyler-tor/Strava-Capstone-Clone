@@ -8,6 +8,7 @@ import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import HomePage from './components/HomePage/HomePage';
 import Routes from './components/UserRoutes/Routes';
+import RouteDisplay from './components/RouteDisplay/RouteDisplay';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/auth/ProtectedRoute';
@@ -51,6 +52,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path='/routes' exact={true} >
               <Routes />
+            </ProtectedRoute>
+            <ProtectedRoute path='/routes/:routeId' exact={true} >
+              <RouteDisplay />
             </ProtectedRoute>
             {/* test routes for backend */}
             <ProtectedRoute path='/routes/test' exact={true} >

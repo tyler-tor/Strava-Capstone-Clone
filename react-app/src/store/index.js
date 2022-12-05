@@ -6,6 +6,8 @@ import commentsReducer from './comments';
 import friendsReducer from './friends';
 import workoutReducer from './workouts';
 import routesReducer from './routes';
+import friendsActivityReducer from './friendsActivity';
+import mapReducer from './map';
 
 const rootReducer = combineReducers({
   session,
@@ -13,7 +15,9 @@ const rootReducer = combineReducers({
   comments: commentsReducer,
   friends: friendsReducer,
   workouts: workoutReducer,
-  routes: routesReducer
+  routes: routesReducer,
+  friendsActivity: friendsActivityReducer,
+  mapKey: mapReducer
 });
 
 

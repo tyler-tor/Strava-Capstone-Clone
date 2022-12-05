@@ -9,7 +9,7 @@ function Footer() {
             <div className='social-media-wrap'>
                 <div className='footer-logo'>
                     <Link to='/' className='social-logo'>
-                        ACTIV <i className='fab fa-strava'></i>
+                        AKTIV <i className='fab fa-strava'></i>
                     </Link>
                 </div>
                 <small className='website-rights'>Capstone Strava Clone</small>

@@ -4,11 +4,14 @@ from app.models import db, User, environment, SCHEMA
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demouser', email='demo@aa.io', password='password', first_name='Demo', last_name='user')
+        username='Demouser', email='demo@aa.io', password='password', first_name='Demo', last_name='user',
+        profile_picture='https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/demo-pic-1.jpg')
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', first_name='Marnie', last_name='Doe')
+        username='marnie', email='marnie@aa.io', password='password', first_name='Marnie', last_name='Doe',
+        profile_picture='https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/marnie-pic-1.jpg')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', first_name='Bobbie', last_name='Smith')
+        username='bobbie', email='bobbie@aa.io', password='password', first_name='Bobbie', last_name='Smith',
+        profile_picture='https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/bob-pic-jpg.jpg')
 
 
     demo.followers = [marnie, bobbie]
