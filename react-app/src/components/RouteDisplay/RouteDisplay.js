@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAllRoutes } from '../../store/routes';
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
+import { mapKey } from '../../store/map';
 import './RouteDisplay.css'
 
 const center = {
@@ -17,11 +18,13 @@ function RouteDisplay() {
     const { routeId } = useParams();
     const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
+    const googleKey = useSelector(state => state.mapKey.mapKey)
     const dispatch = useDispatch()
 
+    console.log(googleKey)
     const { isLoaded } = useLoadScript({
         id: 'google-map-script',
-        googleMapsApiKey: process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+        googleMapsApiKey: currUser.mapKey
     })
 
     // const center = () => {
@@ -101,7 +104,7 @@ function RouteDisplay() {
             <div className='route-map-info-container'>
                 {isLoaded ?
                     <>
-                        <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=initMap`}></script>
+                        <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}></script>
                         <div id='map'>
                             <GoogleMap
                                 zoom={10}
