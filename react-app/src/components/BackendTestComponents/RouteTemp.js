@@ -64,9 +64,7 @@ const TempRoute = () => {
         })
         if (response.ok) {
             let data = await response.json()
-            console.log(data)
         }
-        console.log(response)
     };
 
     const updateTitle = (e) => {

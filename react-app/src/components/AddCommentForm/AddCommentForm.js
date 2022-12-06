@@ -8,7 +8,6 @@ function AddCommentForm({ onClose, routeId }) {
     const [commentInput, setCommentInput] = useState('');
     const dispatch = useDispatch();
 
-    console.log('error', errors)
 
     const handleSubmit = async (e) => {
         e.preventDefault();

@@ -19,6 +19,6 @@ def friend_activity():
             routes = Route.query.filter(Route.user_id == friends[i]['userId']).order_by(Route.created_at.desc()).all()
             [route_list.append({**route.to_dict()}) for route in routes]
         act_dict = {'routes': route_list}
-        print('act_dict--------------', act_dict)
+        # print('act_dict--------------', act_dict)
         return act_dict
     return {'errors': 'This user does not exist!'}
