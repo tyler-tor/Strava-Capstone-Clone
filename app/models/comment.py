@@ -27,12 +27,20 @@ class Comment(db.Model):
                 'userId': self.user_id,
                 'body': self.body,
                 'createdAt': self.created_at,
-                'routeId': self.routes.id
+                'routeId': self.routes.id,
+                'user': {
+                    'username': self.users.username,
+                    'profilePicture': self.users.profile_picture
+                }
             }
         return {
             'id': self.id,
             'userId': self.user_id,
             'body': self.body,
             'createdAt': self.created_at,
-            'workoutId': self.workouts.id
+            'workoutId': self.workouts.id,
+            'user': {
+                    'username': self.users.username,
+                    'profilePicture': self.users.profile_picture
+                }
         }

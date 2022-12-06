@@ -73,14 +73,12 @@ export const newRouteComment = (comment) => async (dispatch) => {
     if (response.ok) {
         const newComment = await response.json();
         dispatch(routeCommentAction(newComment));
-        return newComment
     }else if (response.status < 500) {
         const data = await response.json();
+        console.log('data', data)
         if (data.errors) {
             return data.errors
         }
-    }else {
-        return [{'errors': 'A error occured'}]
     }
 };
 
@@ -128,7 +126,6 @@ export const updateComment = (comment) => async (dispatch) => {
     if (response.ok) {
         let newComment = await response.json();
         dispatch(updateCommentAction(newComment));
-        return newComment
     }else if(response.status < 500) {
         const data = await response.json();
         if(data.errors) {
@@ -158,7 +155,7 @@ export default function commentsReducer(state = {}, action) {
     let newState;
     switch (action.type) {
         case GET_COMMENTS:
-            newState = {...state};
+            newState = {};
             action.payload.forEach((comment) => {
                 newState[comment.id] = comment
             });

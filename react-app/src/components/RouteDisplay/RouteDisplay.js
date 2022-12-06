@@ -35,7 +35,7 @@ function RouteDisplay() {
 
     useEffect(() => {
         dispatch(getAllRoutes());
-    }, [])
+    }, [dispatch])
 
     if (!route) {
         return null

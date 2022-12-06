@@ -1,0 +1,44 @@
+.add-comm-container {
+    display: flex;
+    width: 30rem;
+    flex-direction: column;
+    height: 15rem;
+    justify-content: space-evenly;
+    background-color: #242424;
+    border-radius: 10px;
+}
+
+.ac-form {
+    display: flex;
+    height: 10rem;
+    flex-direction: column;
+}
+
+.ac-input {
+    width: 30rem;
+    padding: 4px;
+    display: flex;
+    flex-flow: wrap;
+    height: 8rem;
+    font-size: 25px;
+}
+
+.ac-sub-btn-container {
+    background-color: #242424;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 1rem;
+    height: 100%;
+}
+
+.err-ul {
+    display: flex;
+    justify-content: center;
+}
+
+.err-li {
+    color: red;
+    list-style-type: none;
+}

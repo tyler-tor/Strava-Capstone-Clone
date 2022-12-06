@@ -1,0 +1,54 @@
+.edit-comment-container {
+    display: flex;
+    width: 30rem;
+    flex-direction: column;
+    height: 23rem;
+    justify-content: space-evenly;
+    background-color: #242424;
+    border-radius: 10px;
+}
+
+.ec-form {
+    display: flex;
+    height: 10rem;
+    flex-direction: column;
+}
+
+.ec-sub-btn-container {
+    background-color: #242424;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 1rem;
+    height: 100%;
+}
+
+.dlt-btn-container {
+    background-color: #242424;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 1rem;
+}
+
+.ec-input {
+    width: 30rem;
+    padding: 4px;
+    display: flex;
+    flex-flow: wrap;
+    height: 8rem;
+    font-size: 25px;
+}
+
+.err-ul {
+    display: flex;
+    justify-content: center;
+}
+
+.err-li {
+    color: red;
+    list-style-type: none;
+}

@@ -96,9 +96,48 @@
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
+    overflow-y: scroll;
 }
 
 .comm-box-container {
     display: flex;
     justify-content: flex-end;
+}
+
+.comm-pro-pic {
+    width: 30px;
+    height: 30px;
+}
+
+.comm-item {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    padding: 5px;
+}
+
+.comm-info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 85%;
+}
+
+.comm-text {
+    padding: 10px;
+}
+
+.comm-btn a{
+    display: flex;
+}
+
+.add-btn-container {
+    display: flex;
+    justify-content: center;
+    background-color: #242424;
+    padding: 15px;
+    border-radius: 10px;
 }

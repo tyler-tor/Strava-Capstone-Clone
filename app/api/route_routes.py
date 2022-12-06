@@ -123,4 +123,4 @@ def add_comment_to_route(id):
         db.session.commit()
         # print('route---------------', route.to_dict())
         return comment.to_dict()
-    return {'errors': form.errors}, 401
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
