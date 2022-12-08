@@ -8,10 +8,16 @@ import Comments from '../Comments/Comments';
 import MapAdjustment from '../MapAdjustment/MapAdjustment';
 import './RouteDisplay.css'
 
+
 const center = {
     lat: 47.649133,
     lng: -117.420902
 };
+
+const image = {
+    url: 'https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/flag-marker.png',
+    scaledSize: new google.maps.Size(10, 10)
+}
 
 
 function RouteDisplay() {
@@ -120,7 +126,9 @@ function RouteDisplay() {
                                     position={{ ...route.startingPoint }}>
                                 </Marker >
                                 <Marker
-                                    position={{ ...route.endingPoint }}>
+                                    position={{ ...route.endingPoint }}
+                                    icon={image}
+                                    >
                                 </Marker >
                                 {(destination !== '' && response === null) && (
                                     <DirectionsService
