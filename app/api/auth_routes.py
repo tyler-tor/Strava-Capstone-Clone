@@ -25,7 +25,9 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        user_dict = current_user.to_dict()
+        user_dict['mapKey'] = os.environ.get('REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY')
+        return user_dict
     return {'errors': ['Unauthorized']}
 
 

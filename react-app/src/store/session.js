@@ -1,4 +1,5 @@
 // constants
+
 const SET_USER = 'session/SET_USER';
 const REMOVE_USER = 'session/REMOVE_USER';
 
@@ -24,7 +25,7 @@ export const authenticate = () => async (dispatch) => {
     if (data.errors) {
       return;
     }
-
+    
     dispatch(setUser(data));
   }
 }
@@ -44,6 +45,7 @@ export const login = (email, password) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    console.log(data)
     dispatch(setUser(data))
     return null;
   } else if (response.status < 500) {

@@ -66,6 +66,7 @@ const MapComponent = ({ lat, lng }) => {
                                 <NavLink to={`/routes/${selected.route.id}`}
                                 className='iw-title'>{selected.route.title}</NavLink>
                                 <p className="iw-description">{selected.route.description}</p>
+                                <p className="iw-description">{selected.route.distance}</p>
                             </div>
                         </InfoWindow>
                     ) : null}
