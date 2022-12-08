@@ -15,11 +15,12 @@ const containerStyle = {
 const MapComponent = ({ lat, lng }) => {
     const dispatch = useDispatch()
     const routes = Object.values(useSelector(state => state.routes));
+    const currUser = useSelector(state => state.session.user)
     const [selected, setSelected] = useState(null)
     //loads the map if the api key for google maps api exist
     const { isLoaded } = useLoadScript({
         id: 'google-map-script',
-        googleMapsApiKey: process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+        googleMapsApiKey: currUser.mapKey
     });
     //sets the center of the map based on the lat,lng props that are passed
     const center = useMemo(() => {
@@ -34,7 +35,7 @@ const MapComponent = ({ lat, lng }) => {
 
     return isLoaded ? (
         <>
-            <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=initMap`}>
+            <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}>
             </script>
             <div id='map'>
                 <GoogleMap
@@ -65,6 +66,7 @@ const MapComponent = ({ lat, lng }) => {
                                 <NavLink to={`/routes/${selected.route.id}`}
                                 className='iw-title'>{selected.route.title}</NavLink>
                                 <p className="iw-description">{selected.route.description}</p>
+                                <p className="iw-description">{selected.route.distance}</p>
                             </div>
                         </InfoWindow>
                     ) : null}

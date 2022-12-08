@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, session, request
 from app.models import User, db
+import os
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -24,7 +25,9 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        user_dict = current_user.to_dict()
+        user_dict['mapKey'] = os.environ.get('REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY')
+        return user_dict
     return {'errors': ['Unauthorized']}
 
 
@@ -42,7 +45,9 @@ def login():
         user = User.query.filter(User.email == form.data['email']).first()
         # print(user)
         login_user(user)
-        return user.to_dict()
+        user_dict = user.to_dict()
+        user_dict['mapKey'] = os.environ.get('REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY')
+        return user_dict
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -76,7 +81,9 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        user_dict = user.to_dict()
+        user_dict['mapKey'] = os.environ.get('REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY')
+        return user_dict
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

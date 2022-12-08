@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllRoutes } from '../../store/routes';
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
+import MapAdjustment from '../MapAdjustment/MapAdjustment';
 import './RouteDisplay.css'
 
 const center = {
@@ -17,31 +18,40 @@ function RouteDisplay() {
     const { routeId } = useParams();
     const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
+    const [destination, setDestination] = useState({ ...route.endingPoint })
+    const [origin, setOrigin] = useState({ ...route.startingPoint })
+    const [response, setResponse] = useState(null)
+
     const dispatch = useDispatch()
 
     const { isLoaded } = useLoadScript({
         id: 'google-map-script',
-        googleMapsApiKey: process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+        googleMapsApiKey: currUser.mapKey
     })
+    // `https://maps.googleapis.com/maps/api/staticmap?size=500x400&markers=${route.startingPoint.lat}|${route.startingPoint.lng}
+    // &markers=${route.endingPoint.lat}|${route.endingPoint.lng}&key=${currUser.mapKey}`
 
-    // const center = () => {
-    //     let bounds = new window.google.maps.LatLngBounds();
-    //     bounds.extend({ ...route.startingPoint })
-    //     bounds.extend({ ...route.endingPoint })
-    //     console.log(bounds.getCenter())
-    //     let center = new window.google.maps.Map.fitBounds(bounds)
-    //     return center
-    // }
+
+    const directionsCallback = (response) => {
+        if (response !== null) {
+            if (response.status === 'OK') {
+                console.log("Route: " + response);
+                setResponse(response)
+            } else {
+                // console.log("Route: " + response.status);
+            }
+        }
+    }
+
 
     useEffect(() => {
         dispatch(getAllRoutes());
-    }, [dispatch])
+    }, [])
+
 
     if (!route) {
         return null
-    } else {
-
-    };
+    }
 
     return (
         <div className='route-info-container'>
@@ -86,10 +96,8 @@ function RouteDisplay() {
                             </li>
                         </ul>
                         {currUser.id === route.userId &&
-                            <div className='ed-btn-container'>
-                                <button className='edit-btn'>Edit</button>
-                                <button className='delete-btn'>Delete</button>
-                            </div>}
+                            <MapAdjustment routeId={route.id} />
+                        }
                     </div>
                 </div>
                 <div className='comm-box-container'>
@@ -101,7 +109,7 @@ function RouteDisplay() {
             <div className='route-map-info-container'>
                 {isLoaded ?
                     <>
-                        <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&callback=initMap`}></script>
+                        <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}></script>
                         <div id='map'>
                             <GoogleMap
                                 zoom={10}
@@ -114,8 +122,31 @@ function RouteDisplay() {
                                 <Marker
                                     position={{ ...route.endingPoint }}>
                                 </Marker >
+                                {(destination !== '' && response === null) && (
+                                    <DirectionsService
+                                        options={{
+                                            destination: destination,
+                                            origin: origin,
+                                            travelMode: route.travelMode
+                                        }}
+                                        callback={directionsCallback}
+                                    />
+                                )
+                                }
+                                {response !== null && (
+                                    <DirectionsRenderer
+                                        panel={document.getElementById("panel")}
+                                        options={{
+                                            directions: response
+                                        }}
+
+                                    />
+                                )}
 
                             </GoogleMap>
+                            {/* <div id='panel'>
+
+                            </div> */}
                         </div>
                     </>
 
