@@ -3,8 +3,8 @@ import MapComponent from '../Map';
 import './HomePage.css'
 
 const center = {
-  lat: 47.658779,
-  lng: -117.426048
+  lat: 37.090240,
+  lng: -95.712891
 };
 
 function HomePage() {

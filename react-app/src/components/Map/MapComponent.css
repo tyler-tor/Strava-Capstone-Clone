@@ -1,6 +1,13 @@
 .map-container {
     width: 100vw;
     height: 100vh;
+    background-color: #242424;
+}
+
+#map {
+    background-color: #242424;
+    display: flex;
+    /* height: 90vh; */
 }
 
 .iw-container {

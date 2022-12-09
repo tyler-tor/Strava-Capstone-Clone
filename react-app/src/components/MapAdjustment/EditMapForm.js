@@ -5,10 +5,6 @@ import { updateRoute } from '../../store/routes';
 import { GoogleMap, useLoadScript, Marker, DistanceMatrixService } from '@react-google-maps/api';
 import './MapAdjustment.css'
 
-const center = {
-    lat: 47.649133,
-    lng: -117.420902
-};
 
 function EditMapForm({ routeId, onClose }) {
     const route = useSelector(state => state.routes[routeId])
@@ -34,6 +30,11 @@ function EditMapForm({ routeId, onClose }) {
         id: 'google-map-script',
         googleMapsApiKey: currUser.mapKey
     })
+
+    const center = {
+        lat: (route.startingPoint.lat + route.endingPoint.lat)/2,
+        lng: (route.startingPoint.lng + route.endingPoint.lng)/2
+    };
 
     const handleSubmit = async (e) => {
         // e.preventDefault();
@@ -82,7 +83,7 @@ function EditMapForm({ routeId, onClose }) {
                             <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}></script>
                             <div id='map'>
                                 <GoogleMap
-                                    zoom={10}
+                                    zoom={9}
                                     center={center}
                                     mapContainerClassName='emf-map-container'
                                 >

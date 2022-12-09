@@ -31,6 +31,9 @@ function NewRoute() {
     googleMapsApiKey: currUser.mapKey
   })
 
+  // const center = navigator.geolocation.getCurrentPosition(showPosition)
+  // console.log(center)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log('start', start)
@@ -50,16 +53,17 @@ function NewRoute() {
           user_id: currUser.id,
           title: title,
           description: description,
-          start_lat: start.lat,
-          start_lng: start.lng,
-          end_lat: end.lat,
-          end_lng: end.lng,
+          start_lat: parseFloat(start.lat),
+          start_lng: parseFloat(start.lng),
+          end_lat: parseFloat(end.lat),
+          end_lng: parseFloat(end.lng),
           traveling_mode: travelingMode,
           distance: distance,
           image_url: url
         }
 
         const data = await dispatch(addRoute(payload))
+        // console.log(data)
         if (data) {
           setErrors(data)
         }else {
@@ -71,13 +75,28 @@ function NewRoute() {
 
   const handleMarkerSet = (e) => {
     if (allowStart === true) {
-      setStart({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+      setStart({ lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) })
     }
     if (allowEnd === true) {
-      setEnd({ lat: e.latLng.lat(), lng: e.latLng.lng() })
+      setEnd({ lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) })
     }
   }
-  // console.log(url)
+
+  const styleStart = () => {
+    if (allowStart === true) {
+      return 'start-btn-active'
+    }else {
+      return 'start-btn'
+    }
+  }
+
+  const styleEnd = () => {
+    if (allowEnd === true) {
+      return 'end-btn-active'
+    }else {
+      return 'end-btn'
+    }
+  }
 
   useEffect(() => {
     setErrors([])
@@ -104,8 +123,8 @@ function NewRoute() {
                 >
                 {start && end && travelingMode && (<DistanceMatrixService
                     options={{
-                      destinations: [{ ...end }],
-                      origins: [{ ...start }],
+                      destinations: [{ lat:parseFloat(end.lat), lng: parseFloat(end.lng) }],
+                      origins: [{ lat:parseFloat(start.lat), lng: parseFloat(start.lng) }],
                       travelMode: travelingMode,
                     }}
                     callback={(response) => { setDistance(response.rows[0].elements[0].distance.text) }}
@@ -113,13 +132,13 @@ function NewRoute() {
                   <Marker
                     position={start}
                     draggable={true}
-                    onDragEnd={(e) => setStart({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
+                    onDragEnd={(e) => setStart({ lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) })}
                     title='Start Point'>
                   </Marker >
                   <Marker
                     position={end}
                     draggable={true}
-                    onDragEnd={(e) => setEnd({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
+                    onDragEnd={(e) => setEnd({ lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) })}
                     title='End Point'
                   >
                   </Marker >
@@ -133,12 +152,12 @@ function NewRoute() {
       </div>
       <div className='nrf-btn-form-container'>
         <div className='nrf-btn-container'>
-          <button className='start-btn'
+          <button className={styleStart()}
             onClick={() => {
               setAllowStart(true)
               setAllowEnd(false)
             }}>Set Start Point</button>
-          <button className='end-btn'
+          <button className={styleEnd()}
             onClick={() => {
               setAllowEnd(true)
               setAllowStart(false)

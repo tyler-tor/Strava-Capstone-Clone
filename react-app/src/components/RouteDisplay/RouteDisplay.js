@@ -66,68 +66,6 @@ function RouteDisplay() {
 
     return (
         <div className='route-info-container'>
-            <div className='ui-comment-container'>
-                <div className='ur-info-container'>
-                    <img src={route.ownerInfo.profilePicture}
-                        className='user-propic' />
-                    <div className='user-details-container'>
-                        <NavLink to={`/users/${route.userId}`} className='username-text'>{route.ownerInfo.username}</NavLink>
-                        <ul className='name-list'>
-                            <li className='first-name'>
-                                {route.ownerInfo.firstName}
-                            </li>
-                            <li className='last-name'>
-                                {route.ownerInfo.lastName}
-                            </li>
-                            <li className='email'>
-                                {route.ownerInfo.email}
-                            </li>
-                        </ul>
-                        <div className='route-pic-container'>
-                            <img src={route.imageUrl}
-                                alt='Route Image'
-                                className='route-pic' />
-                        </div>
-                    </div>
-                    <div className='ri-items-container'>
-                        <ul className='ri-items-list'>
-                            <li className='ri-item'>
-                                <strong>Title: </strong>
-                                <p>
-
-                                    {route.title}
-                                </p>
-                            </li>
-                            <li className='ri-item'>
-                                <strong>Description: </strong>
-                                <p>
-                                    {route.description}
-                                </p>
-                            </li>
-                            <li className='ri-item'>
-                                <strong>Distance: </strong>
-                                <p>
-                                    {route.distance}
-                                </p>
-                            </li>
-                            <li className='ri-item'>
-                            <strong>Travel Type: </strong>
-                                <p>
-                                    {route.travelMode}
-                                </p>
-                            </li>
-                        </ul>
-                        {currUser.id === route.userId &&
-                            <MapAdjustment routeId={route.id} />
-                        }
-                    </div>
-                </div>
-                <div className='comm-box-container'>
-                    <div className='comments-container'>
-                        <Comments routeId={route.id} />
-                    </div>
-                </div>
-            </div>
             <div className='route-map-info-container'>
                 {isLoaded ?
                     <>
@@ -181,6 +119,68 @@ function RouteDisplay() {
                     :
                     <div className="loading-text">Loading....</div>
                 }
+            </div>
+            <div className='ui-comment-container'>
+                <div className='ur-info-container'>
+                    <div className='user-details-container'>
+                        <NavLink to={`/users/${route.userId}`} className='username-text'>{route.ownerInfo.username}</NavLink>
+                        <ul className='name-list'>
+                            <li className='first-name'>
+                                {route.ownerInfo.firstName}
+                            </li>
+                            <li className='last-name'>
+                                {route.ownerInfo.lastName}
+                            </li>
+                            <li className='email'>
+                                {route.ownerInfo.email}
+                            </li>
+                        </ul>
+                    <img src={route.ownerInfo.profilePicture}
+                        className='user-propic' />
+                        <div className='route-pic-container'>
+                            <img src={route.imageUrl}
+                                alt='Route Image'
+                                className='route-pic' />
+                        </div>
+                    </div>
+                    <div className='ri-items-container'>
+                        <ul className='ri-items-list'>
+                            <li className='ri-item'>
+                                <strong>Title: </strong>
+                                <p>
+
+                                    {route.title}
+                                </p>
+                            </li>
+                            <li className='ri-item'>
+                                <strong>Description: </strong>
+                                <p>
+                                    {route.description}
+                                </p>
+                            </li>
+                            <li className='ri-item'>
+                                <strong>Distance: </strong>
+                                <p>
+                                    {route.distance}
+                                </p>
+                            </li>
+                            <li className='ri-item'>
+                                <strong>Travel Type: </strong>
+                                <p>
+                                    {route.travelMode}
+                                </p>
+                            </li>
+                        </ul>
+                        {currUser.id === route.userId &&
+                            <MapAdjustment routeId={route.id} />
+                        }
+                    </div>
+                </div>
+                <div className='comm-box-container'>
+                    <div className='comments-container'>
+                        <Comments routeId={route.id} />
+                    </div>
+                </div>
             </div>
         </div>
     )

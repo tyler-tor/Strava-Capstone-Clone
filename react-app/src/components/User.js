@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams,NavLink  } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import './User.css'
 
 function User() {
   const [user, setUser] = useState('');
   const { userId } = useParams();
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   useEffect(() => {
     if (!userId) {

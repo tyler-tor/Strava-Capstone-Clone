@@ -1,9 +1,11 @@
 .new-route-form-container {
     display: flex;
+    background-color: #242424;
+    height: 90vh;
 }
 
 .nrf-map-container {
-    height: 100vh;
+    height: 80vh;
     width: 70vw;
 }
 
@@ -41,12 +43,14 @@
     transition: 250ms;
 }
 
-.start-btn:active,
-.end-btn:active {
+.start-btn-active,
+.end-btn-active {
     transition: all 0.3s ease-out;
     background: #fff;
     color: #242424;
     transition: 250ms;
+    width: 15vw;
+    padding: 8px 0;
 }
 
 .nrf-item-container {

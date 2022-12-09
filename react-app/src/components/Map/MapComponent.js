@@ -7,8 +7,8 @@ import { getAllRoutes } from "../../store/routes";
 import './MapComponent.css'
 
 const containerStyle = {
-    width: '100wh',
-    height: '100vh'
+    width: '100vw',
+    height: '84vh'
 };
 
 
@@ -35,21 +35,22 @@ const MapComponent = ({ lat, lng }) => {
 
     return isLoaded ? (
         <>
+            <div id='map'>
             <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}>
             </script>
-            <div id='map'>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
-                    zoom={10}
+                    zoom={4}
                     center={center}
                     mapContainerClassName='map-container'
+
                     >
-                    {routes.map(route => {
+                    {routes && routes.map(route => {
                         return (
                         <div key={route.id}>
                             <Marker position={{...route.startingPoint}}
                             onClick={() => {
-                                setSelected({'coord':route.startingPoint, 'route': route})
+                                setSelected({'coord':{...route.startingPoint}, 'route': route})
                             }}
                             />
                         </div>
@@ -57,7 +58,7 @@ const MapComponent = ({ lat, lng }) => {
                     })}
 
                     {selected ? (
-                        <InfoWindow position={{lat: selected.coord.lat, lng: selected.coord.lng}}
+                        <InfoWindow position={{lat: parseFloat(selected.coord.lat), lng: parseFloat(selected.coord.lng)}}
                         onCloseClick={() => {
                             setSelected(null)
                         }}>

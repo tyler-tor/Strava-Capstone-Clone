@@ -35,7 +35,7 @@ export const getAllRoutes = () => async (dispatch) => {
 }
 
 export const addRoute = (route) => async (dispatch) => {
-    console.log(route)
+    // console.log(route)
     const response = await fetch('/api/routes/', {
         method: 'POST',
         headers: {
@@ -53,7 +53,9 @@ export const addRoute = (route) => async (dispatch) => {
         const data = response.json();
         if (data.errors) {
             return data.errors;
-        };
+        }else{
+            // return data
+        }
     }
 }
 
