@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { deleteRoute } from '../../store/routes'
+import './MapAdjustment.css'
 
 function DeleteMapForm({routeId, onClose}) {
   const dispatch = useDispatch()

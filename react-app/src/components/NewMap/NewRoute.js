@@ -156,7 +156,7 @@ function NewRoute() {
               />
             </div>
             <div className='nrf-item-container'>
-              <label className='nrf-label'>Update Title: </label>
+              <label className='nrf-label'>Update Travel Type: </label>
               <select
                 name='travelMode'
                 value={travelingMode}

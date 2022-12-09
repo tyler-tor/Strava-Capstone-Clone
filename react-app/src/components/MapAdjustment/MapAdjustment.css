@@ -40,7 +40,8 @@
 
 .update-btn,
 .edit-btn,
-.delete-btn {
+.delete-btn,
+.dlt-route-btn {
     background-color: transparent;
     color: #fff;
     padding: 8px 20px;
@@ -53,7 +54,8 @@
 
 .update-btn:hover,
 .edit-btn:hover,
-.delete-btn:hover {
+.delete-btn:hover,
+.dlt-route-btn:hover {
     transition: all 0.3s ease-out;
     background: #fff;
     color: #242424;
@@ -68,4 +70,22 @@
     align-items: center;
     background-color: #242424;
     justify-content: center;
+}
+
+.dlt-route-container {
+    display: flex;
+    flex-direction: column;
+    height: 25vh;
+    width: 25vw;
+    align-items: center;
+    background-color: #242424;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.dlt-route-label {
+    display: flex;
+    font-size: 20px;
+    padding-bottom: 20px;
+    color: #fff;
 }
