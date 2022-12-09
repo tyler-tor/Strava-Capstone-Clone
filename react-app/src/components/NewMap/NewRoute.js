@@ -33,24 +33,39 @@ function NewRoute() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const payload = {
-      user_id: currUser.id,
-      title: title,
-      description: description,
-      start_lat: start.lat,
-      start_lng: start.lng,
-      end_lat: end.lat,
-      end_lng: end.lng,
-      traveling_mode: travelingMode,
-      distance: distance,
-      image_url: url
-    }
-
-    const data = await dispatch(addRoute(payload))
-    if (data) {
-      console.log(data)
+    // console.log('start', start)
+    // console.log('end', end)
+    if(!start && !end) {
+      setErrors(['You need to set a Start and End point'])
+    }else if (!start) {
+      setErrors(['You need to set a Start Point'])
+    }else if (!end) {
+      setErrors(['You need to set a End Point'])
+    }else if (!url) {
+      setErrors(['You need to upload a image for your route'])
     }else {
-      history.push(`/`)
+      // console.log(errors)
+      if(errors.length < 1){
+        const payload = {
+          user_id: currUser.id,
+          title: title,
+          description: description,
+          start_lat: start.lat,
+          start_lng: start.lng,
+          end_lat: end.lat,
+          end_lng: end.lng,
+          traveling_mode: travelingMode,
+          distance: distance,
+          image_url: url
+        }
+
+        const data = await dispatch(addRoute(payload))
+        if (data) {
+          setErrors(data)
+        }else {
+          history.push(`/`)
+        }
+      }
     }
   }
 
@@ -63,6 +78,10 @@ function NewRoute() {
     }
   }
   // console.log(url)
+
+  useEffect(() => {
+    setErrors([])
+  }, [start, end, url])
 
   return (
     <div className='new-route-form-container'>
