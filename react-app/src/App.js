@@ -16,6 +16,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import { getAllRoutes } from './store/routes';
+import { getAllUsers } from './store/users';
 import NewRoute from './components/NewMap/NewRoute';
 
 function App() {
@@ -26,7 +27,8 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      await dispatch(getAllRoutes())
+      await dispatch(getAllRoutes());
+      await dispatch(getAllUsers());
       setLoaded(true);
     })();
   }, [dispatch]);
