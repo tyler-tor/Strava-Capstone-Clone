@@ -16,6 +16,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import { getAllRoutes } from './store/routes';
+import NewRoute from './components/NewMap/NewRoute';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -69,6 +70,9 @@ function App() {
               <TempComment />
             </ProtectedRoute>
             {/* test routes for backend */}
+            <ProtectedRoute path='/newRoute' exact={true} >
+              <NewRoute />
+            </ProtectedRoute>
             <Route path='/' exact={true} >
               <HomePage />
             </Route>

@@ -63,9 +63,9 @@ const NavBar = () => {
                   </NavLink>
                 </li>
                 <li className='nav-item'>
-                  <NavLink to='/users' exact={true}
+                  <NavLink to='/newRoute' exact={true}
                     className='nav-links' onClick={closeMobileMenu}>
-                    Users
+                    + Route
                     <i class="fa-solid fa-hexagon-plus"></i>
                   </NavLink>
                 </li>

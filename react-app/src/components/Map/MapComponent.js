@@ -47,7 +47,7 @@ const MapComponent = ({ lat, lng }) => {
                     {routes.map(route => {
                         return (
                         <div key={route.id}>
-                            <Marker position={{lat: route.startingPoint.lat, lng: route.startingPoint.lng}}
+                            <Marker position={{...route.startingPoint}}
                             onClick={() => {
                                 setSelected({'coord':route.startingPoint, 'route': route})
                             }}

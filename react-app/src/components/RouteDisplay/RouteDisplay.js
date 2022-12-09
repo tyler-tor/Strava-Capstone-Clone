@@ -8,24 +8,18 @@ import Comments from '../Comments/Comments';
 import MapAdjustment from '../MapAdjustment/MapAdjustment';
 import './RouteDisplay.css'
 
-
 const center = {
     lat: 47.649133,
     lng: -117.420902
 };
-
-const image = {
-    url: 'https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/flag-marker.png',
-    scaledSize: new google.maps.Size(10, 10)
-}
 
 
 function RouteDisplay() {
     const { routeId } = useParams();
     const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
-    const [destination, setDestination] = useState({ ...route.endingPoint })
-    const [origin, setOrigin] = useState({ ...route.startingPoint })
+    // const [destination, setDestination] = useState({ ...route.endingPoint } ? route : '')
+    // const [origin, setOrigin] = useState({ ...route.startingPoint })
     const [response, setResponse] = useState(null)
 
     const dispatch = useDispatch()
@@ -36,12 +30,15 @@ function RouteDisplay() {
     })
     // `https://maps.googleapis.com/maps/api/staticmap?size=500x400&markers=${route.startingPoint.lat}|${route.startingPoint.lng}
     // &markers=${route.endingPoint.lat}|${route.endingPoint.lng}&key=${currUser.mapKey}`
-
+    const image = {
+        url: 'https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/flag-marker.png',
+        scaledSize: { height: 40, width: 40 }
+    }
+    // console.log("Route: " + response.distance);
 
     const directionsCallback = (response) => {
         if (response !== null) {
             if (response.status === 'OK') {
-                console.log("Route: " + response);
                 setResponse(response)
             } else {
                 // console.log("Route: " + response.status);
@@ -49,10 +46,18 @@ function RouteDisplay() {
         }
     }
 
+    // const startMarker = () => {
+    //     return (
+    //         <Marker
+    //             position={{ ...route.startingPoint }}>
+    //         </Marker >
+    //     )
+    // }
 
-    useEffect(() => {
-        dispatch(getAllRoutes());
-    }, [])
+
+    // useEffect(() => {
+    //     dispatch(getAllRoutes());
+    // }, [])
 
 
     if (!route) {
@@ -87,18 +92,29 @@ function RouteDisplay() {
                     <div className='ri-items-container'>
                         <ul className='ri-items-list'>
                             <li className='ri-item'>
-                                {route.title}
+                                <strong>Title: </strong>
+                                <p>
+
+                                    {route.title}
+                                </p>
                             </li>
                             <li className='ri-item'>
-                                {route.description}
+                                <strong>Description: </strong>
+                                <p>
+                                    {route.description}
+                                </p>
                             </li>
                             <li className='ri-item'>
+                                <strong>Distance: </strong>
                                 <p>
                                     {route.distance}
                                 </p>
                             </li>
                             <li className='ri-item'>
-                                {route.travelMode}
+                            <strong>Travel Type: </strong>
+                                <p>
+                                    {route.travelMode}
+                                </p>
                             </li>
                         </ul>
                         {currUser.id === route.userId &&
@@ -122,33 +138,37 @@ function RouteDisplay() {
                                 center={center}
                                 mapContainerClassName='route-map-container'
                             >
-                                <Marker
-                                    position={{ ...route.startingPoint }}>
-                                </Marker >
-                                <Marker
-                                    position={{ ...route.endingPoint }}
-                                    icon={image}
-                                    >
-                                </Marker >
-                                {(destination !== '' && response === null) && (
+                                {(route.endingPoint !== '' && response === null) && (
                                     <DirectionsService
                                         options={{
-                                            destination: destination,
-                                            origin: origin,
-                                            travelMode: route.travelMode
+                                            // destination: destination,
+                                            // origin: origin,
+                                            // travelMode: route.travelMode
+                                            ...route.requestData
                                         }}
                                         callback={directionsCallback}
                                     />
                                 )
                                 }
                                 {response !== null && (
-                                    <DirectionsRenderer
-                                        panel={document.getElementById("panel")}
-                                        options={{
-                                            directions: response
-                                        }}
+                                    <>
 
-                                    />
+                                        <DirectionsRenderer
+                                            panel={document.getElementById("panel")}
+                                            options={{
+                                                directions: response
+                                            }}
+
+                                        />
+                                        {/* <Marker
+                                            position={{ ...route.startingPoint }}>
+                                        </Marker >
+                                        <Marker
+                                            position={{ ...route.endingPoint }}
+                                            icon={image}
+                                        >
+                                        </Marker > */}
+                                    </>
                                 )}
 
                             </GoogleMap>

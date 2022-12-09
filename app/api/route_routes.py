@@ -41,9 +41,12 @@ def add_route():
             title=form.data['title'],
             description=form.data['description'],
             image_url=form.data['image_url'],
-            starting_point=form.data['starting_point'],
-            ending_point=form.data['ending_point'],
-            distance=form.data['distance']
+            start_lat=form.data['start_lat'],
+            start_lng=form.data['start_lng'],
+            end_lat=form.data['end_lat'],
+            end_lng=form.data['end_lng'],
+            distance=form.data['distance'],
+            traveling_mode=form.data['traveling_mode']
         )
         db.session.add(route)
         db.session.commit()
@@ -76,6 +79,7 @@ def update_route(id):
         route.set_kwargs(**form.data)
         db.session.commit()
         return route.to_dict()
+    # print('form----', form)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

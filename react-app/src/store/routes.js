@@ -35,6 +35,7 @@ export const getAllRoutes = () => async (dispatch) => {
 }
 
 export const addRoute = (route) => async (dispatch) => {
+    console.log(route)
     const response = await fetch('/api/routes/', {
         method: 'POST',
         headers: {
@@ -44,42 +45,49 @@ export const addRoute = (route) => async (dispatch) => {
             ...route
         })
     });
+    // console.log('res', response)
     if (response.ok) {
         const newRoute = response.json();
         dispatch(addRouteAction(newRoute));
-        return newRoute;
     }else if (response.status < 500) {
         const data = response.json();
         if (data.errors) {
             return data.errors;
         };
-    }else {
-        return response
     }
 }
 
 export const updateRoute = (route) => async (dispatch) => {
+    // console.log('route', route)
     const response = await fetch(`/api/routes/${route.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            ...route
+            title: route.title,
+            description: route.description,
+            start_lat: route.start_lat,
+            start_lng: route.start_lng,
+            end_lat: route.end_lat,
+            end_lng: route.end_lng,
+            traveling_mode: route.traveling_mode,
+            distance: route.distance,
+            image_url: route.image_url
         })
     });
-
+    // console.log('response', response)
     if (response.ok) {
         const updateRoute = response.json();
         dispatch(updateRouteAction(updateRoute));
-        return updateRoute
+        // return updateRoute
     }else if (response.status < 500) {
         const data = response.json();
         if (data.errors) {
             return data.errors
         };
     }else {
-        return response
+        // return response
     }
 };
 
@@ -91,7 +99,7 @@ export const deleteRoute = (id) => async (disptch) => {
     if (response.ok) {
         const data = await response.json();
         disptch(deleteRouteAction(id));
-        return data;
+        // return data;
     };
     return response
 }

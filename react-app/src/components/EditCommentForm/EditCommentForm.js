@@ -29,7 +29,7 @@ const EditCommentForm = ({ onClose, commentId }) => {
 
   const destroyComment = async (e) => {
     e.preventDefault();
-    dispatch(deleteComment(commentId));
+    await dispatch(deleteComment(commentId));
   };
 
   useEffect(() => {

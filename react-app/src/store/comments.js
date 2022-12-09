@@ -75,7 +75,7 @@ export const newRouteComment = (comment) => async (dispatch) => {
         dispatch(routeCommentAction(newComment));
     }else if (response.status < 500) {
         const data = await response.json();
-        console.log('data', data)
+        // console.log('data', data)
         if (data.errors) {
             return data.errors
         }

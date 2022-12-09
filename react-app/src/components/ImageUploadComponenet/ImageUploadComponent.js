@@ -17,6 +17,7 @@ const ImageUploadComponent = ({ setUrl }) => {
       method: "POST",
       body: formData,
     });
+    // console.log('res', res)
     if (res.ok) {
       const img_url = await res.json();
       setImageLoading(false);
