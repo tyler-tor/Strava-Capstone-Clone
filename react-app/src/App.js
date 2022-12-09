@@ -27,8 +27,8 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      await dispatch(getAllRoutes());
-      await dispatch(getAllUsers());
+      // await dispatch(getAllRoutes());
+      // await dispatch(getAllUsers());
       setLoaded(true);
     })();
   }, [dispatch]);

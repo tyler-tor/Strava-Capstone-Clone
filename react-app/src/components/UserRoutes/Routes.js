@@ -7,9 +7,9 @@ function Routes() {
     const dispatch = useDispatch();
     const routes = Object.values(useSelector(state => state.routes))
 
-    useEffect(() => {
-        dispatch(getAllRoutes())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getAllRoutes())
+    // }, [])
     return (
         <div>
             {routes.map(route => {

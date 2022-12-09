@@ -17,7 +17,7 @@ function User() {
       const user = await response.json();
       setUser(user);
     })();
-  }, [userId, dispatch]);
+  }, [userId]);
 
   if (!user) {
     return null;
@@ -52,7 +52,7 @@ function User() {
             return (
               <div className='user-page-route-container'
                 key={route.id}>
-                {console.log(route)}
+                {/* {console.log(route)} */}
                 <div className='user-route-pic-container'>
                   <img src={route.imageUrl}
                     className='user-route-pic' />

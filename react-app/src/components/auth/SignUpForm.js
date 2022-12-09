@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 import ImageUploadComponent from '../ImageUploadComponenet';
@@ -16,13 +17,17 @@ const SignUpForm = () => {
   const [url, setUrl] = useState('');
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const history = useHistory('/')
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password, url, firstName, lastName));
+      // console.log(data)
       if (data) {
         setErrors(data)
+      }else {
+        history.push('/')
       }
     }
   };
@@ -51,6 +56,7 @@ const SignUpForm = () => {
     setRepeatPassword(e.target.value);
   };
 
+  console.log(user)
   if (user) {
     return <Redirect to='/' />;
   }

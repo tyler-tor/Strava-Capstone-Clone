@@ -19,6 +19,15 @@ const LoginForm = () => {
     }
   };
 
+  const demoClick = async (e) => {
+    e.preventDefault();
+    // setEmail('demo@aa.io')
+    // setPassword('password')
+    let demoEmail = 'demo@aa.io'
+    let demoPsswd = 'password'
+    await dispatch(login(demoEmail, demoPsswd))
+  }
+
   const updateEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -68,6 +77,11 @@ const LoginForm = () => {
           <button type='submit'
           className='submit-btn'
           disabled={!email && !password}>Login</button>
+          <button
+          onClick={demoClick}
+          type='submit'
+          className='submit-btn'
+          >DemoUser</button>
         </div>
       </form>
     </div>

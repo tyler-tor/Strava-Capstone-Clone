@@ -55,9 +55,9 @@ function RouteDisplay() {
     // }
 
 
-    // useEffect(() => {
-    //     dispatch(getAllRoutes());
-    // }, [])
+    useEffect(() => {
+        dispatch(getAllRoutes());
+    }, [dispatch])
 
 
     if (!route) {
