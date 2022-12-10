@@ -147,8 +147,8 @@ function RouteDisplay() {
                         <ul className='ri-items-list'>
                             <li className='ri-item'>
                                 <strong>Title: </strong>
+                                {'   '}
                                 <p>
-
                                     {route.title}
                                 </p>
                             </li>

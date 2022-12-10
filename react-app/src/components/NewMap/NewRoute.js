@@ -7,8 +7,8 @@ import { GoogleMap, useLoadScript, Marker, DistanceMatrixService } from '@react-
 import './NewRoute.css'
 
 const center = {
-  lat: 47.649133,
-  lng: -117.420902
+  lat: 37.090240,
+  lng: -95.712891
 };
 
 function NewRoute() {
@@ -116,7 +116,7 @@ function NewRoute() {
               <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}></script>
               <div id='map'>
                 <GoogleMap
-                  zoom={10}
+                  zoom={4}
                   center={center}
                   mapContainerClassName='nrf-map-container'
                   onClick={(e) => handleMarkerSet(e)}

@@ -5,7 +5,7 @@
 }
 
 #map {
-    background-color: #242424;
+    /* background-color: #242424; */
     display: flex;
     /* height: 90vh; */
 }
@@ -15,7 +15,10 @@
     width: 12vw;
     display: flex;
     flex-direction: column;
+    align-content: space-between;
     align-items: center;
+    justify-content: center;
+    line-height: 1.5;
 }
 
 .iw-title {

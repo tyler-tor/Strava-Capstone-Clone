@@ -1,6 +1,6 @@
 .footer-container {
-    background-color: #242424;
-    /* padding: 1rem 0 2rem 0; */
+    background-image: linear-gradient(to top, #242424, #313131, #3e3f3f, #4c4d4d, #5b5c5b);
+    padding: .6rem 0 .3rem 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

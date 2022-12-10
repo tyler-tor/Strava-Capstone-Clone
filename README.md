@@ -34,7 +34,7 @@ Welcome to my application where users can view/create/delete Routes and interact
 ![image](https://user-images.githubusercontent.com/93111660/206636167-527007ca-312b-4221-9f41-cb3e70ab5752.png)
 - Here you have view all created routes and view them individually by following the links.
 
-### Selecting a individual route on the landing page 
+### Selecting a individual route on the landing page
 
 ![image](https://user-images.githubusercontent.com/93111660/206751883-43a8c86a-0cbb-49e2-b16d-d6fe3348a44a.png)
 - By clicking on the route title you can view the route and it's details
