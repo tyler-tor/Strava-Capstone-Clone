@@ -30,7 +30,7 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoaded(false)
+        
         const payload = {
             id: route.id,
             user_id: currUser.id,
@@ -44,13 +44,14 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
             distance: distance,
             image_url: route.imageUrl
         }
-        const res = await dispatch(updateRoute(payload)).then(() => setLoaded(true))
+        const res = await dispatch(updateRoute(payload))
         if (res) {
             setErrors(res)
         } else {
             setResponse(null)
             onClose()
         }
+        setLoaded(true)
     }
 
     // useEffect(() => {

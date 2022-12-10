@@ -20,7 +20,7 @@ function RouteDisplay() {
     const route = useSelector(state => state.routes.currentRoute)
     const currUser = useSelector(state => state.session.user)
     const [response, setResponse] = useState(null)
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(true)
 
     const dispatch = useDispatch()
 
@@ -29,7 +29,7 @@ function RouteDisplay() {
         googleMapsApiKey: currUser.mapKey
     })
 
-
+    console.log(route)
     const directionsCallback = (response) => {
         // setLoaded(false)
         if (response !== null) {
@@ -42,7 +42,9 @@ function RouteDisplay() {
 
 
     useEffect(async () => {
-        await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
+
+            await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
+        
 
     }, [dispatch, response])
 
@@ -52,7 +54,7 @@ function RouteDisplay() {
     }
 
 
-    return route && (
+    return route.ownerInfo && (
         <div className='route-info-container'>
             <div className='route-map-info-container'>
                 {loaded && isLoaded ?
@@ -104,7 +106,7 @@ function RouteDisplay() {
             <div className='ui-comment-container'>
                 <div className='ur-info-container'>
                     <div className='user-details-container'>
-                        <NavLink to={`/users/${route?.userId}`} className='username-text'>{route?.ownerInfo.username}</NavLink>
+                        <NavLink to={`/users/${route?.userId}`} className='username-text'>{route?.ownerInfo?.username}</NavLink>
                         <ul className='name-list'>
                             <li className='first-name'>
                                 {route?.ownerInfo.firstName}

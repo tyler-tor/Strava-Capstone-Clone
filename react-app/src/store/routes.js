@@ -3,7 +3,7 @@ const ADD_ROUTE = 'workouts/ADD_ROUTE';
 const UPDATE_ROUTE = 'workouts/UPDATE_ROUTE';
 const DELETE_ROUTE = 'workouts/DELETE_ROUTE';
 const GET_CURRENT_ROUTE = 'workouts/CURRENT_ROUTE';
-const UPDATE_CURRENT_ROUTE = 'update_route/UPDATE_CURRENT_ROUTE'
+// const UPDATE_CURRENT_ROUTE = 'update_route/UPDATE_CURRENT_ROUTE'
 
 const getRoutes = (routes) => ({
     type: GET_ROUTES,
@@ -25,10 +25,10 @@ const updateRouteAction = (route) => ({
     payload: route
 });
 
-const updateCurrentRouteAction = (route) => ({
-    type: UPDATE_CURRENT_ROUTE,
-    payload: route
-})
+// const updateCurrentRouteAction = (route) => ({
+//     type: UPDATE_CURRENT_ROUTE,
+//     payload: route
+// })
 
 export const getCurrentRoute = (routeId) => async (dispatch) => {
     const res = await fetch(`/api/routes/${routeId}`)
@@ -96,11 +96,13 @@ export const updateRoute = (route) => async (dispatch) => {
         })
     });
     if (response.ok) {
-        const updateRoute = response.json();
-        dispatch(updateRouteAction(updateRoute));
-        dispatch(updateCurrentRoute(updateRoute))
+        const update = await response.json();
+        dispatch(updateRouteAction(update));
+        // return update
+        // dispatch(updateCurrentRoute(updateRoute))
     } else if (response.status < 500) {
         const data = response.json();
+
         if (data.errors) {
             return data.errors
         };
@@ -108,9 +110,9 @@ export const updateRoute = (route) => async (dispatch) => {
     }
 };
 
-export const updateCurrentRoute = (route) => async (dispatch) => {
-    dispatch(updateCurrentRouteAction(route));
-}
+// export const updateCurrentRoute = (route) => async (dispatch) => {
+//     dispatch(updateCurrentRouteAction(route));
+// }
 
 
 export const deleteRoute = (id) => async (disptch) => {
@@ -126,7 +128,7 @@ export const deleteRoute = (id) => async (disptch) => {
 }
 
 
-export default function routesReducer(state = {currentRoute: null, routes: null}, action) {
+export default function routesReducer(state = { currentRoute: null, routes: null }, action) {
     let newState;
     switch (action.type) {
         case GET_ROUTES:
@@ -139,21 +141,23 @@ export default function routesReducer(state = {currentRoute: null, routes: null}
             });
             return newState;
         case GET_CURRENT_ROUTE:
-            newState = {...state}
-            newState.currentRoute = {...action.payload}
+            newState = { ...state }
+            newState.currentRoute = { ...action.payload }
             return newState
         case ADD_ROUTE:
             newState = { ...state };
             newState.routes[action.payload.id] = action.payload
             return newState;
+        // case UPDATE_CURRENT_ROUTE:
+        //     newState = { ...state };
+        //     newState.currentRoute = { ...action.payload }
+        //     newState.routes[action.payload.id] = { ...action.payload }
+        //     return newState
         case UPDATE_ROUTE:
             newState = { ...state };
+            newState.currentRoute = {...action.payload}
             newState.routes[action.payload.id] = { ...action.payload }
             return newState;
-        case UPDATE_CURRENT_ROUTE:
-            newState = {...state};
-            newState.currentRoute = {...action.payload}
-            return newState
         case DELETE_ROUTE:
             newState = { ...state };
             delete newState.routes[action.payload]
