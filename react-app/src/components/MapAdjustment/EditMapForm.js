@@ -49,8 +49,8 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
         if (res) {
             setErrors(res)
         } else {
-            // setResponse(null)
-            // setLoaded(false)
+            setResponse(null)
+            setLoaded(false)
             onClose()
         }
     }
