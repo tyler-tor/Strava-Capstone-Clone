@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateRoute } from '../../store/routes';
+import { updateCurrentRoute } from '../../store/currentRoute';
 import { GoogleMap, useLoadScript, Marker, DistanceMatrixService } from '@react-google-maps/api';
 import './MapAdjustment.css'
 
@@ -29,6 +30,7 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoaded(false)
         const payload = {
             id: route.id,
             user_id: currUser.id,
@@ -42,15 +44,11 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
             distance: distance,
             image_url: route.imageUrl
         }
-        const res = await dispatch(updateRoute(payload)).then(() => {
-            setResponse(null)
-            setLoaded(false)
-        })
+        const res = await dispatch(updateRoute(payload)).then(() => setLoaded(true))
         if (res) {
             setErrors(res)
         } else {
             setResponse(null)
-            setLoaded(false)
             onClose()
         }
     }

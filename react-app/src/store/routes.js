@@ -2,10 +2,17 @@ const GET_ROUTES = 'workouts/GET_ROUTES';
 const ADD_ROUTE = 'workouts/ADD_ROUTE';
 const UPDATE_ROUTE = 'workouts/UPDATE_ROUTE';
 const DELETE_ROUTE = 'workouts/DELETE_ROUTE';
+const GET_CURRENT_ROUTE = 'workouts/CURRENT_ROUTE';
+const UPDATE_CURRENT_ROUTE = 'update_route/UPDATE_CURRENT_ROUTE'
 
 const getRoutes = (routes) => ({
     type: GET_ROUTES,
     payload: routes
+});
+
+const getCurrentRouteAction = (route) => ({
+    type: GET_CURRENT_ROUTE,
+    payload: route
 });
 
 const addRouteAction = (route) => ({
@@ -17,6 +24,21 @@ const updateRouteAction = (route) => ({
     type: UPDATE_ROUTE,
     payload: route
 });
+
+const updateCurrentRouteAction = (route) => ({
+    type: UPDATE_CURRENT_ROUTE,
+    payload: route
+})
+
+export const getCurrentRoute = (routeId) => async (dispatch) => {
+    const res = await fetch(`/api/routes/${routeId}`)
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(getCurrentRouteAction(data))
+        return data
+    }
+}
 
 const deleteRouteAction = (id) => ({
     type: DELETE_ROUTE,
@@ -76,6 +98,7 @@ export const updateRoute = (route) => async (dispatch) => {
     if (response.ok) {
         const updateRoute = response.json();
         dispatch(updateRouteAction(updateRoute));
+        dispatch(updateCurrentRoute(updateRoute))
     } else if (response.status < 500) {
         const data = response.json();
         if (data.errors) {
@@ -84,6 +107,11 @@ export const updateRoute = (route) => async (dispatch) => {
     } else {
     }
 };
+
+export const updateCurrentRoute = (route) => async (dispatch) => {
+    dispatch(updateCurrentRouteAction(route));
+}
+
 
 export const deleteRoute = (id) => async (disptch) => {
     const response = await fetch(`/api/routes/${id}`, {
@@ -98,26 +126,36 @@ export const deleteRoute = (id) => async (disptch) => {
 }
 
 
-export default function routesReducer(state = {}, action) {
+export default function routesReducer(state = {currentRoute: null, routes: null}, action) {
     let newState;
     switch (action.type) {
         case GET_ROUTES:
-            newState = {}
+            newState = {
+                currentRoute: null,
+                routes: {}
+            }
             action.payload.forEach((route) => {
-                newState[route.id] = route
+                newState.routes[route.id] = route
             });
             return newState;
+        case GET_CURRENT_ROUTE:
+            newState = {...state}
+            newState.currentRoute = {...action.payload}
+            return newState
         case ADD_ROUTE:
             newState = { ...state };
-            newState[action.payload.id] = action.payload
+            newState.routes[action.payload.id] = action.payload
             return newState;
         case UPDATE_ROUTE:
             newState = { ...state };
-            newState[action.payload.id] = { ...action.payload }
+            newState.routes[action.payload.id] = { ...action.payload }
             return newState;
+        case UPDATE_CURRENT_ROUTE:
+            newState = {...state};
+            newState.currentRoute = {...action.payload}
         case DELETE_ROUTE:
             newState = { ...state };
-            delete newState[action.payload]
+            delete newState.routes[action.payload]
             return newState;
         default:
             return state

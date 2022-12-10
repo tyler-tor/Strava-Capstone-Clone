@@ -14,7 +14,7 @@ const containerStyle = {
 
 const MapComponent = ({ lat, lng }) => {
     const dispatch = useDispatch()
-    const routes = Object.values(useSelector(state => state.routes));
+    const routes = Object.values(useSelector(state => state.routes.routes));
     const currUser = useSelector(state => state.session.user)
     const [selected, setSelected] = useState(null)
     //loads the map if the api key for google maps api exist

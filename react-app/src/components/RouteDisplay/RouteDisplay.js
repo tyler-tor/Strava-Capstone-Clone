@@ -3,7 +3,7 @@ import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer } from 
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 // import { getAllRoutes } from '../../store/routes';
-import {getCurrentRoute} from '../../store/currentRoute'
+import { getCurrentRoute } from '../../store/routes'
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
 import MapAdjustment from '../MapAdjustment/MapAdjustment';
@@ -17,7 +17,7 @@ const center = {
 
 function RouteDisplay() {
     const { routeId } = useParams();
-    const route = useSelector(state => state.currentRoute.route)
+    const route = useSelector(state => state.routes.currentRoute)
     const currUser = useSelector(state => state.session.user)
     const [response, setResponse] = useState(null)
     const [loaded, setLoaded] = useState(false)
@@ -31,16 +31,19 @@ function RouteDisplay() {
 
 
     const directionsCallback = (response) => {
+        // setLoaded(false)
         if (response !== null) {
             if (response.status === 'OK') {
                 setResponse(response)
             }
         }
+        // setLoaded(true)
     }
 
 
     useEffect(async () => {
         await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
+
     }, [dispatch, response])
 
 
@@ -101,22 +104,22 @@ function RouteDisplay() {
             <div className='ui-comment-container'>
                 <div className='ur-info-container'>
                     <div className='user-details-container'>
-                        <NavLink to={`/users/${route.userId}`} className='username-text'>{route.ownerInfo.username}</NavLink>
+                        <NavLink to={`/users/${route?.userId}`} className='username-text'>{route?.ownerInfo.username}</NavLink>
                         <ul className='name-list'>
                             <li className='first-name'>
-                                {route.ownerInfo.firstName}
+                                {route?.ownerInfo.firstName}
                             </li>
                             <li className='last-name'>
-                                {route.ownerInfo.lastName}
+                                {route?.ownerInfo.lastName}
                             </li>
                             <li className='email'>
-                                {route.ownerInfo.email}
+                                {route?.ownerInfo.email}
                             </li>
                         </ul>
-                        <img src={route.ownerInfo.profilePicture}
+                        <img src={route?.ownerInfo.profilePicture}
                             className='user-propic' />
                         <div className='route-pic-container'>
-                            <img src={route.imageUrl}
+                            <img src={route?.imageUrl}
                                 alt='Route Image'
                                 className='route-pic' />
                         </div>
@@ -139,17 +142,17 @@ function RouteDisplay() {
                             <li className='ri-item'>
                                 <strong>Distance: </strong>
                                 <p>
-                                    {route.distance}
+                                    {route?.distance}
                                 </p>
                             </li>
                             <li className='ri-item'>
                                 <strong>Travel Type: </strong>
                                 <p>
-                                    {route.travelMode}
+                                    {route?.travelMode}
                                 </p>
                             </li>
                         </ul>
-                        {currUser.id === route.userId &&
+                        {currUser.id === route?.userId &&
                             <MapAdjustment route={route} setResponse={setResponse} setLoaded={setLoaded} />
                         }
                     </div>
