@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 // import { useHistory } from 'react-router-dom';
-import { updateRoute } from '../../store/routes';
+import { updateRoute, getAllRoutes } from '../../store/routes';
+// import { getAllRoutes } from '../../store/routes';
 import { GoogleMap, useLoadScript, Marker, DistanceMatrixService } from '@react-google-maps/api';
 import './MapAdjustment.css'
 
 
-function EditMapForm({ routeId, onClose }) {
+function EditMapForm({ routeId, onClose, setResponse }) {
     const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
@@ -37,7 +38,7 @@ function EditMapForm({ routeId, onClose }) {
     };
 
     const handleSubmit = async (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         const payload = {
             id: route.id,
             user_id: currUser.id,
@@ -51,14 +52,21 @@ function EditMapForm({ routeId, onClose }) {
             distance: distance,
             image_url: route.imageUrl
         }
-        const res = await dispatch(updateRoute(payload))
+        const res = await dispatch(updateRoute(payload)).then(() => {
+            dispatch(getAllRoutes())
+        })
         if (res) {
             // console.log(res)
             setErrors(res)
         } else {
+            setResponse(null)
             onClose()
         }
     }
+
+    useEffect(() => {
+        dispatch(getAllRoutes())
+    }, [dispatch])
 
 
     useEffect(() => {

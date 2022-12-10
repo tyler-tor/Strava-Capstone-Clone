@@ -18,9 +18,11 @@ function RouteDisplay() {
     const { routeId } = useParams();
     const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
-    // const [destination, setDestination] = useState({ ...route.endingPoint } ? route : '')
+    // console.log('route', route)
+    // const [destination, setDestination] = useState({ ...route.endingPoint })
     // const [origin, setOrigin] = useState({ ...route.startingPoint })
     const [response, setResponse] = useState(null)
+    // console.log('response', response)
 
     const dispatch = useDispatch()
 
@@ -46,6 +48,26 @@ function RouteDisplay() {
         }
     }
 
+    // const updateCallback = () => {
+    //     console.log('here')
+    //     if (route.endingPoint !== '' && response === null) {
+
+    //         return (
+    //             <DirectionsService
+    //                 options={{
+    //                     ...route.requestData,
+    //                     // destination: destination,
+    //                     // origin: origin,
+    //                     // travelMode: route.travelMode
+    //                 }}
+    //                 callback={directionsCallback}
+
+    //             />
+    //         )
+    //     }
+
+    // }
+
     // const startMarker = () => {
     //     return (
     //         <Marker
@@ -56,6 +78,7 @@ function RouteDisplay() {
 
 
     useEffect(() => {
+        // updateCallback()
         dispatch(getAllRoutes());
     }, [dispatch])
 
@@ -79,12 +102,13 @@ function RouteDisplay() {
                                 {(route.endingPoint !== '' && response === null) && (
                                     <DirectionsService
                                         options={{
+                                            ...route.requestData,
                                             // destination: destination,
                                             // origin: origin,
                                             // travelMode: route.travelMode
-                                            ...route.requestData
                                         }}
                                         callback={directionsCallback}
+
                                     />
                                 )
                                 }
@@ -96,6 +120,7 @@ function RouteDisplay() {
                                             options={{
                                                 directions: response
                                             }}
+
 
                                         />
                                         {/* <Marker
@@ -135,8 +160,8 @@ function RouteDisplay() {
                                 {route.ownerInfo.email}
                             </li>
                         </ul>
-                    <img src={route.ownerInfo.profilePicture}
-                        className='user-propic' />
+                        <img src={route.ownerInfo.profilePicture}
+                            className='user-propic' />
                         <div className='route-pic-container'>
                             <img src={route.imageUrl}
                                 alt='Route Image'
@@ -172,7 +197,7 @@ function RouteDisplay() {
                             </li>
                         </ul>
                         {currUser.id === route.userId &&
-                            <MapAdjustment routeId={route.id} />
+                            <MapAdjustment routeId={route.id} setResponse={setResponse} />
                         }
                     </div>
                 </div>
