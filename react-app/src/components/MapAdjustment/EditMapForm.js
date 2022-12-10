@@ -42,12 +42,15 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
             distance: distance,
             image_url: route.imageUrl
         }
-        const res = await dispatch(updateRoute(payload))
+        const res = await dispatch(updateRoute(payload)).then(() => {
+            setResponse(null)
+            setLoaded(false)
+        })
         if (res) {
             setErrors(res)
         } else {
-            setResponse(null)
-            setLoaded(false)
+            // setResponse(null)
+            // setLoaded(false)
             onClose()
         }
     }

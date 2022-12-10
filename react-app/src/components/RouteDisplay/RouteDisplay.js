@@ -41,7 +41,7 @@ function RouteDisplay() {
 
     useEffect(async () => {
         await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
-    }, [dispatch, response, routeId])
+    }, [dispatch, response])
 
 
     if (!route) {
