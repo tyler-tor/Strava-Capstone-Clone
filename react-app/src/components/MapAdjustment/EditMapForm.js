@@ -1,39 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateRoute, getAllRoutes } from '../../store/routes';
+import { updateRoute } from '../../store/routes';
 import { GoogleMap, useLoadScript, Marker, DistanceMatrixService } from '@react-google-maps/api';
-import { getCurrentRoute } from '../../store/currentRoute';
 import './MapAdjustment.css'
 
 
-function EditMapForm({ routeId, onClose, setResponse }) {
-    const route = useSelector(state => state.routes[routeId])
+function EditMapForm({ route, onClose, setResponse, setLoaded }) {
+    // const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
-    const [start, setStart] = useState({ ...route.startingPoint })
-    const [end, setEnd] = useState({ ...route.endingPoint })
+    const [start, setStart] = useState({ ...route?.startingPoint })
+    const [end, setEnd] = useState({ ...route?.endingPoint })
     const [errors, setErrors] = useState([]);
-    const [title, setTitle] = useState(route.title)
-    const [description, setDescription] = useState(route.description)
-    const [travelingMode, setTravelingMode] = useState(route.travelMode)
-    const [distance, setDistance] = useState(route.distance)
+    const [title, setTitle] = useState(route?.title)
+    const [description, setDescription] = useState(route?.description)
+    const [travelingMode, setTravelingMode] = useState(route?.travelMode)
+    const [distance, setDistance] = useState(route?.distance)
 
     const { isLoaded } = useLoadScript({
         id: 'google-map-script',
         googleMapsApiKey: currUser.mapKey
     })
-    // console.log('start', start)
-    // console.log('end', end)
 
     const center = {
-        lat: (route.startingPoint.lat + route.endingPoint.lat) / 2,
-        lng: (route.startingPoint.lng + route.endingPoint.lng) / 2
+        lat: (route?.startingPoint.lat + route?.endingPoint.lat) / 2,
+        lng: (route?.startingPoint.lng + route?.endingPoint.lng) / 2
     };
-    // console.log(start)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // setResponse(null)
         const payload = {
             id: route.id,
             user_id: currUser.id,
@@ -52,13 +47,14 @@ function EditMapForm({ routeId, onClose, setResponse }) {
             setErrors(res)
         } else {
             setResponse(null)
+            setLoaded(false)
             onClose()
         }
     }
 
-    useEffect(() => {
-        dispatch(getAllRoutes())
-    }, [dispatch, start, end])
+    // useEffect(() => {
+    //     dispatch(getAllRoutes())
+    // }, [dispatch])
 
 
     useEffect(() => {
@@ -84,14 +80,14 @@ function EditMapForm({ routeId, onClose, setResponse }) {
                             <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}></script>
                             <div id='map'>
                                 <GoogleMap
-                                    zoom={10}
+                                    zoom={6}
                                     center={center}
                                     mapContainerClassName='emf-map-container'
                                 >
                                     <DistanceMatrixService
                                         options={{
-                                            destinations: [end],
-                                            origins: [start],
+                                            destinations: [{...end}],
+                                            origins: [{...start}],
                                             travelMode: travelingMode,
                                         }}
                                         callback={(response) => { setDistance(response.rows[0].elements[0].distance.text) }}

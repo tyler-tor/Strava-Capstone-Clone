@@ -31,7 +31,7 @@ const MapComponent = ({ lat, lng }) => {
 
     useEffect(() => {
         dispatch(getAllRoutes())
-    }, [])
+    }, [dispatch])
 
     return isLoaded ? (
         <>

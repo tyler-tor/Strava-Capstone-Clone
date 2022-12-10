@@ -29,7 +29,8 @@ function User() {
       <div className='user-info'>
         <div className='user-propic-container'>
           <img src={user.profilePicture}
-            className='user-pic' />
+            className='user-pic'
+            alt='picture' />
         </div>
         <div className='user-info-item-container'>
           <ul>

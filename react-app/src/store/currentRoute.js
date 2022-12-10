@@ -16,12 +16,12 @@ export const getCurrentRoute = (routeId) => async (dispatch) => {
 }
 
 
-export default function currentRouteReducer(state = {}, action) {
+export default function currentRouteReducer(state = { route: null}, action) {
     let newState;
     switch(action.type) {
         case GET_CURRENT_ROUTE:
-            newState = {}
-            newState = {...action.payload}
+            newState = {...state}
+            newState.route = {...action.payload}
             return newState
         default:
             return state

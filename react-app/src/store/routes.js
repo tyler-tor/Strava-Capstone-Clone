@@ -47,7 +47,7 @@ export const addRoute = (route) => async (dispatch) => {
     if (response.ok) {
         const newRoute = response.json();
         dispatch(addRouteAction(newRoute));
-    }else if (response.status < 500) {
+    } else if (response.status < 500) {
         const data = response.json();
         if (data.errors) {
             return data.errors;
@@ -76,12 +76,12 @@ export const updateRoute = (route) => async (dispatch) => {
     if (response.ok) {
         const updateRoute = response.json();
         dispatch(updateRouteAction(updateRoute));
-    }else if (response.status < 500) {
+    } else if (response.status < 500) {
         const data = response.json();
         if (data.errors) {
             return data.errors
         };
-    }else {
+    } else {
     }
 };
 
@@ -108,15 +108,15 @@ export default function routesReducer(state = {}, action) {
             });
             return newState;
         case ADD_ROUTE:
-            newState = {...state};
+            newState = { ...state };
             newState[action.payload.id] = action.payload
             return newState;
         case UPDATE_ROUTE:
-            newState = {...state};
-            newState[action.payload.id] = {...action.payload}
+            newState = { ...state };
+            newState[action.payload.id] = { ...action.payload }
             return newState;
         case DELETE_ROUTE:
-            newState = {...state};
+            newState = { ...state };
             delete newState[action.payload]
             return newState;
         default:

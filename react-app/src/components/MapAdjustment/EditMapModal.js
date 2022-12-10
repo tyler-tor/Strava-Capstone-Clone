@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 import { Modal } from '../../context/Modal'
 import EditMapForm from './EditMapForm'
 
-function EditMapModal({routeId, setResponse}) {
+function EditMapModal({route, setResponse, setLoaded}) {
     const [showModal, setShowModal] = useState(false)
 
     return (
@@ -10,7 +10,7 @@ function EditMapModal({routeId, setResponse}) {
             <button className='edit-btn'
             onClick={() => setShowModal(true)}>Edit</button>
             {showModal && (<Modal onClose={() => setShowModal(false)}>
-                <EditMapForm routeId={routeId} setResponse={setResponse}
+                <EditMapForm route={route} setResponse={setResponse} setLoaded={setLoaded}
                 onClose={() => setShowModal(false)} />
             </Modal>)}
         </div>

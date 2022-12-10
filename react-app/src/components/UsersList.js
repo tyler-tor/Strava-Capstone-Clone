@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { getAllUsers } from '../store/users';
 
 function UsersList() {
-  // const [users, setUsers] = useState([]);
   const dispatch = useDispatch()
   const users = Object.values(useSelector(state => state.users))
 

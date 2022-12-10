@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { GoogleMap, useLoadScript, Marker, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllRoutes } from '../../store/routes';
+// import { getAllRoutes } from '../../store/routes';
 import {getCurrentRoute} from '../../store/currentRoute'
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
@@ -17,10 +17,10 @@ const center = {
 
 function RouteDisplay() {
     const { routeId } = useParams();
-    const route = useSelector(state => state.routes[routeId])
+    const route = useSelector(state => state.currentRoute.route)
     const currUser = useSelector(state => state.session.user)
     const [response, setResponse] = useState(null)
-    // console.log('response', response)
+    const [loaded, setLoaded] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -39,20 +39,20 @@ function RouteDisplay() {
     }
 
 
-    useEffect(() => {
-        // dispatch(getCurrentRoute(routeId))
-        dispatch(getAllRoutes());
-    }, [dispatch, response])
+    useEffect(async () => {
+        await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
+    }, [dispatch, response, routeId])
 
 
     if (!route) {
         return null
     }
 
-    return (
+
+    return route && (
         <div className='route-info-container'>
             <div className='route-map-info-container'>
-                {isLoaded ?
+                {loaded && isLoaded ?
                     <>
                         <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}></script>
                         <div id='map'>
@@ -65,9 +65,9 @@ function RouteDisplay() {
                                     <DirectionsService
                                         options={{
                                             ...route.requestData,
-                                            // destination: route.endingPoint,
-                                            // origin: route.startingPoint,
-                                            // travelMode: route.travelMode
+                                            destination: route.requestData.destination,
+                                            origin: route.requestData.origin,
+                                            travelMode: route.travelMode
                                         }}
                                         callback={directionsCallback}
 
@@ -78,7 +78,7 @@ function RouteDisplay() {
                                     <>
 
                                         <DirectionsRenderer
-                                            // panel={document.getElementById("panel")}
+                                            panel={document.getElementById("panel")}
                                             options={{
                                                 directions: response
                                             }}
@@ -127,13 +127,13 @@ function RouteDisplay() {
                                 <strong>Title: </strong>
                                 {'   '}
                                 <p>
-                                    {route.title}
+                                    {route?.title}
                                 </p>
                             </li>
                             <li className='ri-item'>
                                 <strong>Description: </strong>
                                 <p>
-                                    {route.description}
+                                    {route?.description}
                                 </p>
                             </li>
                             <li className='ri-item'>
@@ -150,7 +150,7 @@ function RouteDisplay() {
                             </li>
                         </ul>
                         {currUser.id === route.userId &&
-                            <MapAdjustment routeId={route.id} setResponse={setResponse} />
+                            <MapAdjustment route={route} setResponse={setResponse} setLoaded={setLoaded} />
                         }
                     </div>
                 </div>
