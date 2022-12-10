@@ -153,6 +153,7 @@ export default function routesReducer(state = {currentRoute: null, routes: null}
         case UPDATE_CURRENT_ROUTE:
             newState = {...state};
             newState.currentRoute = {...action.payload}
+            return newState
         case DELETE_ROUTE:
             newState = { ...state };
             delete newState.routes[action.payload]
