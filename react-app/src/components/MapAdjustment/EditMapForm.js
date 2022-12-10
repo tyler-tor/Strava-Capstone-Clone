@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-// import { useHistory } from 'react-router-dom';
 import { updateRoute, getAllRoutes } from '../../store/routes';
-// import { getAllRoutes } from '../../store/routes';
 import { GoogleMap, useLoadScript, Marker, DistanceMatrixService } from '@react-google-maps/api';
+import { getCurrentRoute } from '../../store/currentRoute';
 import './MapAdjustment.css'
 
 
@@ -11,34 +10,30 @@ function EditMapForm({ routeId, onClose, setResponse }) {
     const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
-    // const history = useHistory()
-    //------------------------
-    // const [origin, setOrigin] = useState({ ...route.startingPoint })
-    // const [destination, setDestination] = useState({ ...route.endingPoint })
-    // const [response, setResponse] = useState(null)
-    //------------------------
     const [start, setStart] = useState({ ...route.startingPoint })
     const [end, setEnd] = useState({ ...route.endingPoint })
     const [errors, setErrors] = useState([]);
     const [title, setTitle] = useState(route.title)
     const [description, setDescription] = useState(route.description)
-    // const [imageUrl, setImageUrl] = useState(route.imageUrl)
     const [travelingMode, setTravelingMode] = useState(route.travelMode)
     const [distance, setDistance] = useState(route.distance)
 
-    // console.log(start, end)
     const { isLoaded } = useLoadScript({
         id: 'google-map-script',
         googleMapsApiKey: currUser.mapKey
     })
+    // console.log('start', start)
+    // console.log('end', end)
 
     const center = {
-        lat: (route.startingPoint.lat + route.endingPoint.lat)/2,
-        lng: (route.startingPoint.lng + route.endingPoint.lng)/2
+        lat: (route.startingPoint.lat + route.endingPoint.lat) / 2,
+        lng: (route.startingPoint.lng + route.endingPoint.lng) / 2
     };
+    // console.log(start)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // setResponse(null)
         const payload = {
             id: route.id,
             user_id: currUser.id,
@@ -52,11 +47,8 @@ function EditMapForm({ routeId, onClose, setResponse }) {
             distance: distance,
             image_url: route.imageUrl
         }
-        const res = await dispatch(updateRoute(payload)).then(() => {
-            dispatch(getAllRoutes())
-        })
+        const res = await dispatch(updateRoute(payload))
         if (res) {
-            // console.log(res)
             setErrors(res)
         } else {
             setResponse(null)
@@ -66,7 +58,7 @@ function EditMapForm({ routeId, onClose, setResponse }) {
 
     useEffect(() => {
         dispatch(getAllRoutes())
-    }, [dispatch])
+    }, [dispatch, start, end])
 
 
     useEffect(() => {
@@ -76,6 +68,7 @@ function EditMapForm({ routeId, onClose, setResponse }) {
     if (!route) {
         return null
     }
+    // console.log(route)
 
     return (
         <div className='edit-map-form-container'>
@@ -91,31 +84,36 @@ function EditMapForm({ routeId, onClose, setResponse }) {
                             <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}></script>
                             <div id='map'>
                                 <GoogleMap
-                                    zoom={9}
+                                    zoom={10}
                                     center={center}
                                     mapContainerClassName='emf-map-container'
                                 >
                                     <DistanceMatrixService
                                         options={{
-                                            destinations: [{ ...end }],
-                                            origins: [{ ...start }],
+                                            destinations: [end],
+                                            origins: [start],
                                             travelMode: travelingMode,
                                         }}
                                         callback={(response) => { setDistance(response.rows[0].elements[0].distance.text) }}
                                     />
-                                    <Marker
-                                        position={start}
-                                        draggable={true}
-                                        onDragEnd={(e) => setStart({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
-                                        title='Start Point'>
-                                    </Marker >
-                                    <Marker
-                                        position={end}
-                                        draggable={true}
-                                        onDragEnd={(e) => setEnd({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
-                                        title='End Point'
-                                    >
-                                    </Marker >
+                                    {route && (
+                                        <>
+                                            <Marker
+                                                position={start}
+                                                draggable={true}
+                                                onDragEnd={(e) =>setStart({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
+                                                title='Start Point'>
+                                            </Marker >
+                                            <Marker
+                                                position={end}
+                                                draggable={true}
+                                                onDragEnd={(e) => setEnd({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
+                                                title='End Point'
+                                            >
+                                            </Marker >
+                                        </>
+                                    )
+                                    }
                                 </GoogleMap>
                             </div>
                         </>

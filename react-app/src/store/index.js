@@ -7,6 +7,7 @@ import friendsReducer from './friends';
 import workoutReducer from './workouts';
 import routesReducer from './routes';
 import friendsActivityReducer from './friendsActivity';
+import currentRouteReducer from './currentRoute';
 import mapReducer from './map';
 
 const rootReducer = combineReducers({
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   workouts: workoutReducer,
   routes: routesReducer,
   friendsActivity: friendsActivityReducer,
-  mapKey: mapReducer
+  mapKey: mapReducer,
+  currentRoute: currentRouteReducer
 });
 
 

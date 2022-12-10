@@ -48,17 +48,17 @@ const MapComponent = ({ lat, lng }) => {
                     {routes && routes.map(route => {
                         return (
                         <div key={route.id}>
-                            <Marker position={{...route.startingPoint}}
+                            {route.startingPoint && <Marker position={{...route.startingPoint}}
                             onClick={() => {
                                 setSelected({'coord':{...route.startingPoint}, 'route': route})
                             }}
-                            />
+                            />}
                         </div>
                         )
                     })}
 
                     {selected ? (
-                        <InfoWindow position={{lat: parseFloat(selected.coord.lat), lng: parseFloat(selected.coord.lng)}}
+                        <InfoWindow position={{lat: selected.coord.lat, lng: selected.coord.lng}}
                         onCloseClick={() => {
                             setSelected(null)
                         }}>

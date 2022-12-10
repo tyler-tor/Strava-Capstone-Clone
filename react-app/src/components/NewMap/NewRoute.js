@@ -75,10 +75,10 @@ function NewRoute() {
 
   const handleMarkerSet = (e) => {
     if (allowStart === true) {
-      setStart({ lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) })
+      setStart({ lat: e.latLng.lat(), lng: e.latLng.lng() })
     }
     if (allowEnd === true) {
-      setEnd({ lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) })
+      setEnd({ lat: e.latLng.lat(), lng: e.latLng.lng() })
     }
   }
 
@@ -123,8 +123,8 @@ function NewRoute() {
                 >
                 {start && end && travelingMode && (<DistanceMatrixService
                     options={{
-                      destinations: [{ lat:parseFloat(end.lat), lng: parseFloat(end.lng) }],
-                      origins: [{ lat:parseFloat(start.lat), lng: parseFloat(start.lng) }],
+                      destinations: [{ lat:end.lat, lng: end.lng }],
+                      origins: [{ lat:start.lat, lng: start.lng }],
                       travelMode: travelingMode,
                     }}
                     callback={(response) => { setDistance(response.rows[0].elements[0].distance.text) }}
@@ -132,13 +132,13 @@ function NewRoute() {
                   <Marker
                     position={start}
                     draggable={true}
-                    onDragEnd={(e) => setStart({ lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) })}
+                    onDragEnd={(e) => setStart({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
                     title='Start Point'>
                   </Marker >
                   <Marker
                     position={end}
                     draggable={true}
-                    onDragEnd={(e) => setEnd({ lat: parseFloat(e.latLng.lat()), lng: parseFloat(e.latLng.lng()) })}
+                    onDragEnd={(e) => setEnd({ lat: e.latLng.lat(), lng: e.latLng.lng() })}
                     title='End Point'
                   >
                   </Marker >

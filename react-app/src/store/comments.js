@@ -30,9 +30,9 @@ const deleteCommentAction = (id) => ({
     payload: id
 });
 
-const clearCommentsAction = () => ({
-    type: CLEAR_COMMENTS
-});
+// const clearCommentsAction = () => ({
+//     type: CLEAR_COMMENTS
+// });
 
 export const getRouteComments = (id) => async (dispatch) => {
     const response = await fetch(`/api/routes/${id}/comments`);

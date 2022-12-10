@@ -35,7 +35,6 @@ export const getAllRoutes = () => async (dispatch) => {
 }
 
 export const addRoute = (route) => async (dispatch) => {
-    // console.log(route)
     const response = await fetch('/api/routes/', {
         method: 'POST',
         headers: {
@@ -45,7 +44,6 @@ export const addRoute = (route) => async (dispatch) => {
             ...route
         })
     });
-    // console.log('res', response)
     if (response.ok) {
         const newRoute = response.json();
         dispatch(addRouteAction(newRoute));
@@ -53,14 +51,11 @@ export const addRoute = (route) => async (dispatch) => {
         const data = response.json();
         if (data.errors) {
             return data.errors;
-        }else{
-            // return data
         }
     }
 }
 
 export const updateRoute = (route) => async (dispatch) => {
-    // console.log('route', route)
     const response = await fetch(`/api/routes/${route.id}`, {
         method: 'PUT',
         headers: {
@@ -78,18 +73,15 @@ export const updateRoute = (route) => async (dispatch) => {
             image_url: route.image_url
         })
     });
-    // console.log('response', response)
     if (response.ok) {
         const updateRoute = response.json();
         dispatch(updateRouteAction(updateRoute));
-        // return updateRoute
     }else if (response.status < 500) {
         const data = response.json();
         if (data.errors) {
             return data.errors
         };
     }else {
-        // return response
     }
 };
 
@@ -99,9 +91,8 @@ export const deleteRoute = (id) => async (disptch) => {
     });
 
     if (response.ok) {
-        const data = await response.json();
+        await response.json();
         disptch(deleteRouteAction(id));
-        // return data;
     };
     return response
 }

@@ -3,6 +3,7 @@ import { GoogleMap, useLoadScript, Marker, DirectionsService, DirectionsRenderer
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllRoutes } from '../../store/routes';
+import {getCurrentRoute} from '../../store/currentRoute'
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
 import MapAdjustment from '../MapAdjustment/MapAdjustment';
@@ -18,9 +19,6 @@ function RouteDisplay() {
     const { routeId } = useParams();
     const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
-    // console.log('route', route)
-    // const [destination, setDestination] = useState({ ...route.endingPoint })
-    // const [origin, setOrigin] = useState({ ...route.startingPoint })
     const [response, setResponse] = useState(null)
     // console.log('response', response)
 
@@ -30,57 +28,21 @@ function RouteDisplay() {
         id: 'google-map-script',
         googleMapsApiKey: currUser.mapKey
     })
-    // `https://maps.googleapis.com/maps/api/staticmap?size=500x400&markers=${route.startingPoint.lat}|${route.startingPoint.lng}
-    // &markers=${route.endingPoint.lat}|${route.endingPoint.lng}&key=${currUser.mapKey}`
-    const image = {
-        url: 'https://capstone-strava-clone-aktiv.s3.us-west-2.amazonaws.com/flag-marker.png',
-        scaledSize: { height: 40, width: 40 }
-    }
-    // console.log("Route: " + response.distance);
+
 
     const directionsCallback = (response) => {
         if (response !== null) {
             if (response.status === 'OK') {
                 setResponse(response)
-            } else {
-                // console.log("Route: " + response.status);
             }
         }
     }
 
-    // const updateCallback = () => {
-    //     console.log('here')
-    //     if (route.endingPoint !== '' && response === null) {
-
-    //         return (
-    //             <DirectionsService
-    //                 options={{
-    //                     ...route.requestData,
-    //                     // destination: destination,
-    //                     // origin: origin,
-    //                     // travelMode: route.travelMode
-    //                 }}
-    //                 callback={directionsCallback}
-
-    //             />
-    //         )
-    //     }
-
-    // }
-
-    // const startMarker = () => {
-    //     return (
-    //         <Marker
-    //             position={{ ...route.startingPoint }}>
-    //         </Marker >
-    //     )
-    // }
-
 
     useEffect(() => {
-        // updateCallback()
+        // dispatch(getCurrentRoute(routeId))
         dispatch(getAllRoutes());
-    }, [dispatch])
+    }, [dispatch, response])
 
 
     if (!route) {
@@ -103,8 +65,8 @@ function RouteDisplay() {
                                     <DirectionsService
                                         options={{
                                             ...route.requestData,
-                                            // destination: destination,
-                                            // origin: origin,
+                                            // destination: route.endingPoint,
+                                            // origin: route.startingPoint,
                                             // travelMode: route.travelMode
                                         }}
                                         callback={directionsCallback}
@@ -116,28 +78,19 @@ function RouteDisplay() {
                                     <>
 
                                         <DirectionsRenderer
-                                            panel={document.getElementById("panel")}
+                                            // panel={document.getElementById("panel")}
                                             options={{
                                                 directions: response
                                             }}
 
 
                                         />
-                                        {/* <Marker
-                                            position={{ ...route.startingPoint }}>
-                                        </Marker >
-                                        <Marker
-                                            position={{ ...route.endingPoint }}
-                                            icon={image}
-                                        >
-                                        </Marker > */}
+
                                     </>
                                 )}
 
                             </GoogleMap>
-                            {/* <div id='panel'>
 
-                            </div> */}
                         </div>
                     </>
 
