@@ -29,7 +29,7 @@ function RouteDisplay() {
         googleMapsApiKey: currUser.mapKey
     })
 
-    console.log(route)
+    // console.log(route)
     const directionsCallback = (response) => {
         // setLoaded(false)
         if (response !== null) {
@@ -44,7 +44,7 @@ function RouteDisplay() {
     useEffect(async () => {
 
             await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
-        
+
 
     }, [dispatch, response])
 
