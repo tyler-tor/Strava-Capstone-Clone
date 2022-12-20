@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import TempRoute from './components/BackendTestComponents/RouteTemp';
 import TempWorkout from './components/BackendTestComponents/WorkoutTemp';
 import TempComment from './components/BackendTestComponents/CommentTemp';
+import ActivityFeed from './components/ActivityFeed';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
 import HomePage from './components/HomePage/HomePage';
@@ -57,6 +58,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path='/routes' exact={true} >
               <Routes />
+            </ProtectedRoute>
+            <ProtectedRoute path='/activity' exact={true} >
+              <ActivityFeed />
             </ProtectedRoute>
             <ProtectedRoute path='/routes/:routeId' exact={true} >
               <RouteDisplay />
