@@ -33,9 +33,13 @@ function ActivityFeed() {
         // console.log('polyline', polyLine)
         let map = await fetch(`${route.staticMap}&path=${polyLine.routes[0].overview_polyline.points}&key=${currUser.mapKey}`)
         // console.log('map', map)
-        let res2 = map.url
-        // console.log('res2', res2)
-        return res2
+        // let res2 = map
+        console.log('res2', map.url)
+        // return map.url
+        return `${route.staticMap}&path=${polyLine.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
+        // return (
+        //     <img src={`${map.url}`} alt='route map' />
+        // )
     }
 
     useEffect(() => {
@@ -59,11 +63,19 @@ function ActivityFeed() {
                         {/* {setPolyline(route)} */}
                         {route && (
                             <div>
-                                {console.log(setPolyline(route).then((res) => console.log(res)))}
-                                <img async src={setPolyline(route).then((res) => {
-                                    return res
-                                    })} alt='route map' />
-                                {/* // <img src={setMap(route)} alt='route map' /> */}
+                                {/* {setPolyline(route)} */}
+                                {/* {console.log(setPolyline(route).then((res) => console.log(`${res}`)))} */}
+                                {/* <img src={setPolyline(route).then((res) => `${res}`)} alt='route map' /> */}
+                                <img src={() => {
+                                    let res = fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`)
+                                    const polyLine = res.json()
+                                    console.log('path', polyLine)
+                                    const map = fetch(`${route.staticMap}&path=${polyLine.routes[0].overview_polyline.points}&key=${currUser.mapKey}`)
+                                    return map.url
+                                    // setPolyline(route).then((res) => res)}
+                                } }alt='route map' />
+                                <img src={`${route.staticMap}&key=${currUser.mapKey}`} alt='route map' />
+                                {/* <img src={setMap(route)} alt='route map' /> */}
                             </div>
                         )}
                     </div>
