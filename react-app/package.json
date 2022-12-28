@@ -11,6 +11,7 @@
     "@types/google.maps": "^3.50.5",
     "dotenv": "^16.0.3",
     "dotenv-webpack": "^8.0.1",
+    "google-map-react": "^2.2.0",
     "google-maps": "^4.3.3",
     "http-proxy-middleware": "^1.0.5",
     "react": "^17.0.2",
@@ -21,7 +22,8 @@
     "react-scripts": "^4.0.3",
     "redux": "^4.1.0",
     "redux-logger": "^3.0.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "static-google-map": "^0.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

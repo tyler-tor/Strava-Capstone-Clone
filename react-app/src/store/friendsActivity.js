@@ -1,32 +1,27 @@
 const GET_FRIENDS_ACTIVITY = 'friends/GET_FRIENDS_ACTIVITY';
 
-const getFriendsActivityAction = (routes) => ({
+const getFriendsActivityAction = (activity) => ({
     type: GET_FRIENDS_ACTIVITY,
-    payload: routes
+    payload: activity
 });
 
 export const getAllFriendsActivity = () => async (dispatch) => {
-    const response = await fetch('/api/me/friends/activity');
-    if (response.ok) {
-        const data = await response.json();
-        // console.log(data.routes)
-        dispatch(getFriendsActivityAction(data.routes));
-        return data;
+    const res = await fetch('/api/me/friends/activity');
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(getFriendsActivityAction(data));
     };
-    return response;
+    return res;
 };
 
 
-export default function friendsActivityReducer(state = {}, action) {
+export default function friendsActivityReducer(state = {routes: null, workouts: null}, action) {
     let newState = {}
     switch(action.type) {
         case GET_FRIENDS_ACTIVITY:
                 newState = {...state}
-                // console.log('payload-------', action.payload)
-                action.payload.forEach(route => {
-                    newState[route.id] = route
-                })
-                // console.log('newstate------', newState)
+                newState.routes = action.payload.routes
+                newState.workouts = action.payload.workouts
                 return newState;
         default:
             return state;
