@@ -2,6 +2,24 @@
 
 Welcome to my application where users can view/create/delete Routes and interact by commenting on their own or other's routes.
 
+## Technologies Used:
+- JavaScript
+- Python
+- SqlAlchemy
+- React
+- Redux
+- CSS
+- GoogleMaps API
+- AWS
+- react-google-maps/api
+- Flask
+- Alembic
+- DockerFile
+- Postgres
+- Git
+
+[![My Skills](https://skills.thijs.gg/icons?i=js,html,css,docker,postgres,nodejs,py,react,git)](https://skills.thijs.gg)
+
 ## How to get started
   1. Copy the code sample into a local repository
   2. Once finished 'pipenv install' to install dependencies
@@ -95,21 +113,3 @@ Welcome to my application where users can view/create/delete Routes and interact
 ![image](https://user-images.githubusercontent.com/93111660/206754988-e3bdd9bf-c220-47cd-b686-b469fbd184a8.png)
 - By Selecting a user's username on a route you will have access to that user's profile page where you can view all those user's routes and visit those routes if so desired.
 
-
-## Technologies Used:
-- JavaScript
-- Python
-- SqlAlchemy
-- React
-- Redux
-- CSS
-- GoogleMaps API
-- AWS
-- react-google-maps/api
-- Flask
-- Alembic
-- DockerFile
-- Postgres
-- Git
-
-[![My Skills](https://skills.thijs.gg/icons?i=js,html,css,docker,postgres,nodejs,py,react,git)](https://skills.thijs.gg)
