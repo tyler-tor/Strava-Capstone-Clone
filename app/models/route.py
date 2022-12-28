@@ -73,7 +73,7 @@ class Route(db.Model):
                 },
                 'travelMode': self.traveling_mode
             },
-            'staticMap': f'https://maps.googleapis.com/maps/api/staticmap?markers={self.start_lat},{self.start_lng}|{self.end_lat},{self.end_lng}&size=300x300',
+            'staticMap': f'https://maps.googleapis.com/maps/api/staticmap?markers={self.start_lat},{self.start_lng}|{self.end_lat},{self.end_lng}&size=300x300&maptype=roadmap',
             'distance': self.distance,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,

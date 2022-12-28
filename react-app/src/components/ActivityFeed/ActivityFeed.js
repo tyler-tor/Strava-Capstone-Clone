@@ -5,6 +5,7 @@ import { getAllFriendsActivity } from '../../store/friendsActivity';
 
 function ActivityFeed() {
     const dispatch = useDispatch();
+    const [polyRoutes, setPolyRoutes] = useState([])
     const routes = useSelector(state => state.friendsActivity.routes)
     const workouts = useSelector(state => state.friendsActivity.workouts)
     const currUser = useSelector(state => state.session.user)
@@ -25,57 +26,44 @@ function ActivityFeed() {
         merged.sort(compare).reverse()
     }
 
-
-    const setPolyline = async (route) => {
-        // console.log(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`)
-        let res = await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`)
-        const polyLine = await res.json()
-        // console.log('polyline', polyLine)
-        let map = await fetch(`${route.staticMap}&path=${polyLine.routes[0].overview_polyline.points}&key=${currUser.mapKey}`)
-        // console.log('map', map)
-        // let res2 = map
-        console.log('res2', map.url)
-        // return map.url
-        return `${route.staticMap}&path=${polyLine.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
-        // return (
-        //     <img src={`${map.url}`} alt='route map' />
-        // )
-    }
+    useEffect(async () => {
+        if(routes) {
+            let arr = [...routes]
+            for(let route of arr) {
+                await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`).then(async (res) => {
+                    if(res.ok) {
+                        let jsonify = await res.json()
+                        route['directionsFetch'] = jsonify
+                        route['routeMapSrc'] = `https://maps.googleapis.com/maps/api/staticmap?size=300x300&markers=${route.startingPoint.lat},${route.startingPoint.lng}|${route.endingPoint.lat},${route.endingPoint.lng}&path=enc:${route.directionsFetch.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
+                    }
+                })
+            }
+            setPolyRoutes(arr)
+        }
+    }, [routes])
 
     useEffect(() => {
         dispatch(getAllFriendsActivity())
-    }, [])
+    }, [dispatch])
 
     if (!routes) {
         return null;
-    };
-
+    }
 
     return routes && workouts && currUser && (
         <div className='activity-feed-container'>
             {merged.map(route => {
                 return route.startingPoint && route.endingPoint && (
                     <div className='af-posts-container'
-                        key={route.title}>
+                    key={route.title}>
+                            {/* {console.log('route', route)} */}
                         <div className='post-info-container'>
                             {route.title}
                         </div>
-                        {/* {setPolyline(route)} */}
                         {route && (
                             <div>
-                                {/* {setPolyline(route)} */}
-                                {/* {console.log(setPolyline(route).then((res) => console.log(`${res}`)))} */}
-                                {/* <img src={setPolyline(route).then((res) => `${res}`)} alt='route map' /> */}
-                                <img src={() => {
-                                    let res = fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`)
-                                    const polyLine = res.json()
-                                    console.log('path', polyLine)
-                                    const map = fetch(`${route.staticMap}&path=${polyLine.routes[0].overview_polyline.points}&key=${currUser.mapKey}`)
-                                    return map.url
-                                    // setPolyline(route).then((res) => res)}
-                                } }alt='route map' />
-                                <img src={`${route.staticMap}&key=${currUser.mapKey}`} alt='route map' />
-                                {/* <img src={setMap(route)} alt='route map' /> */}
+                                {/* {console.log(route)} */}
+                                <img src={route.routeMapSrc} alt='route map' />
                             </div>
                         )}
                     </div>
