@@ -46,7 +46,7 @@ const ImageUploadComponent = ({ setUrl }) => {
         {imageLoading && <p>Loading...</p>}
       </form>
       {uploadedImg && (
-        <img src={prevImgUrl} alt="your image" className="prev_img" />
+        <img src={prevImgUrl} alt="yours" className="prev_img" />
       )}
     </>
   );

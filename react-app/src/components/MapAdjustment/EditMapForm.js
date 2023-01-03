@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateRoute } from '../../store/routes';
-import { updateCurrentRoute } from '../../store/currentRoute';
+// import { updateCurrentRoute } from '../../store/currentRoute';
 import { GoogleMap, useLoadScript, Marker, DistanceMatrixService } from '@react-google-maps/api';
 import './MapAdjustment.css'
 
@@ -30,7 +30,7 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         const payload = {
             id: route.id,
             user_id: currUser.id,

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllFriendsActivity } from '../../store/friendsActivity';
-
+import './ActivityFeed.css';
 
 function ActivityFeed() {
     const dispatch = useDispatch();
@@ -12,11 +12,11 @@ function ActivityFeed() {
     let merged
 
     const compare = (a, b) => {
-        if (a.createdAt < b.createdAt ){
+        if (a.createdAt < b.createdAt) {
             return -1;
-        }else if (a.createdAt > b.createdAt) {
+        } else if (a.createdAt > b.createdAt) {
             return 1;
-        }else {
+        } else {
             return 0;
         };
     };
@@ -27,20 +27,20 @@ function ActivityFeed() {
     }
 
     useEffect(async () => {
-        if(routes) {
+        if (routes) {
             let arr = [...routes]
-            for(let route of arr) {
+            for (let route of arr) {
                 await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`).then(async (res) => {
-                    if(res.ok) {
+                    if (res.ok) {
                         let jsonify = await res.json()
                         route['directionsFetch'] = jsonify
-                        route['routeMapSrc'] = `https://maps.googleapis.com/maps/api/staticmap?size=300x300&markers=${route.startingPoint.lat},${route.startingPoint.lng}|${route.endingPoint.lat},${route.endingPoint.lng}&path=enc:${route.directionsFetch.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
+                        route['routeMapSrc'] = `https://maps.googleapis.com/maps/api/staticmap?size=400x300&markers=${route.startingPoint.lat},${route.startingPoint.lng}|${route.endingPoint.lat},${route.endingPoint.lng}&path=enc:${route.directionsFetch.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
                     }
                 })
             }
             setPolyRoutes(arr)
         }
-    }, [routes])
+    }, [routes, dispatch, currUser.mapKey])
 
     useEffect(() => {
         dispatch(getAllFriendsActivity())
@@ -52,20 +52,67 @@ function ActivityFeed() {
 
     return routes && workouts && currUser && (
         <div className='activity-feed-container'>
-            {merged.map(route => {
-                return route.startingPoint && route.endingPoint && (
+            {merged.map(activity => {
+                return (
                     <div className='af-posts-container'
-                    key={route.title}>
-                            {/* {console.log('route', route)} */}
-                        <div className='post-info-container'>
-                            {route.title}
-                        </div>
-                        {route && (
-                            <div>
-                                {/* {console.log(route)} */}
-                                <img src={route.routeMapSrc} alt='route map' />
+                        key={activity.title}>
+                        {/* <div className='post-info-container'> */}
+                        {activity.routeMapSrc ? (
+                            <div className='post-info-container'>
+                                <div className='img-container'>
+                                    <img src={activity.routeMapSrc} alt='route map'
+                                        className='static-map'
+                                    />
+                                </div>
+                                <div className='post-info'>
+                                    <strong>
+                                        {activity.title}
+                                    </strong>
+                                    <strong>
+                                        {activity.description}
+                                    </strong>
+                                    <strong>
+                                        {activity.distance}
+                                    </strong>
+                                </div>
+                                <div className='post-owner-info'>
+                                    <img src={activity.ownerInfo.profilePicture} alt='owner'
+                                        className='owner-pro-pic'
+                                    />
+                                    <p>{activity.ownerInfo.username}</p>
+                                    <p>{activity.ownerInfo.email}</p>
+                                </div>
+                            </div>
+                        ) : (
+                            <div className='post-info-container'>
+                                <div className='img-container'>
+                                    <img src={activity.imageUrl} alt='workout'
+                                        className='workout-pic'
+                                    />
+                                </div>
+                                <div className='post-info'>
+                                    <strong>
+                                        {activity.title}
+                                    </strong>
+                                    <strong>
+                                        {activity.description}
+                                    </strong>
+                                    <strong>
+                                        {activity.distance}
+                                    </strong>
+                                    <strong>
+                                        {activity.totalTime}
+                                    </strong>
+                                </div>
+                                <div className='post-owner-info'>
+                                    <img src={activity.ownerInfo.profilePicture} alt='owner'
+                                        className='owner-pro-pic'
+                                    />
+                                    <p>{activity.ownerInfo.username}</p>
+                                </div>
                             </div>
                         )}
+                        {/* </div> */}
                     </div>
                 )
             })}

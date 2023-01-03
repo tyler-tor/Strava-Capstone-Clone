@@ -9,7 +9,7 @@ function UsersList() {
 
   useEffect(() => {
     dispatch(getAllUsers())
-  }, []);
+  }, [dispatch]);
 
   const userComponents = users.map((user) => {
     return (

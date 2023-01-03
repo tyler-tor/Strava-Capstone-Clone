@@ -31,7 +31,7 @@ class Workout(db.Model):
             setattr(self, key, value)
         return self
 
-        
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -45,5 +45,12 @@ class Workout(db.Model):
             'imageUrl': self.image_url,
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
-            'comments': [comment.to_dict() for comment in self.comments]
+            'comments': [comment.to_dict() for comment in self.comments],
+            'ownerInfo': {
+                'profilePicture': self.users.profile_picture,
+                'firstName': self.users.first_name,
+                'lastName': self.users.last_name,
+                'email': self.users.email,
+                'username': self.users.username,
+            }
         }

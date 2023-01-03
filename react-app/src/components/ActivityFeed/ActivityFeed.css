@@ -1,6 +1,29 @@
+.activity-feed-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .af-posts-container {
     border: 1px black solid;
-    background-color: aqua;
-    height: 100px;
-    width: 100px;
+}
+
+.post-info-container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+}
+
+.post-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.workout-pic {
+    height: 300px;
+    width: 400px;
+}
+.owner-pro-pic {
+    height: 300px;
+    width: 400px;
 }

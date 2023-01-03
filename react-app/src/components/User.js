@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams,NavLink  } from 'react-router-dom';
+import { useParams, NavLink } from 'react-router-dom';
 // import { useDispatch } from 'react-redux';
 import './User.css'
 
 function User() {
   const [user, setUser] = useState('');
+  const [activity, setActivity] = useState([]);
   const { userId } = useParams();
-  // const dispatch = useDispatch()
 
   useEffect(() => {
     if (!userId) {
@@ -16,13 +16,21 @@ function User() {
       const response = await fetch(`/api/users/${userId}`);
       const user = await response.json();
       setUser(user);
+      setActivity([...user.routes, ...user.workouts].sort((a, b) => {
+        if (a.createdAt < b.createdAt) {
+          return -1;
+        } else if (a.createdAt > b.createdAt) {
+          return 1;
+        } else {
+          return 0;
+        };
+      }).reverse())
     })();
   }, [userId]);
 
   if (!user) {
     return null;
   }
-  // console.log(user)
 
   return (
     <div className='profile-container'>
@@ -30,7 +38,7 @@ function User() {
         <div className='user-propic-container'>
           <img src={user.profilePicture}
             className='user-pic'
-            alt='picture' />
+            alt='User' />
         </div>
         <div className='user-info-item-container'>
           <ul>
@@ -49,23 +57,24 @@ function User() {
           </ul>
         </div>
         <div className='user-routes-list'>
-          {user && user.routes.map(route => {
+          {user && activity.map(route => {
             return (
               <div className='user-page-route-container'
-                key={route.id}>
+                key={`${route.id}${route.title}`}>
                 {/* {console.log(route)} */}
                 <div className='user-route-pic-container'>
                   <img src={route.imageUrl}
+                  alt='route'
                     className='user-route-pic' />
                 </div>
                 <div className='user-route-item-container'>
                   <ul>
                     <li className='uri-item'>
                       <strong>Title - </strong>
-                      <NavLink to={`/routes/${route.id}`}
-                      className='title-link'>
-                      {route.title}
-                        </NavLink>
+                      <NavLink to={route.startingPoint ? `/routes/${route.id}` : `/workouts/${route.id}`}
+                        className='title-link'>
+                        {route.title}
+                      </NavLink>
                     </li>
                     <li className='uri-item'>
                       <strong>description - </strong> {route.description}
@@ -73,9 +82,15 @@ function User() {
                     <li className='uri-item'>
                       <strong>Distance - </strong> {route.distance}
                     </li>
-                    <li className='uri-item'>
-                      <strong>Travel Type - </strong> {route.travelMode}
-                    </li>
+                    {route.travelMode ? (
+                      <li className='uri-item'>
+                        <strong>Travel Type - </strong> {route.travelMode}
+                      </li>
+                    ) : (
+                      <li className='uri-item'>
+                        <strong>Workout Type - </strong> {route.type}
+                      </li>
+                    )}
                   </ul>
                 </div>
               </div>

@@ -16,12 +16,14 @@ function Footer() {
                 <div className='social-icons'>
                     <a href='https://www.linkedin.com/in/derek-torrero-02823018a/'
                     target='_blank'
+                    rel="noreferrer"
                     className='social-icon-link linkedin'
                     aria-label='Facebook'>
                         <i className='fab fa-linkedin'></i>
                     </a>
                     <a href='https://github.com/tyler-tor'
                     target='_blank'
+                    rel="noreferrer"
                     className='social-icon-link github'
                     aria-label='GitHub'>
                         <i className='fab fa-github'></i>
