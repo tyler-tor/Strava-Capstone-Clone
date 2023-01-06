@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import TempRoute from './components/BackendTestComponents/RouteTemp';
-import TempWorkout from './components/BackendTestComponents/WorkoutTemp';
-import TempComment from './components/BackendTestComponents/CommentTemp';
+// import TempRoute from './components/BackendTestComponents/RouteTemp';
+// import TempWorkout from './components/BackendTestComponents/WorkoutTemp';
+// import TempComment from './components/BackendTestComponents/CommentTemp';
 import ActivityFeed from './components/ActivityFeed';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
@@ -28,7 +28,10 @@ function App() {
   useEffect(() => {
     (async () => {
       await dispatch(authenticate());
-      await dispatch(getAllRoutes());
+      if (user) {
+
+        await dispatch(getAllRoutes());
+      }
       // await dispatch(getAllUsers());
       setLoaded(true);
     })();
@@ -38,7 +41,7 @@ function App() {
     return null;
   }
 
-  return (
+  return loaded && (
     <BrowserRouter>
       <NavBar />
       <Switch>
@@ -66,7 +69,7 @@ function App() {
               <RouteDisplay />
             </ProtectedRoute>
             {/* test routes for backend */}
-            <ProtectedRoute path='/routes/test' exact={true} >
+            {/* <ProtectedRoute path='/routes/test' exact={true} >
               <TempRoute />
             </ProtectedRoute>
             <ProtectedRoute path='/workouts/test' exact={true} >
@@ -74,7 +77,7 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path='/comments/test' exact={true} >
               <TempComment />
-            </ProtectedRoute>
+            </ProtectedRoute> */}
             {/* test routes for backend */}
             <ProtectedRoute path='/newRoute' exact={true} >
               <NewRoute />

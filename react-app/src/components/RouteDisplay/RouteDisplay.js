@@ -9,7 +9,7 @@ import Comments from '../Comments/Comments';
 import MapAdjustment from '../MapAdjustment/MapAdjustment';
 import './RouteDisplay.css';
 
-const center = {
+const DefaultCenter = {
     lat: 47.649133,
     lng: -117.420902
 };
@@ -40,9 +40,10 @@ function RouteDisplay() {
         // setLoaded(true)
     }
 
-
-    useEffect(async () => {
-        await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
+    useEffect(() => {
+        (async () => {
+            await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
+        })()
     }, [dispatch, response, routeId])
 
 
@@ -60,7 +61,7 @@ function RouteDisplay() {
                         <div id='map'>
                             <GoogleMap
                                 zoom={10}
-                                center={center}
+                                center={DefaultCenter}
                                 mapContainerClassName='route-map-container'
                             >
                                 {(route.endingPoint !== '' && response === null) && (

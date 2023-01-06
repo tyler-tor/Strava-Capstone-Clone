@@ -26,20 +26,22 @@ function ActivityFeed() {
         merged.sort(compare).reverse()
     }
 
-    useEffect(async () => {
-        if (routes) {
-            let arr = [...routes]
-            for (let route of arr) {
-                await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`).then(async (res) => {
-                    if (res.ok) {
-                        let jsonify = await res.json()
-                        route['directionsFetch'] = jsonify
-                        route['routeMapSrc'] = `https://maps.googleapis.com/maps/api/staticmap?size=400x300&markers=${route.startingPoint.lat},${route.startingPoint.lng}|${route.endingPoint.lat},${route.endingPoint.lng}&path=enc:${route.directionsFetch.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
-                    }
-                })
+    useEffect(() => {
+        (async () => {
+            if (routes) {
+                let arr = [...routes]
+                for (let route of arr) {
+                    await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`).then(async (res) => {
+                        if (res.ok) {
+                            let jsonify = await res.json()
+                            route['directionsFetch'] = jsonify
+                            route['routeMapSrc'] = `https://maps.googleapis.com/maps/api/staticmap?size=400x300&markers=${route.startingPoint.lat},${route.startingPoint.lng}|${route.endingPoint.lat},${route.endingPoint.lng}&path=enc:${route.directionsFetch.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
+                        }
+                    })
+                }
+                setPolyRoutes(arr)
             }
-            setPolyRoutes(arr)
-        }
+        })();
     }, [routes, dispatch, currUser.mapKey])
 
     useEffect(() => {
@@ -112,7 +114,6 @@ function ActivityFeed() {
                                 </div>
                             </div>
                         )}
-                        {/* </div> */}
                     </div>
                 )
             })}
