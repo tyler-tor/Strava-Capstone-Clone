@@ -4,3 +4,7 @@
     padding: 0;
     font-family: 'PT Sans', sans-serif;
   }
+
+body {
+    background-image: linear-gradient(to left top, #385170, #384e69, #384c62, #39495c, #394655);
+}

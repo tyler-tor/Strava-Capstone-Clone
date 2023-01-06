@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
-import { useParams } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 // import { getAllRoutes } from '../../store/routes';
-import { getCurrentRoute } from '../../store/routes'
+import { getCurrentRoute } from '../../store/routes';
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
 import MapAdjustment from '../MapAdjustment/MapAdjustment';
-import './RouteDisplay.css'
+import './RouteDisplay.css';
 
-const center = {
+const DefaultCenter = {
     lat: 47.649133,
     lng: -117.420902
 };
@@ -40,13 +40,11 @@ function RouteDisplay() {
         // setLoaded(true)
     }
 
-
-    useEffect(async () => {
-
+    useEffect(() => {
+        (async () => {
             await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
-
-
-    }, [dispatch, response])
+        })()
+    }, [dispatch, response, routeId])
 
 
     if (!route) {
@@ -63,7 +61,7 @@ function RouteDisplay() {
                         <div id='map'>
                             <GoogleMap
                                 zoom={10}
-                                center={center}
+                                center={DefaultCenter}
                                 mapContainerClassName='route-map-container'
                             >
                                 {(route.endingPoint !== '' && response === null) && (
@@ -81,19 +79,15 @@ function RouteDisplay() {
                                 }
                                 {response !== null && (
                                     <>
-
                                         <DirectionsRenderer
                                             panel={document.getElementById("panel")}
                                             options={{
                                                 directions: response
                                             }}
-
-
                                         />
 
                                     </>
                                 )}
-
                             </GoogleMap>
 
                         </div>
@@ -119,10 +113,11 @@ function RouteDisplay() {
                             </li>
                         </ul>
                         <img src={route?.ownerInfo.profilePicture}
+                        alt='owner'
                             className='user-propic' />
                         <div className='route-pic-container'>
                             <img src={route?.imageUrl}
-                                alt='Route Image'
+                                alt='Route'
                                 className='route-pic' />
                         </div>
                     </div>

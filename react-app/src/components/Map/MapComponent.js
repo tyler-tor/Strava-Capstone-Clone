@@ -14,7 +14,7 @@ const containerStyle = {
 
 const MapComponent = ({ lat, lng }) => {
     const dispatch = useDispatch()
-    const routes = Object.values(useSelector(state => state.routes.routes));
+    const routes = Object.values(useSelector(state => state.routes.routes ? state.routes.routes : {}));
     const currUser = useSelector(state => state.session.user)
     const [selected, setSelected] = useState(null)
     //loads the map if the api key for google maps api exist
@@ -30,10 +30,16 @@ const MapComponent = ({ lat, lng }) => {
     }, [lat, lng])
 
     useEffect(() => {
-        dispatch(getAllRoutes())
+        (async () => {
+            await dispatch(getAllRoutes())
+        })()
     }, [dispatch])
 
-    return isLoaded ? (
+    if (!routes) {
+        return null
+    }
+
+    return routes && isLoaded ? (
         <>
             <div id='map'>
             <script async defer src={`https://maps.googleapis.com/maps/api/js?key=${currUser.mapKey}&callback=initMap`}>
@@ -43,7 +49,6 @@ const MapComponent = ({ lat, lng }) => {
                     zoom={4}
                     center={center}
                     mapContainerClassName='map-container'
-
                     >
                     {routes && routes.map(route => {
                         return (
@@ -56,7 +61,7 @@ const MapComponent = ({ lat, lng }) => {
                         </div>
                         )
                     })}
-
+                    
                     {selected ? (
                         <InfoWindow position={{lat: selected.coord.lat, lng: selected.coord.lng}}
                         onCloseClick={() => {

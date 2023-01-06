@@ -14,11 +14,6 @@
     padding: 20px;
 }
 
-.profile-container {
-    background-color: #385170;
-    height: 100vh;
-}
-
 .user-info {
     display: flex;
 }
@@ -27,6 +22,7 @@
 .user-info-item-container {
     width: 25vw;
     display: flex;
+    height: 40vh;
     flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
@@ -45,8 +41,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
-
-    background-color: #ececec;
+    background-image: linear-gradient(to left, #ececec, #c3c3c4, #9a9c9c, #757776, #525351);
     margin: 15px;
     border-radius: 15px;
 }
@@ -63,4 +58,8 @@
 
 .title-link:hover {
     font-weight: bolder;
+}
+
+.user-routes-list {
+    padding-bottom: 5em;
 }

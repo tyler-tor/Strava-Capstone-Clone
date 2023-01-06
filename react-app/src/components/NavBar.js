@@ -63,10 +63,23 @@ const NavBar = () => {
                   </NavLink>
                 </li>
                 <li className='nav-item'>
+                  <NavLink to='/activity' exact={true}
+                    className='nav-links' onClick={closeMobileMenu}>
+                    Activity
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
                   <NavLink to='/newRoute' exact={true}
                     className='nav-links' onClick={closeMobileMenu}>
                     + Route
-                    <i class="fa-solid fa-hexagon-plus"></i>
+                    {/* <i class="fa-solid fa-hexagon-plus"></i> */}
+                  </NavLink>
+                </li>
+                <li className='nav-item'>
+                  <NavLink to='/newRoute' exact={true}
+                    className='nav-links' onClick={closeMobileMenu}>
+                    + Workout
+                    {/* <i class="fa-solid fa-hexagon-plus"></i> */}
                   </NavLink>
                 </li>
                 <li className='nav-item'>
