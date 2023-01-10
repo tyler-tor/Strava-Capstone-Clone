@@ -43,8 +43,8 @@ class Workout(db.Model):
             'totalTime': self.total_time,
             'distance': self.distance,
             'imageUrl': self.image_url,
-            'createdAt': self.created_at,
-            'updatedAt': self.updated_at,
+            'createdAt': self.created_at.strftime('%A %B %Y'),
+            'updatedAt': self.updated_at.strftime('%A %B %Y'),
             'comments': [comment.to_dict() for comment in self.comments],
             'ownerInfo': {
                 'profilePicture': self.users.profile_picture,

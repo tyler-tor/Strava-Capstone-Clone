@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllFriendsActivity } from '../../store/friendsActivity';
+import { NavLink, useHistory } from 'react-router-dom';
 import './ActivityFeed.css';
 
 function ActivityFeed() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [polyRoutes, setPolyRoutes] = useState([])
     const routes = useSelector(state => state.friendsActivity.routes)
     const workouts = useSelector(state => state.friendsActivity.workouts)
@@ -20,6 +22,15 @@ function ActivityFeed() {
             return 0;
         };
     };
+
+    const handleActivityRedirect = (activity) => {
+        console.log('here')
+        if (activity.routeMapSrc) {
+            history.push(`/routes/${activity.id}`)
+        } else {
+            history.push(`/workouts/${activity.id}`)
+        }
+    }
 
     if (routes && workouts) {
         merged = [...routes, ...workouts]
@@ -54,69 +65,135 @@ function ActivityFeed() {
 
     return routes && workouts && currUser && (
         <div className='activity-feed-container'>
-            {merged.map(activity => {
-                return (
-                    <div className='af-posts-container'
-                        key={activity.title}>
-                        {/* <div className='post-info-container'> */}
-                        {activity.routeMapSrc ? (
-                            <div className='post-info-container'>
-                                <div className='img-container'>
-                                    <img src={activity.routeMapSrc} alt='route map'
-                                        className='static-map'
-                                    />
+            <div className='curruser-container'>
+                <div className='propic-wrapper'>
+                    <img className='propic' src={currUser.profilePicture} alt='user-pic' />
+                </div>
+                <div className='user-info'>
+                    <ul className='ui-list'>
+                        <li className='userinfo-item'>
+                            {currUser.username}
+                        </li>
+                        <li className='userinfo-item'>
+                            {currUser.firstName}
+                        </li>
+                        <li className='userinfo-item'>
+                            {currUser.lastName}
+                        </li>
+                        <li className='userinfo-item'>
+                            {currUser.createdAt}
+                        </li>
+                        <li className='userinfo-item'>
+                            Activity: {currUser.routes.length + currUser.workouts.length}
+                        </li>
+                        <li className='userinfo-item'>
+                            {currUser.friends.map(friend => {
+                                return (
+                                    <div className='friend-list'
+                                        key={friend.userId}
+                                        onClick={(activity) => handleActivityRedirect(activity)}>
+                                        <img className='friend-propic'
+                                            src={friend.profilePicture}
+                                            alt='friend-pic' />
+                                        <NavLink
+                                            to={`/users/${friend.userId}`}
+                                            className='friend-link'>
+                                            {friend.username}
+                                        </NavLink>
+                                    </div>
+                                )
+                            })}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div className='activity-container'>
+                {merged.map(activity => {
+                    return (
+                        <div className='af-posts-container'
+                            key={activity.title}>
+                            {activity.routeMapSrc ? (
+                                <div className='post-info-container'>
+                                    <a className='img-container'
+                                        href={`/routes/${activity.id}`}>
+                                        <img src={activity.routeMapSrc} alt='route map'
+                                            className='static-map'
+                                        />
+                                    </a>
+                                    <div className='post-info'>
+                                        <strong>
+                                            {activity.title}
+                                        </strong>
+                                        <strong>
+                                            {activity.description}
+                                        </strong>
+                                        <strong>
+                                            {activity.distance}
+                                        </strong>
+                                        <strong>
+                                            {activity.createdAt}
+                                        </strong>
+                                        <strong>
+                                            Comments: {activity.comments.length}
+                                        </strong>
+                                    </div>
+                                    <div className='post-owner-info'>
+                                        <img src={activity.ownerInfo.profilePicture} alt='owner'
+                                            className='owner-pro-pic'
+                                        />
+                                        <p>{activity.ownerInfo.username}</p>
+                                        <p>{activity.ownerInfo.email}</p>
+                                    </div>
                                 </div>
-                                <div className='post-info'>
-                                    <strong>
-                                        {activity.title}
-                                    </strong>
-                                    <strong>
-                                        {activity.description}
-                                    </strong>
-                                    <strong>
-                                        {activity.distance}
-                                    </strong>
+                            ) : (
+                                <div className='post-info-container'>
+                                    <a className='img-container'
+                                        href={`/workouts/${activity.id}`}>
+                                        <img src={activity.imageUrl} alt='workout'
+                                            className='workout-pic'
+                                        />
+                                    </a>
+                                    <div className='post-info'>
+                                        <strong>
+                                            {activity.title}
+                                        </strong>
+                                        <strong>
+                                            {activity.description}
+                                        </strong>
+                                        <strong>
+                                            {activity.distance}
+                                        </strong>
+                                        <strong>
+                                            {activity.totalTime}
+                                        </strong>
+                                        <strong>
+                                            {activity.createdAt}
+                                        </strong>
+                                        <strong>
+                                            Comments: {activity.comments.length}
+                                        </strong>
+                                    </div>
+                                    <div className='post-owner-info'>
+                                        <img src={activity.ownerInfo.profilePicture} alt='owner'
+                                            className='owner-pro-pic'
+                                        />
+                                        <p>{activity.ownerInfo.username}</p>
+                                        <p>{activity.ownerInfo.email}</p>
+                                    </div>
                                 </div>
-                                <div className='post-owner-info'>
-                                    <img src={activity.ownerInfo.profilePicture} alt='owner'
-                                        className='owner-pro-pic'
-                                    />
-                                    <p>{activity.ownerInfo.username}</p>
-                                    <p>{activity.ownerInfo.email}</p>
-                                </div>
-                            </div>
-                        ) : (
-                            <div className='post-info-container'>
-                                <div className='img-container'>
-                                    <img src={activity.imageUrl} alt='workout'
-                                        className='workout-pic'
-                                    />
-                                </div>
-                                <div className='post-info'>
-                                    <strong>
-                                        {activity.title}
-                                    </strong>
-                                    <strong>
-                                        {activity.description}
-                                    </strong>
-                                    <strong>
-                                        {activity.distance}
-                                    </strong>
-                                    <strong>
-                                        {activity.totalTime}
-                                    </strong>
-                                </div>
-                                <div className='post-owner-info'>
-                                    <img src={activity.ownerInfo.profilePicture} alt='owner'
-                                        className='owner-pro-pic'
-                                    />
-                                    <p>{activity.ownerInfo.username}</p>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                )
-            })}
+                            )}
+                        </div>
+                    )
+                })}
+            </div>
+            <div className='nonfriend-container'>
+                {currUser.nonFriends.map(non => {
+                    return (
+                        <div className='nonfriend-info-container'>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
     )
 }

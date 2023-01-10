@@ -1,11 +1,18 @@
 .activity-feed-container {
     display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+}
+
+.activity-container {
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .af-posts-container {
     border: 1px black solid;
+    /* display: flex; */
 }
 
 .post-info-container {
@@ -26,4 +33,23 @@
 .owner-pro-pic {
     height: 300px;
     width: 400px;
+}
+
+.curruser-container {
+    width: 40rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+.propic {
+    height: 20em;
+    width: 20em;
+    border-radius: 10%;
+}
+.friend-propic {
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
 }
