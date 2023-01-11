@@ -34,20 +34,8 @@
     font-size: 1.8rem;
   }
 
-  /* .fa-hexagon-plus {
-    color: #fff;
-    justify-self: start;
-    margin-left: 10px;
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 2rem;
-    display: flex;
-    align-items: center;
-  } */
-
   .nav-menu {
     display: flex;
-    /* grid-template-columns: repeat(4, auto); */
     grid-gap: 10px;
     list-style: none;
     text-align: center;
