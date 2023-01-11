@@ -195,7 +195,9 @@ function ActivityFeed() {
             <div className='nonfriend-container'>
                 {currUser?.nonFriends.map(non => {
                     return (
-                        <div className='nonfriend-info-container'>
+                        <div className='nonfriend-info-container'
+                        key={non.id}>
+                            <p>{non.username}</p>
                         </div>
                     )
                 })}
