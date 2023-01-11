@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import AdjustFriendStatusModal from './AdjustFriendStatus/AdjustFriendStatusModal';
 import './User.css'
 
 function User() {
@@ -27,7 +27,7 @@ function User() {
       }).reverse())
     })();
   }, [userId]);
-
+  console.log(user)
   if (!user) {
     return null;
   }
@@ -39,6 +39,7 @@ function User() {
           <img src={user.profilePicture}
             className='user-pic'
             alt='User' />
+            <AdjustFriendStatusModal userId={userId} />
         </div>
         <div className='user-info-item-container'>
           <ul>
@@ -61,7 +62,6 @@ function User() {
             return (
               <div className='user-page-route-container'
                 key={`${route.id}${route.title}`}>
-                {/* {console.log(route)} */}
                 <div className='user-route-pic-container'>
                   <img src={route.imageUrl}
                   alt='route'

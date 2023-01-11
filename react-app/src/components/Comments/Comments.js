@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getRouteComments } from '../../store/comments'
 import EditCommentModal from '../EditComment/EditCommentModal';
 import AddCommentModal from '../AddCommentModal/AddCommentModal';
-// import '../auth/Buttons.css'
 
 function Comments({ routeId }) {
     const [isLoaded, setIsLoaded] = useState(false);

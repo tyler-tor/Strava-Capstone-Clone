@@ -31,13 +31,9 @@ function NewRoute() {
     googleMapsApiKey: currUser.mapKey
   })
 
-  // const center = navigator.geolocation.getCurrentPosition(showPosition)
-  // console.log(center)
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log('start', start)
-    // console.log('end', end)
+
     if(!start && !end) {
       setErrors(['You need to set a Start and End point'])
     }else if (!start) {

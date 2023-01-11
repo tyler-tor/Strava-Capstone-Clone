@@ -17,7 +17,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import { getAllRoutes } from './store/routes';
-// import { getAllUsers } from './store/users';
+import WorkoutDisplay from './components/WorkoutDisplay/WorkoutDisplay';
 import NewRoute from './components/NewMap/NewRoute';
 
 function App() {
@@ -67,6 +67,9 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute path='/routes/:routeId' exact={true} >
               <RouteDisplay />
+            </ProtectedRoute>
+            <ProtectedRoute path='/workouts/:workoutId' exact={true} >
+              <WorkoutDisplay />
             </ProtectedRoute>
             {/* test routes for backend */}
             {/* <ProtectedRoute path='/routes/test' exact={true} >

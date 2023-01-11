@@ -23,7 +23,6 @@ const SignUpForm = () => {
     e.preventDefault();
     if (password === repeatPassword) {
       const data = await dispatch(signUp(username, email, password, url, firstName, lastName));
-      // console.log(data)
       if (data) {
         setErrors(data)
       }else {
@@ -56,7 +55,6 @@ const SignUpForm = () => {
     setRepeatPassword(e.target.value);
   };
 
-  // console.log(user)
   if (user) {
     return <Redirect to='/' />;
   }

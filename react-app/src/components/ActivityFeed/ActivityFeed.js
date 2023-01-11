@@ -138,9 +138,12 @@ function ActivityFeed() {
                                         </strong>
                                     </div>
                                     <div className='post-owner-info'>
-                                        <img src={activity.ownerInfo.profilePicture} alt='owner'
-                                            className='owner-pro-pic'
-                                        />
+                                        <a className='owner-propic-wrapper'
+                                            href={`/users/${activity.userId}`}>
+                                            <img src={activity.ownerInfo.profilePicture} alt='owner'
+                                                className='owner-pro-pic'
+                                            />
+                                        </a>
                                         <p>{activity.ownerInfo.username}</p>
                                         <p>{activity.ownerInfo.email}</p>
                                     </div>
@@ -174,9 +177,12 @@ function ActivityFeed() {
                                         </strong>
                                     </div>
                                     <div className='post-owner-info'>
-                                        <img src={activity.ownerInfo.profilePicture} alt='owner'
-                                            className='owner-pro-pic'
-                                        />
+                                        <a className='owner-propic-wrapper'
+                                            href={`/users/${activity.userId}`}>
+                                            <img src={activity.ownerInfo.profilePicture} alt='owner'
+                                                className='owner-pro-pic'
+                                            />
+                                        </a>
                                         <p>{activity.ownerInfo.username}</p>
                                         <p>{activity.ownerInfo.email}</p>
                                     </div>
@@ -187,7 +193,7 @@ function ActivityFeed() {
                 })}
             </div>
             <div className='nonfriend-container'>
-                {currUser.nonFriends.map(non => {
+                {currUser?.nonFriends.map(non => {
                     return (
                         <div className='nonfriend-info-container'>
                         </div>

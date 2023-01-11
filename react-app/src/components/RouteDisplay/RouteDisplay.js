@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-// import { getAllRoutes } from '../../store/routes';
 import { getCurrentRoute } from '../../store/routes';
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
@@ -29,15 +28,12 @@ function RouteDisplay() {
         googleMapsApiKey: currUser.mapKey
     })
 
-    // console.log(route)
     const directionsCallback = (response) => {
-        // setLoaded(false)
         if (response !== null) {
             if (response.status === 'OK') {
                 setResponse(response)
             }
         }
-        // setLoaded(true)
     }
 
     useEffect(() => {

@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { updateRoute } from '../../store/routes';
-// import { updateCurrentRoute } from '../../store/currentRoute';
 import { GoogleMap, useLoadScript, Marker, DistanceMatrixService } from '@react-google-maps/api';
 import './MapAdjustment.css'
 
 
 function EditMapForm({ route, onClose, setResponse, setLoaded }) {
-    // const route = useSelector(state => state.routes[routeId])
     const currUser = useSelector(state => state.session.user)
     const dispatch = useDispatch()
     const [start, setStart] = useState({ ...route?.startingPoint })
@@ -54,10 +52,6 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
         setLoaded(true)
     }
 
-    // useEffect(() => {
-    //     dispatch(getAllRoutes())
-    // }, [dispatch])
-
 
     useEffect(() => {
         setErrors([])
@@ -66,7 +60,6 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
     if (!route) {
         return null
     }
-    // console.log(route)
 
     return (
         <div className='edit-map-form-container'>
