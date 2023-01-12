@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import AdjustFriendStatusModal from './AdjustFriendStatus/AdjustFriendStatusModal';
+import { authenticate } from '../store/session';
 import './User.css'
 
 function User() {
+  const currUser = useSelector(state => state.session.user)
   const [user, setUser] = useState('');
   const [activity, setActivity] = useState([]);
+  const [status, setStatus] = useState(false)
   const { userId } = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!userId) {
@@ -24,10 +29,19 @@ function User() {
         } else {
           return 0;
         };
-      }).reverse())
+      }).reverse());
+      currUser.friends.forEach(friend => {
+        if (friend.userId === parseInt(userId)) {
+          setStatus(true)
+        }
+      })
     })();
-  }, [userId]);
-  console.log(user)
+  }, [userId, dispatch]);
+
+  useEffect(() => {
+    dispatch(authenticate())
+  }, [status])
+
   if (!user) {
     return null;
   }
@@ -39,7 +53,7 @@ function User() {
           <img src={user.profilePicture}
             className='user-pic'
             alt='User' />
-            <AdjustFriendStatusModal userId={userId} />
+          <AdjustFriendStatusModal userId={userId} status={status} setStatus={setStatus} />
         </div>
         <div className='user-info-item-container'>
           <ul>
@@ -64,7 +78,7 @@ function User() {
                 key={`${route.id}${route.title}`}>
                 <div className='user-route-pic-container'>
                   <img src={route.imageUrl}
-                  alt='route'
+                    alt='route'
                     className='user-route-pic' />
                 </div>
                 <div className='user-route-item-container'>

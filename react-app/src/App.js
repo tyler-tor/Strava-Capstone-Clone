@@ -19,6 +19,7 @@ import { authenticate } from './store/session';
 import { getAllRoutes } from './store/routes';
 import WorkoutDisplay from './components/WorkoutDisplay/WorkoutDisplay';
 import NewRoute from './components/NewMap/NewRoute';
+import NewWorkout from './components/NewWorkout/NewWorkout';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -84,6 +85,9 @@ function App() {
             {/* test routes for backend */}
             <ProtectedRoute path='/newRoute' exact={true} >
               <NewRoute />
+            </ProtectedRoute>
+            <ProtectedRoute path='/newWorkout' exact={true} >
+              <NewWorkout />
             </ProtectedRoute>
             <Route path='/' exact={true} >
               <HomePage />

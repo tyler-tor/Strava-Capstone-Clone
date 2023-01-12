@@ -3,18 +3,18 @@ import { Modal } from '../../context/Modal'
 import AdjustFriendStatusAlert from './AdjustFriendStatusAlert';
 import './AdjustFriendStatus.css';
 
-function AdjustFriendStatusModal({ userId }) {
+function AdjustFriendStatusModal({ userId, status, setStatus }) {
     const [showModal, setShowModal] = useState(false);
 
     return (
         <div className='afs-btn-wrapper'>
             <button className='afs-btn'
             onClick={() => setShowModal(true)}>
-                here
+                {status ? 'Unfriend User' : 'Friend User'}
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <AdjustFriendStatusAlert userId={userId}
+                    <AdjustFriendStatusAlert userId={userId} status={status} setStatus={setStatus}
                     onClose={() => setShowModal(false)} />
                 </Modal>
             )}
