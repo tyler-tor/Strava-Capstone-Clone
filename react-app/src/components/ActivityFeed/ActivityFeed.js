@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllFriendsActivity } from '../../store/friendsActivity';
+import { getAllRoutes } from '../../store/routes';
+import { getAllWorkouts } from '../../store/workouts';
 import { NavLink, useHistory } from 'react-router-dom';
 import './ActivityFeed.css';
 
@@ -8,10 +10,14 @@ function ActivityFeed() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [polyRoutes, setPolyRoutes] = useState([])
-    const routes = useSelector(state => state.friendsActivity.routes)
-    const workouts = useSelector(state => state.friendsActivity.workouts)
+    const [following, setFollowing] = useState('Following')
+    const [merged, setMerged] = useState([])
+    const friendsRoutes = useSelector(state => state.friendsActivity.routes)
+    const routes = Object.values(useSelector(state => state.routes.routes ? state.routes.routes : {}))
+    const workouts = Object.values(useSelector(state => state.workouts.workouts ? state.workouts.workouts : {}))
+    const friendsWorkouts = useSelector(state => state.friendsActivity.workouts)
     const currUser = useSelector(state => state.session.user)
-    let merged
+    // let merged
 
     const compare = (a, b) => {
         if (a.createdAt < b.createdAt) {
@@ -24,7 +30,6 @@ function ActivityFeed() {
     };
 
     const handleActivityRedirect = (activity) => {
-        console.log('here')
         if (activity.routeMapSrc) {
             history.push(`/routes/${activity.id}`)
         } else {
@@ -32,15 +37,15 @@ function ActivityFeed() {
         }
     }
 
-    if (routes && workouts) {
-        merged = [...routes, ...workouts]
-        merged.sort(compare).reverse()
-    }
+    // if (routes && workouts) {
+    //     setMerged([...routes, ...workouts])
+    //     merged.sort(compare).reverse()
+    // }
 
     useEffect(() => {
         (async () => {
-            if (routes) {
-                let arr = [...routes]
+            if (friendsRoutes && routes) {
+                let arr = (following === 'Following') ? [...friendsRoutes] : [...routes]
                 for (let route of arr) {
                     await fetch(`https://maps.googleapis.com/maps/api/directions/json?origin=${route.startingPoint.lat},${route.startingPoint.lng}&destination=${route.endingPoint.lat},${route.endingPoint.lng}&mode=${route.travelMode}&key=${currUser.mapKey}`).then(async (res) => {
                         if (res.ok) {
@@ -53,17 +58,27 @@ function ActivityFeed() {
                 setPolyRoutes(arr)
             }
         })();
-    }, [routes, dispatch, currUser.mapKey])
+    }, [currUser.mapKey, following, dispatch, merged])
 
     useEffect(() => {
         dispatch(getAllFriendsActivity())
+        dispatch(getAllRoutes());
+        dispatch(getAllWorkouts())
     }, [dispatch])
 
-    if (!routes) {
+    useEffect(() => {
+        if (friendsRoutes && friendsWorkouts && (following === 'Following')) {
+            setMerged([...friendsRoutes, ...friendsWorkouts].sort(compare))
+        }else {
+            setMerged([...routes, ...workouts].sort(compare))
+        }
+    }, [friendsRoutes, friendsWorkouts, dispatch, following])
+
+    if (!friendsRoutes) {
         return null;
     }
 
-    return routes && workouts && currUser && (
+    return friendsRoutes && friendsWorkouts && currUser && (
         <div className='activity-feed-container'>
             <div className='curruser-container'>
                 <div className='propic-wrapper'>
@@ -108,6 +123,17 @@ function ActivityFeed() {
                 </div>
             </div>
             <div className='activity-container'>
+                <div className='activity-select-container'>
+                    <select
+                        name='following'
+                        value={following}
+                        onChange={(e) => setFollowing(e.target.value)}
+                        className='select-input'
+                    >
+                        <option>Following</option>
+                        <option>All Activity</option>
+                    </select>
+                </div>
                 {merged.map(activity => {
                     return (
                         <div className='af-posts-container'
@@ -196,7 +222,7 @@ function ActivityFeed() {
                 {currUser?.nonFriends.map(non => {
                     return (
                         <div className='nonfriend-info-container'
-                        key={non.id}>
+                            key={non.id}>
                             <p>{non.username}</p>
                         </div>
                     )

@@ -4,7 +4,7 @@ import { getRouteComments } from '../../store/comments'
 import EditCommentModal from '../EditComment/EditCommentModal';
 import AddCommentModal from '../AddCommentModal/AddCommentModal';
 
-function Comments({ routeId }) {
+function Comments({ id }) {
     const [isLoaded, setIsLoaded] = useState(false);
     const comments = Object.values(useSelector(state => state.comments)).reverse()
     const currUser = useSelector(state => state.session.user)
@@ -12,13 +12,13 @@ function Comments({ routeId }) {
 
 
     useEffect(() => {
-        dispatch(getRouteComments(routeId))
+        dispatch(getRouteComments(id))
         setIsLoaded(true)
-    }, [dispatch, routeId])
+    }, [dispatch, id])
 
     return (
         <div className='comm-list-container'>
-            <AddCommentModal routeId={routeId} />
+            <AddCommentModal id={id} />
             {isLoaded && (
                 <div className='comm-list'>
                     <ul className='comm-ul'>

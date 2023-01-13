@@ -43,7 +43,7 @@ function NewRoute() {
     }else if (!url) {
       setErrors(['You need to upload a image for your route'])
     }else {
-      // console.log(errors)
+
       if(errors.length < 1){
         const payload = {
           user_id: currUser.id,
@@ -59,7 +59,6 @@ function NewRoute() {
         }
 
         const data = await dispatch(addRoute(payload))
-        // console.log(data)
         if (data) {
           setErrors(data)
         }else {

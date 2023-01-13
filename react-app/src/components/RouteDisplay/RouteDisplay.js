@@ -152,7 +152,7 @@ function RouteDisplay() {
                 </div>
                 <div className='comm-box-container'>
                     <div className='comments-container'>
-                        <Comments routeId={route.id} />
+                        <Comments id={route.id} />
                     </div>
                 </div>
             </div>

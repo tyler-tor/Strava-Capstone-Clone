@@ -59,7 +59,7 @@ const NavBar = () => {
                 <li className='nav-item'>
                   <NavLink to='/' exact={true}
                     className='nav-links' onClick={closeMobileMenu}>
-                    Home
+                    Routes
                   </NavLink>
                 </li>
                 <li className='nav-item'>

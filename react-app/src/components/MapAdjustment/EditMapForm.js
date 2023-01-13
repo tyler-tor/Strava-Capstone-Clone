@@ -138,7 +138,7 @@ function EditMapForm({ route, onClose, setResponse, setLoaded }) {
                             />
                         </div>
                         <div className='emf-item-container'>
-                            <label className='emf-label'>Update Title: </label>
+                            <label className='emf-label'>Update Travel Mode: </label>
                             <select
                                 name='travelMode'
                                 value={travelingMode}

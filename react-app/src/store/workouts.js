@@ -66,8 +66,8 @@ export const addWorkout = (workout) => async (dispatch) => {
         return newWorkout;
     }else if (response.status < 500) {
         const data = response.json();
-        if (data.errors) {
-            return data.errors;
+        if (data) {
+            return data;
         };
     }else {
         return response

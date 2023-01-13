@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal';
 import AddCommentForm from '../AddCommentForm/AddCommentForm';
 import '../auth/Buttons.css'
 
-function AddCommentModal({ routeId }) {
+function AddCommentModal({ id }) {
   const [showModal, setShowModal] = useState(false)
 
   return (
@@ -14,7 +14,7 @@ function AddCommentModal({ routeId }) {
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
           <AddCommentForm
-            routeId={routeId}
+            id={id}
             onClose={() => setShowModal(false)}
           />
         </Modal>

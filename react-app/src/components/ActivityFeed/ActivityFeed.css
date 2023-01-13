@@ -40,7 +40,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
 }
 
 .propic {
@@ -52,4 +52,31 @@
     height: 40px;
     width: 40px;
     border-radius: 100%;
+}
+
+.select-input {
+    border-color: transparent;
+    background-color: transparent;
+    color: #fff;
+    font-size: 30px;
+    padding: 15px;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+}
+
+.select-input:hover,
+.select-input option:hover {
+    transition: all 0.3s ease-out;
+    background: #C0C3CE;
+    color: #242424;
+    transition: 250ms;
+}
+
+.select-input option {
+    border-color: transparent;
+    background-color: transparent;
+    font-size: 30px;
+    padding: 15px;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
 }
