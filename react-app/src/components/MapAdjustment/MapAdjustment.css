@@ -54,17 +54,22 @@
 
 .update-btn:hover,
 .edit-btn:hover,
-.delete-btn:hover,
-.dlt-route-btn:hover {
+.delete-btn:hover {
     transition: all 0.3s ease-out;
     background: #fff;
     color: #242424;
     transition: 250ms;
 }
 
+.dlt-route-btn:hover {
+    transition: all 0.3s ease-out;
+    background: red;
+    color: #242424;
+    transition: 250ms;
+}
+
 .ed-btn-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     background-color: #242424;
     justify-content: center;

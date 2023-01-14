@@ -57,7 +57,7 @@ class User(db.Model, UserMixin):
             'firstName': self.first_name,
             'lastName': self.last_name,
             'profilePicture': self.profile_picture,
-            'createdAt': self.created_at.strftime('%A %B %Y'),
+            'createdAt': self.created_at.strftime('%B %Y'),
             'updatedAt': self.updated_at.strftime('%A %B %Y'),
             'routes': [route.to_dict() for route in self.routes],
             'workouts': [workout.to_dict() for workout in self.workouts],

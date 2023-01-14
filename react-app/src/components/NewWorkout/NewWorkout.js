@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import ImageUploadComponent from '../ImageUploadComponenet';
 import { addWorkout } from '../../store/workouts';
+import './NewWorkout.css'
 
 function NewWorkout() {
     const currUser = useSelector(state => state.session.user);
@@ -36,9 +37,9 @@ function NewWorkout() {
             }
 
             const data = await dispatch(addWorkout(payload));
-            if(data.errors){
+            if (data.errors) {
                 setErrors(data.errors)
-            }else {
+            } else {
                 history.push('/activity')
             }
         }
@@ -52,19 +53,21 @@ function NewWorkout() {
         <div className='new-workout-wrapper'>
             <div className='errors-wrapper'>
                 {errors.map((error, ind) => (
-                        <div key={ind} className='error-message'>
-                            {error}
-                        </div>
-                    ))}
+                    <div key={ind} className='error-message'>
+                        {error}
+                    </div>
+                ))}
             </div>
-            <h2 className='nw-title'>Create a new Workout!</h2>
             <div className='nw-form-wrapper'>
+                <h2 className='nw-title'>Create a new Workout!</h2>
                 <div className='nwf-item'>
                     <label className='nwf-label'>Select Workout Picture: </label>
                     <ImageUploadComponent setUrl={setUrl} />
                 </div>
                 <form className='nw-form'
                     onSubmit={handleSubmit}>
+                    {/* <div className='nwf-item'>
+                    </div> */}
                     <div className='nwf-item'>
                         <label className='nwf-label'>Workout Title: </label>
                         <input
@@ -75,8 +78,6 @@ function NewWorkout() {
                             className='nwf-input'
                             onChange={(e) => setTitle(e.target.value)}
                         />
-                    </div>
-                    <div className='nwf-item'>
                         <label className='nwf-label'>Workout Description: </label>
                         <textarea
                             type='text'
@@ -86,8 +87,6 @@ function NewWorkout() {
                             className='nwf-input-ta'
                             onChange={(e) => setDescription(e.target.value)}
                         />
-                    </div>
-                    <div className='nwf-item'>
                         <label className='nwf-label'>Workout Type: </label>
                         <select
                             name='type'
@@ -107,6 +106,8 @@ function NewWorkout() {
                             <option>Weight</option>
                         </select>
                     </div>
+                    {/* <div className='nwf-item'>
+                    </div> */}
                     <div className='nwf-item'>
                         <label className='nwf-label'>Workout Duration: </label>
                         <input
@@ -125,8 +126,6 @@ function NewWorkout() {
                             className='nwf-input'
                             onChange={(e) => setMinute(e.target.value)}
                         />
-                    </div>
-                    <div className='nwf-item'>
                         <label className='nwf-label'>Workout Distance: </label>
                         <input
                             type='number'
@@ -150,7 +149,9 @@ function NewWorkout() {
                             <option>kilometers</option>
                         </select>
                     </div>
-                    <button type='submit' className='update-btn'>Submit New Workout</button>
+                    <div className='nwf-item'>
+                        <button type='submit' className='update-btn'>Submit New Workout</button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -1,0 +1,133 @@
+.workout-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.workout-info-container {
+    background-color: #242424;
+    border-radius: 10px;
+    width: 52em;
+    margin: 15px;
+    padding: 10px;
+}
+
+.workout-pic-wrapper {
+    width: 52em;
+    height: 40em;
+}
+
+.workout-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+
+.wi-items-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.wi-item {
+    display: flex;
+    text-decoration: none;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #fff;
+    padding: 5px;
+}
+
+.wi-item-label {
+    padding: 5px;
+}
+
+.owner-info-container {
+    display: flex;
+    color: #fff;
+    padding: 10px;
+}
+
+.name-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.username-text:hover {
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+
+.dlt-workout-container {
+    display: flex;
+    flex-direction: column;
+    height: 25vh;
+    width: 25vw;
+    align-items: center;
+    background-color: #242424;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.dlt-workout-label {
+    display: flex;
+    font-size: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+}
+
+.dlt-workout-btn {
+    background-color: transparent;
+    color: #fff;
+    padding: 8px 20px;
+    margin: 10px;
+    border: 1px solid var(--primary);
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+}
+
+.dlt-workout-btn:hover {
+    transition: all 0.3s ease-out;
+    background: red;
+    color: #242424;
+    transition: 250ms;
+}
+
+.edit-workout-form-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.ewf-container {
+    display: flex;
+    background-color: #242424;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.ewf-item {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: #fff;
+    padding: 5px;
+    width: 20vw;
+}
+
+.ewf-label {
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.ewf-input {
+    height: 4vh;
+    width: 15vw;
+    padding: 3px;
+    border-radius: 5px;
+    text-align: center;
+}

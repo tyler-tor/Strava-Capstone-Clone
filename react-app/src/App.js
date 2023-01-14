@@ -17,6 +17,7 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import { getAllRoutes } from './store/routes';
+import { getAllWorkouts } from './store/workouts';
 import WorkoutDisplay from './components/WorkoutDisplay/WorkoutDisplay';
 import NewRoute from './components/NewMap/NewRoute';
 import NewWorkout from './components/NewWorkout/NewWorkout';
@@ -30,7 +31,6 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       if (user) {
-
         await dispatch(getAllRoutes());
       }
       // await dispatch(getAllUsers());

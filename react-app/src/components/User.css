@@ -6,6 +6,20 @@
     padding: 20px;
 }
 
+.user-propic-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    width: 30%;
+}
+
+.user-act-title {
+    padding: 40px;
+    color: #fff;
+    font-size: 55px;
+}
+
 .user-route-pic {
     height: 12rem;
     width: 12rem;

@@ -84,18 +84,15 @@ export const updateWorkout = (workout) => async (dispatch) => {
             ...workout
         })
     });
-
+    console.log(response)
     if (response.ok) {
-        const updatedWorkout = response.json();
+        const updatedWorkout = await response.json();
         dispatch(updateWorkoutAction(updatedWorkout));
-        return updatedWorkout
     }else if (response.status < 500) {
         const data = response.json();
         if (data.errors) {
             return data.errors
         };
-    }else {
-        return response
     }
 };
 

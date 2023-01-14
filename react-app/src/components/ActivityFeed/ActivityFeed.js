@@ -51,7 +51,7 @@ function ActivityFeed() {
                         if (res.ok) {
                             let jsonify = await res.json()
                             route['directionsFetch'] = jsonify
-                            route['routeMapSrc'] = `https://maps.googleapis.com/maps/api/staticmap?size=400x300&markers=${route.startingPoint.lat},${route.startingPoint.lng}|${route.endingPoint.lat},${route.endingPoint.lng}&path=enc:${route.directionsFetch.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
+                            route['routeMapSrc'] = `https://maps.googleapis.com/maps/api/staticmap?size=500x400&markers=${route.startingPoint.lat},${route.startingPoint.lng}|${route.endingPoint.lat},${route.endingPoint.lng}&path=enc:${route.directionsFetch.routes[0].overview_polyline.points}&key=${currUser.mapKey}`
                         }
                     })
                 }
@@ -61,15 +61,15 @@ function ActivityFeed() {
     }, [currUser.mapKey, following, dispatch, merged])
 
     useEffect(() => {
-        dispatch(getAllFriendsActivity())
         dispatch(getAllRoutes());
         dispatch(getAllWorkouts())
-    }, [dispatch])
+        dispatch(getAllFriendsActivity())
+    }, [])
 
     useEffect(() => {
         if (friendsRoutes && friendsWorkouts && (following === 'Following')) {
             setMerged([...friendsRoutes, ...friendsWorkouts].sort(compare))
-        }else {
+        } else {
             setMerged([...routes, ...workouts].sort(compare))
         }
     }, [friendsRoutes, friendsWorkouts, dispatch, following])
@@ -84,18 +84,25 @@ function ActivityFeed() {
                 <div className='propic-wrapper'>
                     <img className='propic' src={currUser.profilePicture} alt='user-pic' />
                 </div>
-                <div className='user-info'>
-                    <ul className='ui-list'>
+                <div className='curruser-info'>
+                    <ul className='cui-list'>
                         <li className='userinfo-item'>
-                            {currUser.username}
+                            <a className='cui-fullname'
+                                href={`/users/${currUser.id}`}>
+                                {currUser.firstName}
+                                {' '}
+                                {currUser.lastName}
+                            </a>
                         </li>
                         <li className='userinfo-item'>
-                            {currUser.firstName}
+                            <p className='cui-username'>
+                                {currUser.username}
+                            </p>
                         </li>
                         <li className='userinfo-item'>
-                            {currUser.lastName}
-                        </li>
-                        <li className='userinfo-item'>
+                            <strong>
+                                Member since:
+                            </strong>
                             {currUser.createdAt}
                         </li>
                         <li className='userinfo-item'>
@@ -110,11 +117,11 @@ function ActivityFeed() {
                                         <img className='friend-propic'
                                             src={friend.profilePicture}
                                             alt='friend-pic' />
-                                        <NavLink
-                                            to={`/users/${friend.userId}`}
+                                        <a
+                                            href={`/users/${friend.userId}`}
                                             className='friend-link'>
                                             {friend.username}
-                                        </NavLink>
+                                        </a>
                                     </div>
                                 )
                             })}
@@ -134,10 +141,10 @@ function ActivityFeed() {
                         <option>All Activity</option>
                     </select>
                 </div>
-                {merged.map(activity => {
+                {merged.map((activity, ind) => {
                     return (
                         <div className='af-posts-container'
-                            key={activity.title}>
+                            key={activity.ind}>
                             {activity.routeMapSrc ? (
                                 <div className='post-info-container'>
                                     <a className='img-container'
@@ -147,21 +154,24 @@ function ActivityFeed() {
                                         />
                                     </a>
                                     <div className='post-info'>
-                                        <strong>
+                                        <a className='act-title'
+                                            href={`/routes/${activity.id}`}>
                                             {activity.title}
-                                        </strong>
-                                        <strong>
+                                        </a>
+                                        <p className='act-description'>
                                             {activity.description}
-                                        </strong>
-                                        <strong>
-                                            {activity.distance}
-                                        </strong>
-                                        <strong>
-                                            {activity.createdAt}
-                                        </strong>
-                                        <strong>
+                                        </p>
+                                        <div className='act-info'>
+                                            <p className='act-distance'>
+                                                {activity.distance}
+                                            </p>
+                                            <p className='act-travel'>
+                                                {activity.travelMode}
+                                            </p>
+                                        </div>
+                                        <p className='act-comm'>
                                             Comments: {activity.comments.length}
-                                        </strong>
+                                        </p>
                                     </div>
                                     <div className='post-owner-info'>
                                         <a className='owner-propic-wrapper'
@@ -169,9 +179,13 @@ function ActivityFeed() {
                                             <img src={activity.ownerInfo.profilePicture} alt='owner'
                                                 className='owner-pro-pic'
                                             />
+                                            <div className='oi-text'>
+                                                <p className='oi-username'>{activity.ownerInfo.username}</p>
+                                                <p>
+                                                    {activity.createdAt}
+                                                </p>
+                                            </div>
                                         </a>
-                                        <p>{activity.ownerInfo.username}</p>
-                                        <p>{activity.ownerInfo.email}</p>
                                     </div>
                                 </div>
                             ) : (
@@ -179,28 +193,30 @@ function ActivityFeed() {
                                     <a className='img-container'
                                         href={`/workouts/${activity.id}`}>
                                         <img src={activity.imageUrl} alt='workout'
-                                            className='workout-pic'
+                                            className='act-workout-pic'
                                         />
                                     </a>
                                     <div className='post-info'>
-                                        <strong>
+                                        <a className='act-title'>
                                             {activity.title}
-                                        </strong>
-                                        <strong>
+                                        </a>
+                                        <p className='act-description'>
                                             {activity.description}
-                                        </strong>
-                                        <strong>
-                                            {activity.distance}
-                                        </strong>
-                                        <strong>
-                                            {activity.totalTime}
-                                        </strong>
-                                        <strong>
-                                            {activity.createdAt}
-                                        </strong>
-                                        <strong>
+                                        </p>
+                                        <div className='act-info'>
+                                            <p className='act-distance'>
+                                                {activity.distance}
+                                            </p>
+                                            <p className='act-total-time'>
+                                                {activity.totalTime}
+                                            </p>
+                                            <p className='act-type'>
+                                                {activity.type}
+                                            </p>
+                                        </div>
+                                        <p className='act-comm'>
                                             Comments: {activity.comments.length}
-                                        </strong>
+                                        </p>
                                     </div>
                                     <div className='post-owner-info'>
                                         <a className='owner-propic-wrapper'
@@ -208,9 +224,13 @@ function ActivityFeed() {
                                             <img src={activity.ownerInfo.profilePicture} alt='owner'
                                                 className='owner-pro-pic'
                                             />
+                                        <div className='oi-text'>
+                                            <p className='oi-username'>{activity.ownerInfo.username}</p>
+                                            <p>
+                                                {activity.createdAt}
+                                            </p>
+                                        </div>
                                         </a>
-                                        <p>{activity.ownerInfo.username}</p>
-                                        <p>{activity.ownerInfo.email}</p>
                                     </div>
                                 </div>
                             )}
@@ -219,12 +239,17 @@ function ActivityFeed() {
                 })}
             </div>
             <div className='nonfriend-container'>
+                <h2
+                className='nonfriend-wrapper-title'>Suggested Friends: </h2>
                 {currUser?.nonFriends.map(non => {
                     return (
-                        <div className='nonfriend-info-container'
-                            key={non.id}>
-                            <p>{non.username}</p>
-                        </div>
+                        <a className='nonfriend-info-container'
+                            key={non.id}
+                            href={`/users/${non.id}`}>
+                            <img src={non.profilePicture} alt='non friend pic'
+                            className='non-friend-pic' />
+                            <p className='non-friend-text'>{non.username}</p>
+                        </a>
                     )
                 })}
             </div>

@@ -8,46 +8,170 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 50%;
+    border-right: 2px solid #242424;
+    margin: 40px 0;
+    padding-bottom: 70px;
 }
 
 .af-posts-container {
     border: 1px black solid;
-    /* display: flex; */
+    background-color: #242424;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
 }
 
 .post-info-container {
     display: flex;
-    flex-direction: column;
-    /* align-items: center; */
+    flex-direction: column-reverse;
 }
 
 .post-info {
     display: flex;
     flex-direction: column;
+    padding: 7px 95px;
 }
 
-.workout-pic {
-    height: 300px;
-    width: 400px;
+.act-title {
+    font-size: 35px;
+    color: #fff;
+    padding: 5px 0;
+    cursor: pointer;
+    text-decoration: none;
+    width: 250px;
+    overflow-wrap: break-word;
+    hyphens: manual;
 }
+
+.act-title:hover {
+    font-weight: bold;
+}
+
+.act-description {
+    color: #fff;
+    padding: 5px;
+    overflow-wrap: break-word;
+    hyphens: manual;
+}
+
+.act-info {
+    color: #fff;
+    display: flex;
+}
+
+.act-travel,
+.act-total-time,
+.act-type {
+    border-left: 1px solid #fff;
+}
+
+.act-distance,
+.act-travel,
+.act-total-time,
+.act-type {
+    padding: 5px;
+    margin: 1px 0;
+}
+
+.act-workout-pic {
+    height: 400px;
+    width: 500px;
+}
+
+.act-comm {
+    color: #fff;
+    padding: 5px;
+}
+
+.owner-propic-wrapper{
+    text-decoration: none;
+    color: #fff;
+    display: flex;
+    padding: 8px 8px 0 8px;
+}
+.oi-text {
+    padding: 15px;
+}
+
+.oi-username {
+    font-size: 25px;
+    font-weight: bold;
+}
+
 .owner-pro-pic {
-    height: 300px;
-    width: 400px;
+    height: 75px;
+    width: 75px;
+    border-radius: 100%;
 }
 
 .curruser-container {
-    width: 40rem;
+    width: 30rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    padding: 30px 5px;
+    border-right: 2px solid #242424;
+    margin: 40px 0;
 }
 
 .propic {
-    height: 20em;
-    width: 20em;
-    border-radius: 10%;
+    height: 10em;
+    width: 10em;
+    border-radius: 20%;
 }
+
+.curruser-info {
+    width: 75%;
+}
+
+.cui-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    padding: 5px;
+}
+
+.cui-fullname {
+    font-size: 40px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.cui-fullname:hover {
+    font-weight: bold;
+}
+
+.cui-username {
+    font-size: 20px;
+}
+
+.userinfo-item {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+}
+
+.friend-list {
+    display: flex;
+    padding: 7px;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.friend-link {
+    text-decoration: none;
+    color: #fff;
+    padding: 7px;
+}
+
+.friend-link:hover {
+    font-weight: bold;
+}
+
 .friend-propic {
     height: 40px;
     width: 40px;
@@ -79,4 +203,34 @@
     padding: 15px;
     transition: all 0.3s ease-out;
     cursor: pointer;
+}
+
+.nonfriend-container {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    padding-left: 20px;
+    /* align-items: center; */
+}
+
+.non-friend-pic {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}
+
+.nonfriend-info-container {
+    display: flex;
+    padding: 12px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.non-friend-text {
+    padding: 15px;
+}
+
+.nonfriend-wrapper-title {
+    color: #fff;
+    margin: 75px 0 40px;
 }

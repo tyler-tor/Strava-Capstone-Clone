@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, NavLink } from 'react-router-dom';
-import { getCurrentWorkout } from '../../store/workouts';
+import { getCurrentWorkout, getAllWorkouts } from '../../store/workouts';
 import Comments from '../Comments/Comments';
 import EditWorkoutModal from './EditWorkoutModal';
 import DeleteWorkoutModal from './DeleteWorkoutModal';
@@ -16,52 +16,56 @@ function WorkoutDisplay() {
 
     useEffect(() => {
         (async () => {
+            await dispatch(getAllWorkouts())
             await dispatch(getCurrentWorkout(workoutId)).then(() => setLoaded(true))
+
         })()
     }, [dispatch, workoutId])
 
-    if (!workout) return null;
+    if (!workout) {
+        return null
+    };
 
-    return loaded && (
+    return loaded && workout.ownerInfo && (
         <div className='workout-info-wrapper'>
+            <div className='workout-pic-wrapper'>
+                <img src={workout?.imageUrl}
+                    alt='workout-pic' className='workout-pic' />
+            </div>
             <div className='workout-info-container'>
                 <ul className='wi-items-list'>
                     <li className='wi-item'>
-                        <img src={workout?.imageUrl}
-                            alt='workout-pic' className='workout-pic' />
-                    </li>
-                    <li className='wi-item'>
-                        <strong>Title: </strong>
+                        <strong className='wi-item-label'>Title: </strong>
                         <p>
                             {workout?.title}
                         </p>
                     </li>
                     <li className='wi-item'>
-                        <strong>Description: </strong>
+                        <strong className='wi-item-label'>Description: </strong>
                         <p>
                             {workout?.description}
                         </p>
                     </li>
                     <li className='wi-item'>
-                        <strong>Distance: </strong>
+                        <strong className='wi-item-label'>Distance: </strong>
                         <p>
                             {workout?.distance}
                         </p>
                     </li>
                     <li className='wi-item'>
-                        <strong>Type: </strong>
+                        <strong className='wi-item-label'>Type: </strong>
                         <p>
                             {workout?.type}
                         </p>
                     </li>
                     <li className='wi-item'>
-                        <strong>Total Time: </strong>
+                        <strong className='wi-item-label'>Total Time: </strong>
                         <p>
                             {workout?.totalTime}
                         </p>
                     </li>
                 </ul>
-                {currUser.id === workout?.userId && (
+                {currUser.id === workout.userId && (
                     <div className='ed-btn-container'>
                         <EditWorkoutModal workout={workout} />
                         <DeleteWorkoutModal workoutId={workout.id} />

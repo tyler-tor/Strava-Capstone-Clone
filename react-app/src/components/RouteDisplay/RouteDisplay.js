@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { getCurrentRoute } from '../../store/routes';
+import { getCurrentRoute, getAllRoutes } from '../../store/routes';
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
 import MapAdjustment from '../MapAdjustment/MapAdjustment';
@@ -38,6 +38,7 @@ function RouteDisplay() {
 
     useEffect(() => {
         (async () => {
+            await dispatch(getAllRoutes());
             await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
         })()
     }, [dispatch, response, routeId])
