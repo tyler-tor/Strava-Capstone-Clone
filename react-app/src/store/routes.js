@@ -61,7 +61,7 @@ export const addRoute = (route) => async (dispatch) => {
         })
     });
     if (response.ok) {
-        const newRoute = response.json();
+        const newRoute = await response.json();
         dispatch(addRouteAction(newRoute));
     } else if (response.status < 500) {
         const data = response.json();
