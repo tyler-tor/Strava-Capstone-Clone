@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal'
 import AdjustFriendStatusAlert from './AdjustFriendStatusAlert';
 import './AdjustFriendStatus.css';
 
-function AdjustFriendStatusModal({ userId, status, setStatus }) {
+function AdjustFriendStatusModal({ userId, status, setStatus}) {
     const [showModal, setShowModal] = useState(false);
 
     return (

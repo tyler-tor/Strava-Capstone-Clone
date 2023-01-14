@@ -17,7 +17,6 @@ function ActivityFeed() {
     const workouts = Object.values(useSelector(state => state.workouts.workouts ? state.workouts.workouts : {}))
     const friendsWorkouts = useSelector(state => state.friendsActivity.workouts)
     const currUser = useSelector(state => state.session.user)
-    // let merged
 
     const compare = (a, b) => {
         if (a.createdAt < b.createdAt) {
@@ -36,11 +35,6 @@ function ActivityFeed() {
             history.push(`/workouts/${activity.id}`)
         }
     }
-
-    // if (routes && workouts) {
-    //     setMerged([...routes, ...workouts])
-    //     merged.sort(compare).reverse()
-    // }
 
     useEffect(() => {
         (async () => {
@@ -70,7 +64,7 @@ function ActivityFeed() {
         if (friendsRoutes && friendsWorkouts && (following === 'Following')) {
             setMerged([...friendsRoutes, ...friendsWorkouts].sort(compare))
         } else {
-            setMerged([...routes, ...workouts].sort(compare).reverse())
+            setMerged([...routes, ...workouts].sort(compare))
         }
     }, [friendsRoutes, friendsWorkouts, dispatch, following])
 
@@ -243,13 +237,13 @@ function ActivityFeed() {
                 className='nonfriend-wrapper-title'>Suggested Friends: </h2>
                 {currUser.nonFriends && currUser?.nonFriends.map(non => {
                     return (
-                        <a className='nonfriend-info-container'
-                            key={non.id}
-                            href={`/users/${non.id}`}>
+                        <div className='nonfriend-info-container'
+                            key={non.id}>
                             <img src={non.profilePicture} alt='non friend pic'
                             className='non-friend-pic' />
-                            <p className='non-friend-text'>{non.username}</p>
-                        </a>
+                            <NavLink className='non-friend-text'
+                            to={`/users/${non.id}`}>{non.username}</NavLink>
+                        </div>
                     )
                 })}
             </div>

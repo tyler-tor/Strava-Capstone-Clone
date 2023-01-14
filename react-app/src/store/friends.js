@@ -37,6 +37,7 @@ export const addFriend = (id) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
+        // console.log('dataadd', data)
         dispatch(addFriendAction(data.friend.id));
         return data
     };
@@ -49,6 +50,7 @@ export const deleteFriend = (id) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
+        // console.log('datadelete', data)
         dispatch(deleteFriendAction(data.unFriended.id));
         return data
     };

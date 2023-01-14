@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import AdjustFriendStatusModal from './AdjustFriendStatus/AdjustFriendStatusModal';
+import { getAllUsers } from '../store/users';
 import { authenticate } from '../store/session';
 import './User.css'
 
@@ -29,24 +30,34 @@ function User() {
         } else {
           return 0;
         };
-      }));
+      }).reverse());
       currUser.friends.forEach(friend => {
         if (friend.userId === parseInt(userId)) {
           setStatus(true)
         }
       })
-    })();
-  }, [userId, dispatch]);
 
-  useEffect(() => {
-    dispatch(authenticate())
-  }, [status])
+    })();
+  }, [userId, dispatch, status]);
+  // useEffect(() => {
+  //   dispatch(authenticate())
+  // }, [])
+
+  // useEffect(() => {
+  //   (async () => {
+  //     await dispatch(getAllUsers())
+  //     const response = await fetch(`/api/users/${userId}`);
+  //     const user = await response.json();
+  //     setUser(user);
+  //   })()
+  // }, [])
 
   if (!user) {
     return null;
   }
+  console.log('user', user)
 
-  return (
+  return user && (
     <div className='profile-container'>
       <div className='user-info'>
         <div className='user-propic-container'>
@@ -60,22 +71,6 @@ function User() {
           <AdjustFriendStatusModal userId={userId} status={status} setStatus={setStatus} />
           )}
         </div>
-        {/* <div className='user-info-item-container'>
-          <ul>
-            <li className='ui-item'>
-              <strong>Username - </strong> {user.username}
-            </li>
-            <li className='ui-item'>
-              <strong>Email - </strong> {user.email}
-            </li>
-            <li className='ui-item'>
-              <strong>First Name - </strong> {user.firstName}
-            </li>
-            <li className='ui-item'>
-              <strong>Last Name - </strong> {user.lastName}
-            </li>
-          </ul>
-        </div> */}
         <div className='user-routes-list'>
           <h1 className='user-act-title'>All User Activity: </h1>
           {user && activity.map(route => {
@@ -120,16 +115,15 @@ function User() {
         <div className='nonfriend-container'>
                 <h2
                 className='nonfriend-wrapper-title'>Friends: </h2>
-                {user.friends.map((friend, ind) => {
-                  console.log(friend)
+                {user.friends.map(friend => {
                     return (
-                        <a className='nonfriend-info-container'
-                            key={ind}
-                            href={`/users/${friend.id}`}>
+                        <div className='nonfriend-info-container'
+                            key={friend.userId}>
                             <img src={friend.profilePicture} alt='non friend pic'
                             className='non-friend-pic' />
-                            <p className='non-friend-text'>{friend.username}</p>
-                        </a>
+                            <NavLink className='non-friend-text'
+                            to={`/users/${friend.id}`}>{friend.username}</NavLink>
+                        </div>
                     )
                 })}
             </div>

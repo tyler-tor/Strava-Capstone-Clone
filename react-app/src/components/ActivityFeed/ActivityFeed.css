@@ -228,6 +228,8 @@
 
 .non-friend-text {
     padding: 15px;
+    color: #fff;
+    text-decoration: none;
 }
 
 .nonfriend-wrapper-title {

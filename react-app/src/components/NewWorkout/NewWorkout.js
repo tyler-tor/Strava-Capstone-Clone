@@ -35,9 +35,9 @@ function NewWorkout() {
                 distance: `${distance} ${distanceMeasurement}`,
                 image_url: url
             }
-            console.log('payload', payload)
+            // console.log('payload', payload)
             const data = await dispatch(addWorkout(payload));
-            console.log('dataNew', data)
+            // console.log('dataNew', data)
             if (data) {
                 setErrors(data)
             } else {

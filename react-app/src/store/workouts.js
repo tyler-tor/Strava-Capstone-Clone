@@ -62,11 +62,11 @@ export const addWorkout = (workout) => async (dispatch) => {
     });
     if (response.ok) {
         const newWorkout = await response.json();
-        console.log('newWorkout', newWorkout)
+        // console.log('newWorkout', newWorkout)
         dispatch(addWorkoutAction(newWorkout));
     }else if (response.status < 500) {
         const data = await response.json();
-        console.log('datastore', data)
+        // console.log('datastore', data)
         if (data.errors) {
             return data.errors;
         };
@@ -132,7 +132,7 @@ export default function workoutReducer(state = {workouts: null, currentWorkout: 
                 currentWorkout: null,
                 workouts: {...state.workouts}
             };
-            console.log('newStateStore', newState)
+            // console.log('newStateStore', newState)
             newState.workouts[action.payload.id] = action.payload
             return newState;
         case UPDATE_WORKOUT:

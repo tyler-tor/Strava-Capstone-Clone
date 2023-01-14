@@ -80,6 +80,7 @@ def add_user_friends(id):
             if friend['userId'] == user.id:
                 return{'error' : 'This user is already your friend!'}
             curr_user.followers.append(user)
+            # user.followers.apped(curr_user)
             db.session.commit()
             return {'friend': user.to_dict()}
 
@@ -95,6 +96,7 @@ def unfriend_user(id):
         for friend in friends:
             if friend['userId'] == user.id:
                 curr_user.followers.remove(user)
+                # user.followers.remove(curr_user)
                 db.session.commit()
                 return {'unFriended': user.to_dict()}
         return {'error': 'user is not a friend of current user!'}
