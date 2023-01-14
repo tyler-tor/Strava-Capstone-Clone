@@ -61,7 +61,7 @@ export const addWorkout = (workout) => async (dispatch) => {
         })
     });
     if (response.ok) {
-        const newWorkout = response.json();
+        const newWorkout = await response.json();
         dispatch(addWorkoutAction(newWorkout));
         return newWorkout;
     }else if (response.status < 500) {
@@ -84,7 +84,7 @@ export const updateWorkout = (workout) => async (dispatch) => {
             ...workout
         })
     });
-    
+
     if (response.ok) {
         const updatedWorkout = await response.json();
         dispatch(updateWorkoutAction(updatedWorkout));

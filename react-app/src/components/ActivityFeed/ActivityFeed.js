@@ -28,7 +28,7 @@ function ActivityFeed() {
             return 0;
         };
     };
-
+    
     const handleActivityRedirect = (activity) => {
         if (activity.routeMapSrc) {
             history.push(`/routes/${activity.id}`)
@@ -64,6 +64,8 @@ function ActivityFeed() {
         dispatch(getAllRoutes());
         dispatch(getAllWorkouts())
         dispatch(getAllFriendsActivity())
+
+        if(currUser.friends.length < 1) setFollowing('All Activity')
     }, [])
 
     useEffect(() => {
@@ -241,7 +243,7 @@ function ActivityFeed() {
             <div className='nonfriend-container'>
                 <h2
                 className='nonfriend-wrapper-title'>Suggested Friends: </h2>
-                {currUser?.nonFriends.map(non => {
+                {currUser.nonFriends && currUser?.nonFriends.map(non => {
                     return (
                         <a className='nonfriend-info-container'
                             key={non.id}
