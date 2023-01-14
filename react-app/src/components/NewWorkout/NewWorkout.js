@@ -35,10 +35,11 @@ function NewWorkout() {
                 distance: `${distance} ${distanceMeasurement}`,
                 image_url: url
             }
-
+            console.log('payload', payload)
             const data = await dispatch(addWorkout(payload));
-            if (data.errors) {
-                setErrors(data.errors)
+            console.log('dataNew', data)
+            if (data) {
+                setErrors(data)
             } else {
                 history.push('/activity')
             }
