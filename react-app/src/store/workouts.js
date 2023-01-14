@@ -128,7 +128,10 @@ export default function workoutReducer(state = {workouts: null, currentWorkout: 
             newState.currentWorkout = { ...action.payload }
             return newState;
         case ADD_WORKOUT:
-            newState = {...state};
+            newState = {
+                currentWorkout: null,
+                workouts: {...state.workouts}
+            };
             console.log('newStateStore', newState)
             newState.workouts[action.payload.id] = action.payload
             return newState;

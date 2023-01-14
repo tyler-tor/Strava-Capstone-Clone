@@ -38,8 +38,8 @@ function NewWorkout() {
             console.log('payload', payload)
             const data = await dispatch(addWorkout(payload));
             console.log('dataNew', data)
-            if (data.errors) {
-                setErrors(data.errors)
+            if (data) {
+                setErrors(data)
             } else {
                 history.push('/activity')
             }
