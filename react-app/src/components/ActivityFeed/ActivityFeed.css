@@ -51,6 +51,7 @@
 .act-description {
     color: #fff;
     padding: 5px;
+    width: 250px;
     overflow-wrap: break-word;
     hyphens: manual;
 }

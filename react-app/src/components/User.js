@@ -55,7 +55,7 @@ function User() {
   if (!user) {
     return null;
   }
-  console.log('user', user)
+  // console.log('user', user)
 
   return user && (
     <div className='profile-container'>
