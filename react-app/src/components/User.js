@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import AdjustFriendStatusModal from './AdjustFriendStatus/AdjustFriendStatusModal';
+import { authenticate } from '../store/session';
 import './User.css'
 
 function User() {
+  const currUser = useSelector(state => state.session.user)
   const [user, setUser] = useState('');
   const [activity, setActivity] = useState([]);
+  const [status, setStatus] = useState(false)
   const { userId } = useParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!userId) {
@@ -24,14 +29,23 @@ function User() {
         } else {
           return 0;
         };
-      }).reverse())
+      }));
+      currUser.friends.forEach(friend => {
+        if (friend.userId === parseInt(userId)) {
+          setStatus(true)
+        }
+      })
     })();
-  }, [userId]);
+  }, [userId, dispatch]);
+
+  useEffect(() => {
+    dispatch(authenticate())
+  }, [status])
 
   if (!user) {
     return null;
   }
-
+  
   return (
     <div className='profile-container'>
       <div className='user-info'>
@@ -39,8 +53,14 @@ function User() {
           <img src={user.profilePicture}
             className='user-pic'
             alt='User' />
+          <h1 className='ui-item'>
+              {user.firstName} {user.lastName}
+          </h1>
+          {parseInt(userId) !== currUser.id && (
+          <AdjustFriendStatusModal userId={userId} status={status} setStatus={setStatus} />
+          )}
         </div>
-        <div className='user-info-item-container'>
+        {/* <div className='user-info-item-container'>
           <ul>
             <li className='ui-item'>
               <strong>Username - </strong> {user.username}
@@ -55,16 +75,16 @@ function User() {
               <strong>Last Name - </strong> {user.lastName}
             </li>
           </ul>
-        </div>
+        </div> */}
         <div className='user-routes-list'>
+          <h1 className='user-act-title'>All User Activity: </h1>
           {user && activity.map(route => {
             return (
               <div className='user-page-route-container'
                 key={`${route.id}${route.title}`}>
-                {/* {console.log(route)} */}
                 <div className='user-route-pic-container'>
                   <img src={route.imageUrl}
-                  alt='route'
+                    alt='route'
                     className='user-route-pic' />
                 </div>
                 <div className='user-route-item-container'>
@@ -97,6 +117,21 @@ function User() {
             )
           })}
         </div>
+        <div className='nonfriend-container'>
+                <h2
+                className='nonfriend-wrapper-title'>Friends: </h2>
+                {user.friends.map(friend => {
+                    return (
+                        <a className='nonfriend-info-container'
+                            key={friend.id}
+                            href={`/users/${friend.id}`}>
+                            <img src={friend.profilePicture} alt='non friend pic'
+                            className='non-friend-pic' />
+                            <p className='non-friend-text'>{friend.username}</p>
+                        </a>
+                    )
+                })}
+            </div>
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { newRouteComment } from '../../store/comments';
 import './AddCommentForm.css'
 
-function AddCommentForm({ onClose, routeId }) {
+function AddCommentForm({ onClose, id }) {
     const [errors, setErrors] = useState([]);
     const [commentInput, setCommentInput] = useState('');
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function AddCommentForm({ onClose, routeId }) {
         e.preventDefault();
         const payload = {
             body: commentInput,
-            routeId: routeId
+            routeId: id
         }
 
         await dispatch(newRouteComment(payload)).then((res) => {

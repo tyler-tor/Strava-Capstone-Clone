@@ -26,6 +26,12 @@ def authenticate():
     """
     if current_user.is_authenticated:
         user_dict = current_user.to_dict()
+        #getting list of friends
+        friends = user_dict['friends']
+        #query to exclude friends from user table
+        non_friends = User.query.filter(User.username.notin_([dict(friend)['username'] for friend in friends])).all()
+        #only allow users that are not the current user
+        user_dict['nonFriends'] = [user.to_dict() for user in non_friends if user.id != current_user.id]
         user_dict['mapKey'] = os.environ.get('REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY')
         return user_dict
     return {'errors': ['Unauthorized']}
@@ -43,9 +49,14 @@ def login():
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
-        # print(user)
         login_user(user)
         user_dict = user.to_dict()
+        #getting list of friends
+        friends = user_dict['friends']
+        #query to exclude friends from user table
+        non_friends = User.query.filter(User.username.notin_([dict(friend)['username'] for friend in friends])).all()
+        #only allow users that are not the current user
+        user_dict['nonFriends'] = [user.to_dict() for user in non_friends if user.id != current_user.id]
         user_dict['mapKey'] = os.environ.get('REACT_APP_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY')
         return user_dict
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

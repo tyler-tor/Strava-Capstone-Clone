@@ -21,8 +21,6 @@ const LoginForm = () => {
 
   const demoClick = async (e) => {
     e.preventDefault();
-    // setEmail('demo@aa.io')
-    // setPassword('password')
     let demoEmail = 'demo@aa.io'
     let demoPsswd = 'password'
     await dispatch(login(demoEmail, demoPsswd))

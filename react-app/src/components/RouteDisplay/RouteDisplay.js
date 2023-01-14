@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { GoogleMap, useLoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-// import { getAllRoutes } from '../../store/routes';
-import { getCurrentRoute } from '../../store/routes';
+import { getCurrentRoute, getAllRoutes } from '../../store/routes';
 import { NavLink } from 'react-router-dom';
 import Comments from '../Comments/Comments';
 import MapAdjustment from '../MapAdjustment/MapAdjustment';
@@ -29,19 +28,17 @@ function RouteDisplay() {
         googleMapsApiKey: currUser.mapKey
     })
 
-    // console.log(route)
     const directionsCallback = (response) => {
-        // setLoaded(false)
         if (response !== null) {
             if (response.status === 'OK') {
                 setResponse(response)
             }
         }
-        // setLoaded(true)
     }
 
     useEffect(() => {
         (async () => {
+            await dispatch(getAllRoutes());
             await dispatch(getCurrentRoute(routeId)).then(() => setLoaded(true))
         })()
     }, [dispatch, response, routeId])
@@ -156,7 +153,7 @@ function RouteDisplay() {
                 </div>
                 <div className='comm-box-container'>
                     <div className='comments-container'>
-                        <Comments routeId={route.id} />
+                        <Comments id={route.id} />
                     </div>
                 </div>
             </div>

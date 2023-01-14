@@ -29,13 +29,12 @@ export const getAllFriends = (id) => async (dispatch) => {
 }
 
 export const addFriend = (id) => async (dispatch) => {
-    const response = await fetch(`api/users/${id}/friends/`, {
+    const response = await fetch(`/api/users/${id}/friends`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
     });
-
     if (response.ok) {
         const data = await response.json();
         dispatch(addFriendAction(data.friend.id));
@@ -48,9 +47,8 @@ export const deleteFriend = (id) => async (dispatch) => {
     const response = await fetch(`/api/users/${id}/friends`, {
         method: 'DELETE'
     });
-
     if (response.ok) {
-        const data = response.json();
+        const data = await response.json();
         dispatch(deleteFriendAction(data.unFriended.id));
         return data
     };

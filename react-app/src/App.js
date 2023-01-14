@@ -17,8 +17,10 @@ import UsersList from './components/UsersList';
 import User from './components/User';
 import { authenticate } from './store/session';
 import { getAllRoutes } from './store/routes';
-// import { getAllUsers } from './store/users';
+import { getAllWorkouts } from './store/workouts';
+import WorkoutDisplay from './components/WorkoutDisplay/WorkoutDisplay';
 import NewRoute from './components/NewMap/NewRoute';
+import NewWorkout from './components/NewWorkout/NewWorkout';
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -29,7 +31,6 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       if (user) {
-
         await dispatch(getAllRoutes());
       }
       // await dispatch(getAllUsers());
@@ -68,6 +69,9 @@ function App() {
             <ProtectedRoute path='/routes/:routeId' exact={true} >
               <RouteDisplay />
             </ProtectedRoute>
+            <ProtectedRoute path='/workouts/:workoutId' exact={true} >
+              <WorkoutDisplay />
+            </ProtectedRoute>
             {/* test routes for backend */}
             {/* <ProtectedRoute path='/routes/test' exact={true} >
               <TempRoute />
@@ -81,6 +85,9 @@ function App() {
             {/* test routes for backend */}
             <ProtectedRoute path='/newRoute' exact={true} >
               <NewRoute />
+            </ProtectedRoute>
+            <ProtectedRoute path='/newWorkout' exact={true} >
+              <NewWorkout />
             </ProtectedRoute>
             <Route path='/' exact={true} >
               <HomePage />

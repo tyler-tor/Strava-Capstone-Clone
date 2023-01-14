@@ -75,8 +75,8 @@ class Route(db.Model):
             },
             'staticMap': f'https://maps.googleapis.com/maps/api/staticmap?markers={self.start_lat},{self.start_lng}|{self.end_lat},{self.end_lng}&size=300x300&maptype=roadmap',
             'distance': self.distance,
-            'createdAt': self.created_at,
-            'updatedAt': self.updated_at,
+            'createdAt': self.created_at.strftime('%a %B %d %Y'),
+            'updatedAt': self.updated_at.strftime('%a %B %d %Y'),
             'comments': [comment.to_dict() for comment in self.comments],
             'ownerInfo': {
                 'profilePicture': self.users.profile_picture,

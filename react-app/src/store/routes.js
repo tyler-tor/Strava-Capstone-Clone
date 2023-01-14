@@ -3,7 +3,6 @@ const ADD_ROUTE = 'workouts/ADD_ROUTE';
 const UPDATE_ROUTE = 'workouts/UPDATE_ROUTE';
 const DELETE_ROUTE = 'workouts/DELETE_ROUTE';
 const GET_CURRENT_ROUTE = 'workouts/CURRENT_ROUTE';
-// const UPDATE_CURRENT_ROUTE = 'update_route/UPDATE_CURRENT_ROUTE'
 
 const getRoutes = (routes) => ({
     type: GET_ROUTES,
@@ -24,11 +23,6 @@ const updateRouteAction = (route) => ({
     type: UPDATE_ROUTE,
     payload: route
 });
-
-// const updateCurrentRouteAction = (route) => ({
-//     type: UPDATE_CURRENT_ROUTE,
-//     payload: route
-// })
 
 export const getCurrentRoute = (routeId) => async (dispatch) => {
     const res = await fetch(`/api/routes/${routeId}`)
@@ -98,8 +92,6 @@ export const updateRoute = (route) => async (dispatch) => {
     if (response.ok) {
         const update = await response.json();
         dispatch(updateRouteAction(update));
-        // return update
-        // dispatch(updateCurrentRoute(updateRoute))
     } else if (response.status < 500) {
         const data = response.json();
 
@@ -109,11 +101,6 @@ export const updateRoute = (route) => async (dispatch) => {
     } else {
     }
 };
-
-// export const updateCurrentRoute = (route) => async (dispatch) => {
-//     dispatch(updateCurrentRouteAction(route));
-// }
-
 
 export const deleteRoute = (id) => async (disptch) => {
     const response = await fetch(`/api/routes/${id}`, {
@@ -148,11 +135,6 @@ export default function routesReducer(state = { currentRoute: null, routes: null
             newState = { ...state };
             newState.routes[action.payload.id] = action.payload
             return newState;
-        // case UPDATE_CURRENT_ROUTE:
-        //     newState = { ...state };
-        //     newState.currentRoute = { ...action.payload }
-        //     newState.routes[action.payload.id] = { ...action.payload }
-        //     return newState
         case UPDATE_ROUTE:
             newState = { ...state };
             newState.currentRoute = {...action.payload}
