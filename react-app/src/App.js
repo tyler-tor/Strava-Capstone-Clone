@@ -31,6 +31,7 @@ function App() {
     (async () => {
       await dispatch(authenticate());
       if (user) {
+        await dispatch(getAllWorkouts())
         await dispatch(getAllRoutes());
       }
       // await dispatch(getAllUsers());

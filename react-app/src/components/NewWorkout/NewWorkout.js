@@ -102,8 +102,6 @@ function NewWorkout() {
                             <option>Run</option>
                             <option>Hike</option>
                             <option>Bike</option>
-                            <option>Cardio</option>
-                            <option>Weight</option>
                         </select>
                     </div>
                     {/* <div className='nwf-item'>

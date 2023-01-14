@@ -84,7 +84,7 @@ export const updateWorkout = (workout) => async (dispatch) => {
             ...workout
         })
     });
-    console.log(response)
+    
     if (response.ok) {
         const updatedWorkout = await response.json();
         dispatch(updateWorkoutAction(updatedWorkout));
