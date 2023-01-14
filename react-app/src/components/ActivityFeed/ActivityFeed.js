@@ -70,9 +70,9 @@ function ActivityFeed() {
 
     useEffect(() => {
         if (friendsRoutes && friendsWorkouts && (following === 'Following')) {
-            setMerged([...friendsRoutes, ...friendsWorkouts].sort(compare))
+            setMerged([...friendsRoutes, ...friendsWorkouts].sort(compare).reverse())
         } else {
-            setMerged([...routes, ...workouts].sort(compare))
+            setMerged([...routes, ...workouts].sort(compare).reverse())
         }
     }, [friendsRoutes, friendsWorkouts, dispatch, following])
 
