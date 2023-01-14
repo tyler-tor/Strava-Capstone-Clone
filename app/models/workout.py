@@ -21,7 +21,7 @@ class Workout(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     users = db.relationship("User", back_populates="workouts", single_parent=True)
-    routes = db.relationship("Route", back_populates="workouts")
+    # routes = db.relationship("Route", back_populates="workouts")
     comments = db.relationship('Comment', back_populates='workouts', cascade='all, delete-orphan', single_parent=True)
 
 
@@ -36,7 +36,7 @@ class Workout(db.Model):
         return {
             'id': self.id,
             'userId': self.user_id,
-            'routeId': self.route_id,
+            # 'routeId': self.route_id,
             'title': self.title,
             'description': self.description,
             'type': self.type,

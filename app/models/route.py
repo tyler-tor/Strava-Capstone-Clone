@@ -28,7 +28,7 @@ class Route(db.Model):
 
     users = db.relationship(
         "User", back_populates="routes", single_parent=True)
-    workouts = db.relationship("Workout", back_populates="routes")
+    # workouts = db.relationship("Workout", back_populates="routes")
     comments = db.relationship(
         'Comment', back_populates='routes', cascade='all, delete-orphan')
 
