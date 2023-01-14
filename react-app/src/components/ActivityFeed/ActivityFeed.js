@@ -28,7 +28,7 @@ function ActivityFeed() {
             return 0;
         };
     };
-    
+
     const handleActivityRedirect = (activity) => {
         if (activity.routeMapSrc) {
             history.push(`/routes/${activity.id}`)
@@ -143,7 +143,7 @@ function ActivityFeed() {
                         <option>All Activity</option>
                     </select>
                 </div>
-                {merged.map((activity, ind) => {
+                {merged?.map((activity, ind) => {
                     return (
                         <div className='af-posts-container'
                             key={activity.ind}>
@@ -217,7 +217,7 @@ function ActivityFeed() {
                                             </p>
                                         </div>
                                         <p className='act-comm'>
-                                            Comments: {activity.comments.length}
+                                            Comments: {activity?.comments.length}
                                         </p>
                                     </div>
                                     <div className='post-owner-info'>

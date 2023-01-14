@@ -62,7 +62,7 @@ export const addWorkout = (workout) => async (dispatch) => {
     });
     if (response.ok) {
         const newWorkout = response.json();
-        console.log(workout)
+        console.log('newWorkout', newWorkout)
         dispatch(addWorkoutAction(newWorkout));
     }else if (response.status < 500) {
         const data = await response.json();
