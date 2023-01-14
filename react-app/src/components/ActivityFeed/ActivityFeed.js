@@ -146,7 +146,7 @@ function ActivityFeed() {
                 {merged?.map((activity, ind) => {
                     return (
                         <div className='af-posts-container'
-                            key={activity.ind}>
+                            key={ind}>
                             {activity.routeMapSrc ? (
                                 <div className='post-info-container'>
                                     <a className='img-container'
