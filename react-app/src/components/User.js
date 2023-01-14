@@ -45,7 +45,7 @@ function User() {
   if (!user) {
     return null;
   }
-  
+
   return (
     <div className='profile-container'>
       <div className='user-info'>
@@ -120,10 +120,11 @@ function User() {
         <div className='nonfriend-container'>
                 <h2
                 className='nonfriend-wrapper-title'>Friends: </h2>
-                {user.friends.map(friend => {
+                {user.friends.map((friend, ind) => {
+                  console.log(friend)
                     return (
                         <a className='nonfriend-info-container'
-                            key={friend.id}
+                            key={ind}
                             href={`/users/${friend.id}`}>
                             <img src={friend.profilePicture} alt='non friend pic'
                             className='non-friend-pic' />

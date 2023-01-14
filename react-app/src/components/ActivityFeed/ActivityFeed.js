@@ -64,13 +64,11 @@ function ActivityFeed() {
         dispatch(getAllRoutes());
         dispatch(getAllWorkouts())
         dispatch(getAllFriendsActivity())
-
-        if(currUser.friends.length < 1) setFollowing('All Activity')
     }, [])
 
     useEffect(() => {
         if (friendsRoutes && friendsWorkouts && (following === 'Following')) {
-            setMerged([...friendsRoutes, ...friendsWorkouts].sort(compare).reverse())
+            setMerged([...friendsRoutes, ...friendsWorkouts].sort(compare))
         } else {
             setMerged([...routes, ...workouts].sort(compare).reverse())
         }
