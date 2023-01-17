@@ -38,7 +38,7 @@ function User() {
       })
 
     })();
-  }, [userId, dispatch, status]);
+  }, []);
   // useEffect(() => {
   //   dispatch(authenticate())
   // }, [])

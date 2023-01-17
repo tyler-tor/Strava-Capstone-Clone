@@ -66,7 +66,7 @@ function ActivityFeed() {
         } else {
             setMerged([...routes, ...workouts].sort(compare))
         }
-    }, [friendsRoutes, friendsWorkouts, dispatch, following])
+    }, [friendsRoutes, friendsWorkouts,  following])
 
     if (!friendsRoutes) {
         return null;
