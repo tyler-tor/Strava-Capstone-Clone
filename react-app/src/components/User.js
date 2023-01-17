@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import AdjustFriendStatusModal from './AdjustFriendStatus/AdjustFriendStatusModal';
-import { getAllUsers } from '../store/users';
-import { authenticate } from '../store/session';
+// import { getAllUsers } from '../store/users';
+// import { authenticate } from '../store/session';
 import './User.css'
 
 function User() {
@@ -12,7 +12,7 @@ function User() {
   const [activity, setActivity] = useState([]);
   const [status, setStatus] = useState(false)
   const { userId } = useParams();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   useEffect(() => {
     if (!userId) {
