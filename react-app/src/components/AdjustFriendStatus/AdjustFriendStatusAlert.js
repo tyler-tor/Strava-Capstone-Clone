@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useState } from 'react';
 import { addFriend, deleteFriend } from '../../store/friends';
 
-function AdjustFriendStatusAlert({ userId, status, setStatus, onClose}) {
+function AdjustFriendStatusAlert({ userId, status, setStatus, onClose, setLoading }) {
   const dispatch = useDispatch();
   const [errors, setErrors] = useState([]);
 
@@ -11,40 +11,37 @@ function AdjustFriendStatusAlert({ userId, status, setStatus, onClose}) {
     e.preventDefault();
     let res;
 
-    if(!status) {
+    if (!status) {
       res = await dispatch(addFriend(userId))
-      // console.log('resadd',res)
-      if(res.error) {
+      if (res.error) {
         setErrors(res)
-      }else {
+      } else {
         setStatus(true)
-        // console.log('statusadd', status)
-          onClose()
-        }
-    }else {
-      res = await dispatch(deleteFriend(userId))
-      // console.log('resdelete',res)
-      // console.log('statusdelete', status)
-        if(res.error) {
-          setErrors(res)
-        }else {
-          setStatus(false)
-          onClose()
-        }
+        onClose()
       }
+    } else {
+      res = await dispatch(deleteFriend(userId))
+      if (res.error) {
+        setErrors(res)
+      } else {
+        setStatus(false)
+        onClose()
+      }
+    }
+    setLoading(true)
   }
   console.log(status)
   return (
     <div className='friend-alert-wrapper'>
       {errors.map((error, ind) => {
         return (
-        <div key={ind} className='error-message'>
-          {error}
-        </div>
+          <div key={ind} className='error-message'>
+            {error}
+          </div>
         )
       })}
       <button className='confirm-afs-btn'
-      onClick={handleSubmit}>
+        onClick={handleSubmit}>
         Are you sure?
       </button>
     </div>

@@ -3,12 +3,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAllFriendsActivity } from '../../store/friendsActivity';
 import { getAllRoutes } from '../../store/routes';
 import { getAllWorkouts } from '../../store/workouts';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './ActivityFeed.css';
 
 function ActivityFeed() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const [polyRoutes, setPolyRoutes] = useState([])
     const [following, setFollowing] = useState('Following')
     const [merged, setMerged] = useState([])
@@ -27,14 +26,6 @@ function ActivityFeed() {
             return 0;
         };
     };
-
-    const handleActivityRedirect = (activity) => {
-        if (activity.routeMapSrc) {
-            history.push(`/routes/${activity.id}`)
-        } else {
-            history.push(`/workouts/${activity.id}`)
-        }
-    }
 
     useEffect(() => {
         (async () => {
@@ -81,12 +72,12 @@ function ActivityFeed() {
                 <div className='curruser-info'>
                     <ul className='cui-list'>
                         <li className='userinfo-item'>
-                            <a className='cui-fullname'
-                                href={`/users/${currUser.id}`}>
+                            <NavLink className='cui-fullname'
+                                to={`/users/${currUser.id}`}>
                                 {currUser.firstName}
                                 {' '}
                                 {currUser.lastName}
-                            </a>
+                            </NavLink>
                         </li>
                         <li className='userinfo-item'>
                             <p className='cui-username'>
@@ -106,16 +97,15 @@ function ActivityFeed() {
                             {currUser.friends.map(friend => {
                                 return (
                                     <div className='friend-list'
-                                        key={friend.userId}
-                                        onClick={(activity) => handleActivityRedirect(activity)}>
+                                    key={friend.userId}>
                                         <img className='friend-propic'
                                             src={friend.profilePicture}
                                             alt='friend-pic' />
-                                        <a
-                                            href={`/users/${friend.userId}`}
+                                        <NavLink
+                                            to={`/users/${friend.userId}`}
                                             className='friend-link'>
                                             {friend.username}
-                                        </a>
+                                        </NavLink>
                                     </div>
                                 )
                             })}

@@ -5,7 +5,7 @@ from app.models import User, Route, db
 user_routes = Blueprint('users', __name__)
 
 
-#get all users
+# get all users
 @user_routes.route('/')
 @login_required
 def users():
@@ -14,7 +14,7 @@ def users():
     return {'users': [user.to_dict() for user in users]}
 
 
-#get info on a specific user
+# get info on a specific user
 @user_routes.route('/<int:id>')
 @login_required
 def user(id):
@@ -57,7 +57,7 @@ def user_workouts(id):
     return {'errors': 'This user does not exist!'}
 
 
-#get friends of selected user
+# get friends of selected user
 @user_routes.route('/<int:id>/friends')
 @login_required
 def user_friends(id):
@@ -68,7 +68,7 @@ def user_friends(id):
     return {'errors': 'This user does not exist!'}
 
 
-#adding friend to current user friends list
+# adding friend to current user friends list
 @user_routes.route('/<int:id>/friends', methods=['POST'])
 @login_required
 def add_user_friends(id):
@@ -78,11 +78,11 @@ def add_user_friends(id):
         curr_user_friends = curr_user.to_dict()['friends']
         for friend in curr_user_friends:
             if friend['userId'] == user.id:
-                return{'error' : 'This user is already your friend!'}
+                return {'error': 'This user is already your friend!'}
             curr_user.followers.append(user)
-            # user.followers.apped(curr_user)
+            user.followers.append(curr_user)
             db.session.commit()
-            return {'friend': user.to_dict()}
+            return {'friend': user.to_dict(), 'currUser': curr_user.to_dict()}
 
 
 # unfriending a user
@@ -96,7 +96,7 @@ def unfriend_user(id):
         for friend in friends:
             if friend['userId'] == user.id:
                 curr_user.followers.remove(user)
-                # user.followers.remove(curr_user)
+                user.followers.remove(curr_user)
                 db.session.commit()
-                return {'unFriended': user.to_dict()}
+                return {'unFriended': user.to_dict(), 'currUser': curr_user.to_dict()['friends']}
         return {'error': 'user is not a friend of current user!'}

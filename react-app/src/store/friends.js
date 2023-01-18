@@ -1,3 +1,6 @@
+import { authenticate } from "./session";
+import { getOneUser } from "./users";
+
 const GET_FRIENDS = 'friends/GET_FRIENDS';
 const ADD_FRIEND = 'friends/ADD_FRIEND';
 const DELETE_FRIEND = 'friends/DELETE_FRIEND';
@@ -37,8 +40,9 @@ export const addFriend = (id) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        // console.log('dataadd', data)
         dispatch(addFriendAction(data.friend.id));
+        dispatch(authenticate());
+        dispatch(getOneUser(data.friend.id))
         return data
     };
     return response
@@ -50,8 +54,10 @@ export const deleteFriend = (id) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        // console.log('datadelete', data)
+        console.log('data', data)
         dispatch(deleteFriendAction(data.unFriended.id));
+        dispatch(authenticate());
+        dispatch(getOneUser(data.unFriended.id))
         return data
     };
     return response

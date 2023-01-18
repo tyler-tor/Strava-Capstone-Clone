@@ -3,7 +3,7 @@ import { Modal } from '../../context/Modal'
 import AdjustFriendStatusAlert from './AdjustFriendStatusAlert';
 import './AdjustFriendStatus.css';
 
-function AdjustFriendStatusModal({ userId, status, setStatus}) {
+function AdjustFriendStatusModal({ userId, status, setStatus, setLoading }) {
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -14,7 +14,7 @@ function AdjustFriendStatusModal({ userId, status, setStatus}) {
             </button>
             {showModal && (
                 <Modal onClose={() => setShowModal(false)}>
-                    <AdjustFriendStatusAlert userId={userId} status={status} setStatus={setStatus}
+                    <AdjustFriendStatusAlert userId={userId} status={status} setStatus={setStatus} setLoading={setLoading}
                     onClose={() => setShowModal(false)} />
                 </Modal>
             )}

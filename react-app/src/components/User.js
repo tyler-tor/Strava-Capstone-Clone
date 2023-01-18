@@ -2,26 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import AdjustFriendStatusModal from './AdjustFriendStatus/AdjustFriendStatusModal';
-// import { getAllUsers } from '../store/users';
-// import { authenticate } from '../store/session';
+import { getOneUser } from '../store/users';
 import './User.css'
 
 function User() {
-  const currUser = useSelector(state => state.session.user)
-  const [user, setUser] = useState('');
+  const currUser = useSelector(state => state.session.user);
+  const user = useSelector(state => state.users.currentUser)
   const [activity, setActivity] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(false)
   const { userId } = useParams();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!userId) {
-      return;
-    }
-    (async () => {
-      const response = await fetch(`/api/users/${userId}`);
-      const user = await response.json();
-      setUser(user);
+    dispatch(getOneUser(userId))
+  }, [])
+
+  useEffect(() => {
+    if (user) {
       setActivity([...user.routes, ...user.workouts].sort((a, b) => {
         if (a.createdAt < b.createdAt) {
           return -1;
@@ -36,28 +34,15 @@ function User() {
           setStatus(true)
         }
       })
-
-    })();
-  }, []);
-  // useEffect(() => {
-  //   dispatch(authenticate())
-  // }, [])
-
-  // useEffect(() => {
-  //   (async () => {
-  //     await dispatch(getAllUsers())
-  //     const response = await fetch(`/api/users/${userId}`);
-  //     const user = await response.json();
-  //     setUser(user);
-  //   })()
-  // }, [])
+      setLoading(true)
+    }
+  }, [user]);
 
   if (!user) {
     return null;
   }
-  // console.log('user', user)
 
-  return user && (
+  return user && loading && (
     <div className='profile-container'>
       <div className='user-info'>
         <div className='user-propic-container'>
@@ -65,10 +50,10 @@ function User() {
             className='user-pic'
             alt='User' />
           <h1 className='ui-item'>
-              {user.firstName} {user.lastName}
+            {user.firstName} {user.lastName}
           </h1>
           {parseInt(userId) !== currUser.id && (
-          <AdjustFriendStatusModal userId={userId} status={status} setStatus={setStatus} />
+            <AdjustFriendStatusModal userId={userId} status={status} setStatus={setStatus} setLoading={setLoading} />
           )}
         </div>
         <div className='user-routes-list'>
@@ -113,20 +98,20 @@ function User() {
           })}
         </div>
         <div className='nonfriend-container'>
-                <h2
-                className='nonfriend-wrapper-title'>Friends: </h2>
-                {user.friends.map(friend => {
-                    return (
-                        <div className='nonfriend-info-container'
-                            key={friend.userId}>
-                            <img src={friend.profilePicture} alt='non friend pic'
-                            className='non-friend-pic' />
-                            <NavLink className='non-friend-text'
-                            to={`/users/${friend.id}`}>{friend.username}</NavLink>
-                        </div>
-                    )
-                })}
-            </div>
+          <h2
+            className='nonfriend-wrapper-title'>Friends: </h2>
+          {user.friends.map(friend => {
+            return (
+              <div className='nonfriend-info-container'
+                key={friend.userId}>
+                <img src={friend.profilePicture} alt='non friend pic'
+                  className='non-friend-pic' />
+                <NavLink className='non-friend-text'
+                  to={`/users/${friend.id}`}>{friend.username}</NavLink>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   );
