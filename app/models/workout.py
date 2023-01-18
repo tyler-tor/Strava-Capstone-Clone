@@ -10,7 +10,6 @@ class Workout(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")), nullable=False)
-    # route_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('routes.id')))
     title = db.Column(db.String(30), nullable=False)
     description = db.Column(db.String(1000), nullable=False)
     type = db.Column(db.String(50), nullable=False)
@@ -21,7 +20,6 @@ class Workout(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now)
 
     users = db.relationship("User", back_populates="workouts", single_parent=True)
-    # routes = db.relationship("Route", back_populates="workouts")
     comments = db.relationship('Comment', back_populates='workouts', cascade='all, delete-orphan', single_parent=True)
 
 
@@ -36,15 +34,14 @@ class Workout(db.Model):
         return {
             'id': self.id,
             'userId': self.user_id,
-            # 'routeId': self.route_id,
             'title': self.title,
             'description': self.description,
             'type': self.type,
             'totalTime': self.total_time,
             'distance': self.distance,
             'imageUrl': self.image_url,
-            'createdAt': self.created_at.strftime('%a %B %d %Y'),
-            'updatedAt': self.updated_at.strftime('%a %B %d %Y'),
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
             'comments': [comment.to_dict() for comment in self.comments],
             'ownerInfo': {
                 'profilePicture': self.users.profile_picture,

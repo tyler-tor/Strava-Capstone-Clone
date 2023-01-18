@@ -26,7 +26,7 @@ class Comment(db.Model):
                 'id': self.id,
                 'userId': self.user_id,
                 'body': self.body,
-                'createdAt': self.created_at.strftime('%A %B %Y'),
+                'createdAt': self.created_at,
                 'routeId': self.routes.id,
                 'user': {
                     'username': self.users.username,
@@ -37,7 +37,7 @@ class Comment(db.Model):
             'id': self.id,
             'userId': self.user_id,
             'body': self.body,
-            'createdAt': self.created_at.strftime('%A %B %Y'),
+            'createdAt': self.created_at,
             'workoutId': self.workouts.id,
             'user': {
                     'username': self.users.username,
