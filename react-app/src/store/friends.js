@@ -54,7 +54,6 @@ export const deleteFriend = (id) => async (dispatch) => {
     });
     if (response.ok) {
         const data = await response.json();
-        console.log('data', data)
         dispatch(deleteFriendAction(data.unFriended.id));
         dispatch(authenticate());
         dispatch(getOneUser(data.unFriended.id))

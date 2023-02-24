@@ -62,7 +62,7 @@ function ActivityFeed() {
     if (!friendsRoutes) {
         return null;
     }
-    console.log(merged)
+
     return friendsRoutes && friendsWorkouts && currUser && (
         <div className='activity-feed-container'>
             <div className='curruser-container'>

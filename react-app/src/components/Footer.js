@@ -12,13 +12,13 @@ function Footer() {
                         AKTIV <i className='fab fa-strava'></i>
                     </Link>
                 </div>
-                <small className='website-rights'>Capstone Strava Clone</small>
+                {/* <small className='website-rights'>Capstone Strava Clone</small> */}
                 <div className='social-icons'>
                     <a href='https://www.linkedin.com/in/derek-torrero-02823018a/'
                     target='_blank'
                     rel="noreferrer"
                     className='social-icon-link linkedin'
-                    aria-label='Facebook'>
+                    aria-label='Linkedin'>
                         <i className='fab fa-linkedin'></i>
                     </a>
                     <a href='https://github.com/tyler-tor'

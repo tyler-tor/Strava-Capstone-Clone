@@ -7,10 +7,8 @@ const mapKeyAction = (key) => ({
 
 export const mapKey = () => async (dispatch) => {
     const res = await fetch('/api/map/key')
-    // console.log(res)
     if (res.ok) {
         const data = await res.json()
-        // console.log('data------', data)
         dispatch(mapKeyAction(data))
         return;
     }

@@ -30,7 +30,7 @@ function AdjustFriendStatusAlert({ userId, status, setStatus, onClose, setLoadin
     }
     setLoading(true)
   }
-  console.log(status)
+
   return (
     <div className='friend-alert-wrapper'>
       {errors.map((error, ind) => {

@@ -45,7 +45,6 @@ export const login = (email, password) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    // console.log(data)
     dispatch(setUser(data))
     return null;
   } else if (response.status < 500) {
@@ -73,7 +72,6 @@ export const logout = () => async (dispatch) => {
 
 
 export const signUp = (username, email, password, url, firstName, lastName) => async (dispatch) => {
-  // console.log(username, email, password, url, firstName, lastName)
   const response = await fetch('/api/auth/signup', {
     method: 'POST',
     headers: {

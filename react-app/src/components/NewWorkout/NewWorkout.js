@@ -35,9 +35,9 @@ function NewWorkout() {
                 distance: `${distance} ${distanceMeasurement}`,
                 image_url: url
             }
-            // console.log('payload', payload)
+
             const data = await dispatch(addWorkout(payload));
-            // console.log('dataNew', data)
+
             if (data) {
                 setErrors(data)
             } else {
@@ -60,7 +60,7 @@ function NewWorkout() {
                 ))}
             </div>
             <div className='nw-form-wrapper'>
-                <h2 className='nw-title'>Create a new Workout!</h2>
+                <h2 className='nw-title'>Create a new workout!</h2>
                 <div className='nwf-item'>
                     <label className='nwf-label'>Select Workout Picture: </label>
                     <ImageUploadComponent setUrl={setUrl} />
@@ -70,7 +70,7 @@ function NewWorkout() {
                     {/* <div className='nwf-item'>
                     </div> */}
                     <div className='nwf-item'>
-                        <label className='nwf-label'>Workout Title: </label>
+                        <label className='nwf-label'>Title: </label>
                         <input
                             type='text'
                             placeholder='title'
@@ -79,7 +79,7 @@ function NewWorkout() {
                             className='nwf-input'
                             onChange={(e) => setTitle(e.target.value)}
                         />
-                        <label className='nwf-label'>Workout Description: </label>
+                        <label className='nwf-label'> Description: </label>
                         <textarea
                             type='text'
                             placeholder='description'
@@ -88,7 +88,7 @@ function NewWorkout() {
                             className='nwf-input-ta'
                             onChange={(e) => setDescription(e.target.value)}
                         />
-                        <label className='nwf-label'>Workout Type: </label>
+                        <label className='nwf-label'>Type: </label>
                         <select
                             name='type'
                             value={type}
@@ -108,7 +108,7 @@ function NewWorkout() {
                     {/* <div className='nwf-item'>
                     </div> */}
                     <div className='nwf-item'>
-                        <label className='nwf-label'>Workout Duration: </label>
+                        <label className='nwf-label'>Duration: </label>
                         <input
                             type='number'
                             placeholder='hour'
@@ -125,7 +125,7 @@ function NewWorkout() {
                             className='nwf-input'
                             onChange={(e) => setMinute(e.target.value)}
                         />
-                        <label className='nwf-label'>Workout Distance: </label>
+                        <label className='nwf-label'>Distance: </label>
                         <input
                             type='number'
                             placeholder='distance'

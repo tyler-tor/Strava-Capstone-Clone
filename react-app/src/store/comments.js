@@ -39,7 +39,7 @@ export const getRouteComments = (id) => async (dispatch) => {
 
     if (response.ok) {
         const data = await response.json();
-        // console.log('data-------', data)
+
         dispatch(getComments(data.comments));
         return data
     };
@@ -48,10 +48,9 @@ export const getRouteComments = (id) => async (dispatch) => {
 
 export const getWorkoutComments = (id) => async (dispatch) => {
     const response = await fetch(`/api/workouts/${id}/comments`);
-    // console.log(response)
+
     if (response.ok) {
         const data = await response.json();
-        // console.log('data--------', data)
         dispatch(getComments(data.comments));
         return data;
     };
@@ -75,7 +74,6 @@ export const newRouteComment = (comment) => async (dispatch) => {
         dispatch(routeCommentAction(newComment));
     }else if (response.status < 500) {
         const data = await response.json();
-        // console.log('data', data)
         if (data.errors) {
             return data.errors
         }

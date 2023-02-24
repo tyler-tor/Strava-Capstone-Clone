@@ -67,6 +67,9 @@ function NewRoute() {
       }
     }
   }
+  // console.log('distance', distance)
+  // console.log('start', start)
+  // console.log('end', end)
 
   const handleMarkerSet = (e) => {
     if (allowStart === true) {
@@ -167,7 +170,7 @@ function NewRoute() {
           onSubmit={handleSubmit}
           >
             <div className='nrf-item-container'>
-              <label className='nrf-label'>Update Title: </label>
+              <label className='nrf-label'>Title: </label>
               <input
                 type='text'
                 placeholder='title'
@@ -178,7 +181,7 @@ function NewRoute() {
               />
             </div>
             <div className='nrf-item-container'>
-              <label className='nrf-label'>Update Description: </label>
+              <label className='nrf-label'>Description: </label>
               <textarea
                 type='text'
                 placeholder='description'
@@ -189,7 +192,7 @@ function NewRoute() {
               />
             </div>
             <div className='nrf-item-container'>
-              <label className='nrf-label'>Update Travel Type: </label>
+              <label className='nrf-label'>Travel Type: </label>
               <select
                 name='travelMode'
                 value={travelingMode}
